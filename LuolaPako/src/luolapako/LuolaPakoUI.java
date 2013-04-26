@@ -28,13 +28,17 @@ public class LuolaPakoUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        valintaRuudut = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         luolaLista = new javax.swing.JList();
         Ratkaise = new javax.swing.JButton();
         kuvaKentta = new javax.swing.JLabel();
+        lisaaUusiKuva = new javax.swing.JButton();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jCheckBox2 = new javax.swing.JCheckBox();
+        jCheckBox3 = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 800));
 
         luolaLista.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Luola 1", "Luola 2" };
@@ -59,28 +63,61 @@ public class LuolaPakoUI extends javax.swing.JFrame {
 
         kuvaKentta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/luolapako/luola0.jpg"))); // NOI18N
 
+        lisaaUusiKuva.setText("Lisää uusi kuva");
+        lisaaUusiKuva.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lisaaUusiKuvaMouseClicked(evt);
+            }
+        });
+
+        valintaRuudut.add(jCheckBox1);
+        jCheckBox1.setText("jCheckBox1");
+
+        valintaRuudut.add(jCheckBox2);
+        jCheckBox2.setText("jCheckBox2");
+
+        valintaRuudut.add(jCheckBox3);
+        jCheckBox3.setText("jCheckBox3");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(Ratkaise)
+                .addGap(159, 159, 159)
+                .addComponent(kuvaKentta, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(313, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(Ratkaise)
-                        .addGap(119, 119, 119)
-                        .addComponent(kuvaKentta, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 191, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(193, 193, 193)
+                        .addComponent(lisaaUusiKuva))
+                    .addComponent(jCheckBox1)
+                    .addComponent(jCheckBox2)
+                    .addComponent(jCheckBox3))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(lisaaUusiKuva)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCheckBox1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Ratkaise)
-                .addGap(51, 51, 51)
-                .addComponent(kuvaKentta, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 439, Short.MAX_VALUE))
+                .addComponent(jCheckBox2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBox3)
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(kuvaKentta, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Ratkaise))
+                .addGap(0, 415, Short.MAX_VALUE))
         );
 
         pack();
@@ -98,6 +135,10 @@ public class LuolaPakoUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         LuolaPako.ratkaise("C:/Users/Toni/Documents/LuolaPako/src/luolapako/luola" + luolaLista.getAnchorSelectionIndex() + ".jpg");
     }//GEN-LAST:event_RatkaiseMouseClicked
+
+    private void lisaaUusiKuvaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lisaaUusiKuvaMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lisaaUusiKuvaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -135,8 +176,13 @@ public class LuolaPakoUI extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Ratkaise;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox2;
+    private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel kuvaKentta;
+    private javax.swing.JButton lisaaUusiKuva;
     private javax.swing.JList luolaLista;
+    private javax.swing.ButtonGroup valintaRuudut;
     // End of variables declaration//GEN-END:variables
 }

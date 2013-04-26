@@ -37,13 +37,8 @@ public class LuolaPako {
     
     public static void ratkaise(String tiedostonNimi){
          BufferedImage luola = null;
-        
-        
-        
-        //String tiedostonNimi = "C:/Users/Toni/Documents/LuolaPako/src/luolapako/luola0.jpg";
-        luola = haeKuva(tiedostonNimi);
-
-        //System.out.println(luola.getRGB(2, 2));
+         
+         luola = haeKuva(tiedostonNimi);
         
         int[][] luolaTaulu = new int[luola.getWidth()][luola.getHeight()];
         
