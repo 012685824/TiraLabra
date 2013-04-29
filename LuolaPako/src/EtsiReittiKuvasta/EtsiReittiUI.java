@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package luolapako;
+package EtsiReittiKuvasta;
 
 import java.awt.Color;
 
@@ -10,12 +10,13 @@ import java.awt.Color;
  *
  * @author Toni
  */
-public class LuolaPakoUI extends javax.swing.JFrame {
+public class EtsiReittiUI extends javax.swing.JFrame {
 
     /**
      * Creates new form LuolaPakoUI
      */
-    public LuolaPakoUI() {
+    static boolean piste = true;
+    public EtsiReittiUI() {
         initComponents();
     }
 
@@ -37,6 +38,9 @@ public class LuolaPakoUI extends javax.swing.JFrame {
         jCheckBox1 = new javax.swing.JCheckBox();
         jCheckBox2 = new javax.swing.JCheckBox();
         jCheckBox3 = new javax.swing.JCheckBox();
+        alkuPisteText = new javax.swing.JTextField();
+        loppuPisteText = new javax.swing.JTextField();
+        jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,7 +65,12 @@ public class LuolaPakoUI extends javax.swing.JFrame {
             }
         });
 
-        kuvaKentta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/luolapako/luola0.jpg"))); // NOI18N
+        kuvaKentta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/EtsiReittiKuvasta/luola0.jpg"))); // NOI18N
+        kuvaKentta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                kuvaKenttaMouseClicked(evt);
+            }
+        });
 
         lisaaUusiKuva.setText("Lisää uusi kuva");
         lisaaUusiKuva.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -79,15 +88,14 @@ public class LuolaPakoUI extends javax.swing.JFrame {
         valintaRuudut.add(jCheckBox3);
         jCheckBox3.setText("jCheckBox3");
 
+        jTextField1.setEditable(false);
+        jTextField1.setText("Alku piste");
+        jTextField1.setBorder(null);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(Ratkaise)
-                .addGap(159, 159, 159)
-                .addComponent(kuvaKentta, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(313, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -98,6 +106,18 @@ public class LuolaPakoUI extends javax.swing.JFrame {
                     .addComponent(jCheckBox2)
                     .addComponent(jCheckBox3))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(Ratkaise)
+                .addGap(159, 159, 159)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(kuvaKentta, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(alkuPisteText)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(loppuPisteText, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(212, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,9 +135,18 @@ public class LuolaPakoUI extends javax.swing.JFrame {
                 .addComponent(jCheckBox3)
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(kuvaKentta, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Ratkaise))
-                .addGap(0, 415, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(Ratkaise)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(kuvaKentta, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(loppuPisteText)
+                            .addComponent(alkuPisteText))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 311, Short.MAX_VALUE))))
         );
 
         pack();
@@ -133,12 +162,28 @@ public class LuolaPakoUI extends javax.swing.JFrame {
 
     private void RatkaiseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RatkaiseMouseClicked
         // TODO add your handling code here:
-        LuolaPako.ratkaise("C:/Users/Toni/Documents/LuolaPako/src/luolapako/luola" + luolaLista.getAnchorSelectionIndex() + ".jpg");
+        EtsiReitti.ratkaise("C:/Users/Toni/Documents/GitHub/TiraLabra/LuolaPako/src/luolapako/luola" + luolaLista.getAnchorSelectionIndex() + ".jpg");
     }//GEN-LAST:event_RatkaiseMouseClicked
 
     private void lisaaUusiKuvaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lisaaUusiKuvaMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_lisaaUusiKuvaMouseClicked
+
+    private void kuvaKenttaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kuvaKenttaMouseClicked
+
+        
+        if(piste){
+        alkuPisteText.setText(evt.getPoint().toString().substring(14));
+            piste=false;
+        }else{
+            loppuPisteText.setText(evt.getPoint().toString().substring(14));
+            piste=true;
+        }
+        
+        
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_kuvaKenttaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -157,31 +202,34 @@ public class LuolaPakoUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LuolaPakoUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EtsiReittiUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LuolaPakoUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EtsiReittiUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LuolaPakoUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EtsiReittiUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LuolaPakoUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EtsiReittiUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LuolaPakoUI().setVisible(true);
+                new EtsiReittiUI().setVisible(true);
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Ratkaise;
+    private javax.swing.JTextField alkuPisteText;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel kuvaKentta;
     private javax.swing.JButton lisaaUusiKuva;
+    private javax.swing.JTextField loppuPisteText;
     private javax.swing.JList luolaLista;
     private javax.swing.ButtonGroup valintaRuudut;
     // End of variables declaration//GEN-END:variables

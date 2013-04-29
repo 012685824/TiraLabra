@@ -27,12 +27,6 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <Component id="Ratkaise" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="159" max="-2" attributes="0"/>
-              <Component id="kuvaKentta" min="-2" pref="255" max="-2" attributes="0"/>
-              <EmptySpace pref="313" max="32767" attributes="0"/>
-          </Group>
-          <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="jScrollPane1" min="-2" pref="118" max="-2" attributes="0"/>
@@ -44,6 +38,22 @@
                   <Component id="jCheckBox3" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="Ratkaise" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="159" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="kuvaKentta" min="-2" pref="356" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="alkuPisteText" max="32767" attributes="0"/>
+                          <Component id="jTextField1" min="-2" pref="150" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="loppuPisteText" min="-2" pref="150" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace pref="212" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -65,10 +75,22 @@
               <Component id="jCheckBox3" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="kuvaKentta" min="-2" pref="193" max="-2" attributes="0"/>
-                  <Component id="Ratkaise" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="Ratkaise" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="kuvaKentta" min="-2" pref="251" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="loppuPisteText" max="32767" attributes="0"/>
+                          <Component id="alkuPisteText" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jTextField1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="311" max="32767" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace min="0" pref="415" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -109,9 +131,12 @@
     <Component class="javax.swing.JLabel" name="kuvaKentta">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/luolapako/luola0.jpg"/>
+          <Image iconType="3" name="/EtsiReittiKuvasta/luola0.jpg"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="kuvaKenttaMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="lisaaUusiKuva">
       <Properties>
@@ -143,6 +168,19 @@
           <ComponentRef name="valintaRuudut"/>
         </Property>
         <Property name="text" type="java.lang.String" value="jCheckBox3"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="alkuPisteText">
+    </Component>
+    <Component class="javax.swing.JTextField" name="loppuPisteText">
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextField1">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="text" type="java.lang.String" value="Alku piste"/>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="null"/>
+        </Property>
       </Properties>
     </Component>
   </SubComponents>
