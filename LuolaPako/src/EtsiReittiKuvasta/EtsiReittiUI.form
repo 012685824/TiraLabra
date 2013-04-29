@@ -103,19 +103,20 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JList" name="luolaLista">
+        <Component class="javax.swing.JList" name="kuvaLista">
           <Properties>
             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-              <StringArray count="2">
-                <StringItem index="0" value="Luola 1"/>
-                <StringItem index="1" value="Luola 2"/>
+              <StringArray count="3">
+                <StringItem index="0" value="Kuva 1"/>
+                <StringItem index="1" value="Kuva 2"/>
+                <StringItem index="2" value="Kuva 3"/>
               </StringArray>
             </Property>
             <Property name="selectionMode" type="int" value="1"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="luolaListaMouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="kuvaListaMouseClicked"/>
           </Events>
         </Component>
       </SubComponents>
@@ -131,7 +132,7 @@
     <Component class="javax.swing.JLabel" name="kuvaKentta">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/EtsiReittiKuvasta/luola0.jpg"/>
+          <Image iconType="3" name="/EtsiReittiKuvasta/kuva0.jpg"/>
         </Property>
       </Properties>
       <Events>

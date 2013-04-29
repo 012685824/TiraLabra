@@ -31,7 +31,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
 
         valintaRuudut = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
-        luolaLista = new javax.swing.JList();
+        kuvaLista = new javax.swing.JList();
         Ratkaise = new javax.swing.JButton();
         kuvaKentta = new javax.swing.JLabel();
         lisaaUusiKuva = new javax.swing.JButton();
@@ -44,19 +44,19 @@ public class EtsiReittiUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        luolaLista.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Luola 1", "Luola 2" };
+        kuvaLista.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Kuva 1", "Kuva 2", "Kuva 3" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        luolaLista.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        luolaLista.setToolTipText("");
-        luolaLista.addMouseListener(new java.awt.event.MouseAdapter() {
+        kuvaLista.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        kuvaLista.setToolTipText("");
+        kuvaLista.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                luolaListaMouseClicked(evt);
+                kuvaListaMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(luolaLista);
+        jScrollPane1.setViewportView(kuvaLista);
 
         Ratkaise.setText("Ratkaise");
         Ratkaise.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -65,7 +65,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
             }
         });
 
-        kuvaKentta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/EtsiReittiKuvasta/luola0.jpg"))); // NOI18N
+        kuvaKentta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/EtsiReittiKuvasta/kuva0.jpg"))); // NOI18N
         kuvaKentta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 kuvaKenttaMouseClicked(evt);
@@ -152,17 +152,17 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void luolaListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_luolaListaMouseClicked
+    private void kuvaListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kuvaListaMouseClicked
 
         // TODO add your handling code here:
 
-        kuvaKentta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/luolapako/luola" + luolaLista.getAnchorSelectionIndex() + ".jpg")));
+        kuvaKentta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/EtsiReittiKuvasta/kuva" + kuvaLista.getAnchorSelectionIndex() + ".jpg")));
 
-    }//GEN-LAST:event_luolaListaMouseClicked
+    }//GEN-LAST:event_kuvaListaMouseClicked
 
     private void RatkaiseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RatkaiseMouseClicked
         // TODO add your handling code here:
-        EtsiReitti.ratkaise("C:/Users/Toni/Documents/GitHub/TiraLabra/LuolaPako/src/luolapako/luola" + luolaLista.getAnchorSelectionIndex() + ".jpg");
+        EtsiReitti.ratkaise("C:/Users/Toni/Documents/GitHub/TiraLabra/LuolaPako/src/EtsiReittiKuvasta/kuva" + kuvaLista.getAnchorSelectionIndex() + ".jpg");
     }//GEN-LAST:event_RatkaiseMouseClicked
 
     private void lisaaUusiKuvaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lisaaUusiKuvaMouseClicked
@@ -228,9 +228,9 @@ public class EtsiReittiUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel kuvaKentta;
+    private javax.swing.JList kuvaLista;
     private javax.swing.JButton lisaaUusiKuva;
     private javax.swing.JTextField loppuPisteText;
-    private javax.swing.JList luolaLista;
     private javax.swing.ButtonGroup valintaRuudut;
     // End of variables declaration//GEN-END:variables
 }
