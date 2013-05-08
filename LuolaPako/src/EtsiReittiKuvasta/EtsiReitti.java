@@ -51,9 +51,18 @@ public class EtsiReitti {
 //9         Relax(u,v,w)
 //10        heap-decrease-key(H,v,distance[v])
 // ei tee mitään, jos distance[v] ei ole muuttunut
-        
+        Sijainti[][] sijainti = new Sijainti[g.length][g[0].length];
         initialiseSingleSource(g, s, s1);
-        Keko S = new Keko();
+        Keko K = new Keko();
+        //sijainti[0][0] = new Sijainti(0,0,0);
+        K.lisaa(0,0,0);
+        
+        while(!K.empty()){
+            
+            
+            
+        }
+        
         
         
         
@@ -201,7 +210,19 @@ public class EtsiReitti {
             System.out.println("");
         }
 
- 
+  Keko kokeilu = new Keko();
         
+  kokeilu.lisaa(1, 1, 3);
+  kokeilu.lisaa(1, 1, 6);
+  kokeilu.lisaa(1, 1, 1);
+  kokeilu.lisaa(1, 1, 2);
+  kokeilu.lisaa(1, 1, 7);
+  kokeilu.lisaa(1, 1, 4);
+  kokeilu.lisaa(1, 1, 8);
+  kokeilu.poista();
+  kokeilu.tulosta();
+  
+  
+  
     }
 }

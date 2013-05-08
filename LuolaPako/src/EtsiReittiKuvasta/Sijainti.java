@@ -10,14 +10,36 @@ package EtsiReittiKuvasta;
  */
 public class Sijainti {
 
-    public final int x, y, etaisyys;
+    private int x, y;
+    private double etaisyys;
 
-    public Sijainti(int x, int y, int etaisyys) {
+    public Sijainti(int x, int y, double etaisyys) {
         this.x = x;
         this.y = y;
         this.etaisyys = etaisyys;
     }
 
-}
-    
+    public double getEtaisyys() {
+        return this.etaisyys;
+    }
 
+    public void setEtaisyys(double etaisyys) {
+        this.etaisyys = etaisyys;
+    }
+
+    public double getX() {
+        return this.x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public double getY() {
+        return this.y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+}
