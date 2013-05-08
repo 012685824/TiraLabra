@@ -15,7 +15,7 @@ import javax.imageio.ImageIO;
  */
 public class EtsiReitti {
 
-    static double[][] distance;
+    static double[][] distance; // luodaan tarvittavat muuttujat
     static double[][] path;
     static boolean[][] kaydyt;
     static int[][] kuvaTaulu;
@@ -24,23 +24,36 @@ public class EtsiReitti {
     }
 
     public static BufferedImage haeKuva(String tiedosto) {
-        BufferedImage luolaKuva = null;
+        BufferedImage luolaKuva = null; // Luodaan uusi BufferedImage kuvien käsittelyä varten
 
         try {
-            luolaKuva = ImageIO.read(new File(tiedosto));
+            luolaKuva = ImageIO.read(new File(tiedosto)); // Ladataan käsiteltävä kuva luolaKuva muuttujaan
 
         } catch (IOException e) {
-            System.out.println(e);
+            System.out.println(e); // Tulostetaan virhe jos sellainen tulee
 
         }
 
-        return luolaKuva;
+        return luolaKuva; // Palautetaan kuva onnistuneen latauksen jälkeen
     }
 
-    public static void dijkstra() {
+    public static void dijkstra(int[][] g, int s, int s1) {
         
+//Dijkstra-with-heap(G,w,s)
+//1 Intialise-Single-Source(G,s)
+//2 S = ∅
+//3 for kaikille solmuille v ∈ V
+//4     heap-insert(H,v,distance[v])
+//5 while not empty(H)
+//6     u = heap-del-min(H)
+//7     S = S ∪ {u}
+//8     for jokaiselle solmulle v ∈ vierus[u] // kaikille u:n vierussolmuille v
+//9         Relax(u,v,w)
+//10        heap-decrease-key(H,v,distance[v])
+// ei tee mitään, jos distance[v] ei ole muuttunut
         
-        
+        initialiseSingleSource(g, s, s1);
+        Keko S = new Keko();
         
         
         
@@ -49,6 +62,7 @@ public class EtsiReitti {
 
     public static void bellmanFord(int[][] g, int s, int s1) {
         /*
+         * Pseudo koodina Bellman Ford
          Bellman-Ford(G,w,s)
          1 Initialise-Single-Source(G,s)
          2 for i = 1 to | V | − 1
@@ -59,14 +73,14 @@ public class EtsiReitti {
          7          return false
          8 return true
          */
-        initialiseSingleSource(g, s, s1);
+        initialiseSingleSource(g, s, s1); // Kutsutaan muutujien alustus ..
 
-        for (int u2 = 0; u2 < g.length; u2++) {
+        for (int u2 = 0; u2 < g.length; u2++) {             //alustettu taulukko läpi
             for (int u3 = 0; u3 < g[0].length; u3++) {
                 for (int u = 0; u < g.length; u++) {
                     for (int u1 = 0; u1 < g[0].length; u1++) {
-                        if (u1 + 1 < g[0].length) {
-                            relax(u, u1, u, u1 + 1);
+                        if (u1 + 1 < g[0].length) {     // tarkastetaan ollaan taulukon reunassa
+                            relax(u, u1, u, u1 + 1);    // jos ei niin suoritetaan relax
                         }
 
                         if (u1 - 1 >= 0) {
@@ -107,16 +121,13 @@ public class EtsiReitti {
          4 distance[s] = 0*/
         int korkeus = g.length;
         int leveys = g[0].length;
-
-        distance = new double[korkeus][leveys];
+ 
+        distance = new double[korkeus][leveys]; // Luodaan etäisyys taulukko käsiteltävän verkon kokeiseksi.
         path = new double[korkeus][leveys];
         //käydyt = new boolean[korkeus][leveys];
         //vuoriApu = new int[korkeus][leveys];
 
-
-
-
-        for (int i = 0; i < g.length; i++) {
+        for (int i = 0; i < g.length; i++) {        // alustetaan etäisyys taulukko
             for (int j = 0; j < g[0].length; j++) {
                 distance[i][j] = Double.MAX_VALUE;
                 distance[s][s1] = 0;
@@ -131,7 +142,6 @@ public class EtsiReitti {
     }
 
     public static void relax(int u, int u1, int v, int v1) {
-        // Toteuta minut
 
         /*Relax(u,v,w)
          1 if distance[v] > distance[u] + w(u,v)
@@ -143,15 +153,11 @@ public class EtsiReitti {
 
         // System.out.println(ero);
 
-        if (distance[v][v1] > distance[u][u1] + kuvaTaulu[u][u1]) {
+        if (distance[v][v1] > distance[u][u1] + kuvaTaulu[u][u1]) { // verrataan onko etäisyys suurempi vai pienempi uutta solmua käyttäen
             distance[v][v1] = distance[u][u1] + kuvaTaulu[u][u1];
             //path[v][v1] = ero;
         }
         //käydyt[v][1] = true;
-
-
-
-
 
     }
 
@@ -168,24 +174,26 @@ public class EtsiReitti {
     }
 
     public static void ratkaise(String tiedostonNimi) {
+        //Ratkaise .. luo ladatusta kuvasta kaksi uloitteisen numeraalisen taulukon 
+        //lyhimmän polun etsimistä varten
         BufferedImage kuva = null;
 
         kuva = haeKuva(tiedostonNimi);
         System.out.println(tiedostonNimi);
-        kuvaTaulu = new int[kuva.getWidth()][kuva.getHeight()];
+        kuvaTaulu = new int[kuva.getWidth()][kuva.getHeight()]; // Luodaan oikean kokoinen taulukosta
 
 
         for (int i = 0; i < kuvaTaulu.length; i++) {
             for (int j = 0; j < kuvaTaulu[0].length; j++) {
 
-                kuvaTaulu[i][j] = -kuva.getRGB(i, j);
+                kuvaTaulu[i][j] = -kuva.getRGB(i, j); // haetaan RGB värin arvo taulukkoon.
             }
         }
 
-        bellmanFord(kuvaTaulu, 0, 0);
+        bellmanFord(kuvaTaulu, 0, 0); // Ratkaistaan polku käyttäen bellman fordin algoritmiä.
 
 
-        for (int i = 0; i < distance.length; i++) {
+        for (int i = 0; i < distance.length; i++) { // testi tulostus toimiiko
             for (int j = 0; j < distance[0].length; j++) {
 
                 System.out.print(distance[i][j] + "\t");
@@ -193,6 +201,7 @@ public class EtsiReitti {
             System.out.println("");
         }
 
-
+ 
+        
     }
 }
