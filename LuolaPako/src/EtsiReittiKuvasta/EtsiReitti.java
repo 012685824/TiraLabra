@@ -29,8 +29,7 @@ public class EtsiReitti {
         //lyhimmän polun etsimistä varten
         int xAlku = 0;
         int yAlku = 0;
-        int xLoppu = 0;
-        int yLoppu = 0;
+
         BufferedImage kuva = null;
 
         kuva = haeKuva(tiedostonNimi); //haetaan kuva tiedosto käsittetyyn.
@@ -40,11 +39,14 @@ public class EtsiReitti {
         haeVaritKuvatauluun(kuva); //Haetaan kuvaTauluun kuvan väri koodit
 
         //bellmanFord(kuvaTaulu, 0, 0); // Ratkaistaan polku käyttäen bellman fordin algoritmiä.
+        int xLoppu = kuva.getWidth();
+        int yLoppu = kuva.getHeight();
         Dijkstra D = new Dijkstra(kuvaTaulu, xAlku, yAlku, xLoppu, yLoppu);
         D.ratsaise();
 
         //laitaKekoonTesti(kuva);
         tulostaEtaisyydet(D.getEtaisyysTaulu());
+        piirraReitti();
 
 
 
