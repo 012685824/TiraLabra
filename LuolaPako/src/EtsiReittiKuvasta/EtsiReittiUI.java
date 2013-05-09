@@ -162,7 +162,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
 
     private void RatkaiseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RatkaiseMouseClicked
         // TODO add your handling code here:
-        EtsiReitti.ratkaise("C:/Users/Toni/Documents/GitHub/TiraLabra/LuolaPako/src/EtsiReittiKuvasta/kuva" + kuvaLista.getAnchorSelectionIndex() + ".jpg");
+        EtsiReitti.ratkaise("C:/Users/Toni/Documents/GitHub/TiraLabra/LuolaPako/src/EtsiReittiKuvasta/kuva" + kuvaLista.getAnchorSelectionIndex() + ".bmp");
     }//GEN-LAST:event_RatkaiseMouseClicked
 
     private void lisaaUusiKuvaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lisaaUusiKuvaMouseClicked

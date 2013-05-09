@@ -10,7 +10,8 @@ package EtsiReittiKuvasta;
  */
 public class Sijainti {
 
-    private int x, y;
+    private int x;
+    private int y;
     private double etaisyys;
 
     public Sijainti(int x, int y, double etaisyys) {
@@ -27,7 +28,7 @@ public class Sijainti {
         this.etaisyys = etaisyys;
     }
 
-    public double getX() {
+    public int getX() {
         return this.x;
     }
 
@@ -35,7 +36,7 @@ public class Sijainti {
         this.x = x;
     }
 
-    public double getY() {
+    public int getY() {
         return this.y;
     }
 
