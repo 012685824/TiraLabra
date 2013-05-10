@@ -143,7 +143,7 @@
     <Component class="javax.swing.JLabel" name="kuvaKentta">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/EtsiReittiKuvasta/kuva0.jpg"/>
+          <Image iconType="3" name="/Kuvat/kuva0.jpg"/>
         </Property>
       </Properties>
       <Events>
@@ -198,7 +198,7 @@
     <Component class="javax.swing.JLabel" name="ratkaisuKentta">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/EtsiReittiKuvasta/kuva0.jpg"/>
+          <Image iconType="3" name="/Kuvat/kuva0.jpg"/>
         </Property>
       </Properties>
       <Events>

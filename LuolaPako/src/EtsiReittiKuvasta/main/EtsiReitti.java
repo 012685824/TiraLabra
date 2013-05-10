@@ -2,8 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package EtsiReittiKuvasta;
+package EtsiReittiKuvasta.main;
 
+import EtsiReittiKuvasta.Dijkstra;
+import EtsiReittiKuvasta.tietoRakenteet.Keko;
+import EtsiReittiKuvasta.tietoRakenteet.Sijainti;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -15,10 +18,7 @@ import javax.imageio.ImageIO;
  */
 public class EtsiReitti {
 
-    static double[][] distance; // luodaan tarvittavat muuttujat
-    static double[][] path;
-    static boolean[][] kaydyt;
-    static int[][] kuvaTaulu;
+    static int[][] kuvaTaulu;// luodaan tarvittavat muuttujat
     static Keko K = new Keko();
 
     public static void main(String[] args) {
@@ -42,15 +42,11 @@ public class EtsiReitti {
         int xLoppu = kuva.getWidth();
         int yLoppu = kuva.getHeight();
         Dijkstra D = new Dijkstra(kuvaTaulu, xAlku, yAlku, xLoppu, yLoppu);
-        //D.ratkaise();
-        D.ratkaise1();
-
-        //laitaKekoonTesti(kuva);
-        //tulostaEtaisyydet(D.getEtaisyysTaulu());
-        tulostaEtaisyyde1(D.getSijaintiTaulu());
+        D.ratkaise();
+        tulostaEtaisyyde(D.getSijaintiTaulu());
         D.tulostaReitti1();
         D.tulostaKaikki();
-        piirraReitti(D.getreitti(),kuva,xAlku,yAlku,xLoppu,yLoppu);
+        //piirraReitti(D.getreitti(),kuva,xAlku,yAlku,xLoppu,yLoppu);
 
 
 
@@ -64,24 +60,21 @@ public class EtsiReitti {
 
         } catch (IOException e) {
             System.out.println(e); // Tulostetaan virhe jos sellainen tulee
-
         }
-
         return ratkaistavaKuva; // Palautetaan kuva onnistuneen latauksen jälkeen
     }
+
     public static void talletaKuva(BufferedImage ratkaistuKuva) {
         File ratkaisuTiedosto = new File("C:/Users/Toni/Documents/GitHub/TiraLabra/LuolaPako/src/EtsiReittiKuvasta/ratkaisu.bmp");
         try {
-             // Talletetaan ratkaistu kuva
-            ImageIO.write(ratkaistuKuva, "bmp", ratkaisuTiedosto );
+            // Talletetaan ratkaistu kuva
+            ImageIO.write(ratkaistuKuva, "bmp", ratkaisuTiedosto);
 
         } catch (IOException e) {
             System.out.println(e); // Tulostetaan virhe jos sellainen tulee
-
         }
+    }
 
-     }
-    
     /*    
      public static void bellmanFord(int[][] g, int s, int s1) {
      /*
@@ -127,57 +120,26 @@ public class EtsiReitti {
      }
 
      */
-
-    public static void piirraReitti(Reitti[][] reitti,BufferedImage kuva, int xAlku, int yAlku, int xLoppu, int yLoppu) {
+    public static void piirraReitti(BufferedImage kuva, int xAlku, int yAlku, int xLoppu, int yLoppu) {
         int x = xLoppu - 1;     //Annetaan tulostukseen reitin alkupiste
         int y = yLoppu - 1;
-        int xApu =0;
+        int xApu = 0;
         int r = 10;// red component 0...255
         int g = 10;// green component 0...255
         int b = 10;// blue component 0...255
         int col = (r << 16) | (g << 8) | b;
         BufferedImage kuvaRatkaisu = null;
         kuvaRatkaisu = kuva;
-        kuvaRatkaisu.setRGB(xLoppu-1, yLoppu-1, col);
+        kuvaRatkaisu.setRGB(xLoppu - 1, yLoppu - 1, col);
         while (x != xAlku || y != yAlku) {
             kuvaRatkaisu.setRGB(x, y, 1000);
-            xApu = reitti[x][y].getX();
-            y = reitti[x][y].getY();
-            x=xApu;
+           // xApu = reitti[x][y].getX();
+            //y = reitti[x][y].getY();
+            x = xApu;
         }
         kuvaRatkaisu.setRGB(xAlku, yAlku, col);
         talletaKuva(kuvaRatkaisu);
     }
-    /*    
-     public static void initialiseSingleSource(int[][] g, int s, int s1) {
-     // Toteuta minut
-     /*
-     1 for kaikille solmuille v ∈ V
-     2   distance[v] = ∞ 
-     3   path[v] = NIL
-     4 distance[s] = 0
-     int korkeus = g.length;
-     int leveys = g[0].length;
-        
-     distance = new double[korkeus][leveys]; // Luodaan etäisyys taulukko käsiteltävän verkon kokeiseksi.
-     //path = new double[korkeus][leveys];
-     //käydyt = new boolean[korkeus][leveys];
-     //vuoriApu = new int[korkeus][leveys];
-
-     for (int i = 0; i < g.length; i++) {        // alustetaan etäisyys taulukko
-     for (int j = 0; j < g[0].length; j++) {
-     distance[i][j] = Double.MAX_VALUE / 2;
-     distance[s][s1] = 0;
-     }
-            
-     }
-     //        käydyt[0][0] = true;
-
-        
-        
-        
-     }
-     */
 
     public static void relaxB(int u, int u1, int v, int v1) {
 
@@ -190,64 +152,33 @@ public class EtsiReitti {
         // ero = ero(kuvaTaulu[u][u1], kuvaTaulu[v][v1]);
 
         // System.out.println(ero);
-
+/*
         if (distance[v][v1] > distance[u][u1] + kuvaTaulu[u][u1]) { // verrataan onko etäisyys suurempi vai pienempi uutta solmua käyttäen
             distance[v][v1] = distance[u][u1] + kuvaTaulu[u][u1];
 
             //path[v][v1] = ero;
         }
         //käydyt[v][1] = true;
-
+*/
     }
 
     public static void haeVaritKuvatauluun(BufferedImage kuva) {
-
-
         for (int y = 0; y < kuvaTaulu[0].length; y++) {
             for (int x = 0; x < kuvaTaulu.length; x++) {
-
                 kuvaTaulu[x][y] = -kuva.getRGB(x, y); // haetaan RGB värin arvo taulukkoon.
             }
         }
 
     }
 
-    public static void tulostaEtaisyydet(double[][] etaisyydet) {
-        System.out.println("");
-        for (int y = 0; y < etaisyydet[0].length; y++) { // testi tulostus toimiiko
-            for (int x = 0; x < etaisyydet.length; x++) {
-                System.out.print(etaisyydet[x][y] + "\t");
-            }
-            System.out.println("");
-        }
-
-
-    }
-
-        public static void tulostaEtaisyyde1(Sijainti[][] sijainti) {
+    public static void tulostaEtaisyyde(Sijainti[][] sijainti) {
         System.out.println("");
         for (int y = 0; y < sijainti[0].length; y++) { // testi tulostus toimiiko
             for (int x = 0; x < sijainti.length; x++) {
-                System.out.print(sijainti[x][y].getEtaisyys()+"\t");
+                System.out.print(sijainti[x][y].getEtaisyys() + "\t");
             }
             System.out.println("");
         }
-
-    }
-    public static void laitaKekoonTesti(BufferedImage kuva) {
-
-        Keko Ke = new Keko();
-        for (int i = 0; i < kuvaTaulu.length; i++) {
-            for (int j = 0; j < kuvaTaulu[0].length; j++) {
-                Ke.lisaa(i, j, -kuva.getRGB(i, j));
-                //kuvaTaulu[j][i] = -kuva.getRGB(i, j); // haetaan RGB värin arvo taulukkoon.
-            }
-        }/*
-         for (int i = 0; i < 50; i++) {
-         Ke.poista();
-         }
-         */
-        Ke.tulosta();
 
     }
 }

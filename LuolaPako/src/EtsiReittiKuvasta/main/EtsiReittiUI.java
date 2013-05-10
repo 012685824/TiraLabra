@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package EtsiReittiKuvasta;
+package EtsiReittiKuvasta.main;
 
 import java.awt.Color;
 
@@ -16,6 +16,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
      * Creates new form LuolaPakoUI
      */
     static boolean piste = true;
+    static String tiedostojenSijainti = "C:/Users/Toni/Documents/GitHub/TiraLabra/LuolaPako/src";
 
     public EtsiReittiUI() {
         initComponents();
@@ -68,7 +69,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
             }
         });
 
-        kuvaKentta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/EtsiReittiKuvasta/kuva0.jpg"))); // NOI18N
+        kuvaKentta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Kuvat/kuva0.jpg"))); // NOI18N
         kuvaKentta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 kuvaKenttaMouseClicked(evt);
@@ -95,7 +96,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         jTextField1.setText("Alku piste");
         jTextField1.setBorder(null);
 
-        ratkaisuKentta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/EtsiReittiKuvasta/kuva0.jpg"))); // NOI18N
+        ratkaisuKentta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Kuvat/kuva0.jpg"))); // NOI18N
         ratkaisuKentta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ratkaisuKenttaMouseClicked(evt);
@@ -178,14 +179,14 @@ public class EtsiReittiUI extends javax.swing.JFrame {
 
         // TODO add your handling code here:
 
-        kuvaKentta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/EtsiReittiKuvasta/kuva" + kuvaLista.getAnchorSelectionIndex() + ".jpg")));
+        kuvaKentta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Kuvat/kuva" + kuvaLista.getAnchorSelectionIndex() + ".jpg")));
 
     }//GEN-LAST:event_kuvaListaMouseClicked
 
     private void RatkaiseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RatkaiseMouseClicked
         // TODO add your handling code here:
-        EtsiReitti.ratkaise("C:/Users/Toni/Documents/GitHub/TiraLabra/LuolaPako/src/EtsiReittiKuvasta/kuva" + kuvaLista.getAnchorSelectionIndex() + ".bmp");
-        ratkaisuKentta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/EtsiReittiKuvasta/ratkaisu.jpg")));
+        EtsiReitti.ratkaise(tiedostojenSijainti+"/Kuvat/kuva" + kuvaLista.getAnchorSelectionIndex() + ".bmp");
+        ratkaisuKentta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Kuvat/ratkaisu.jpg")));
     }//GEN-LAST:event_RatkaiseMouseClicked
 
     private void lisaaUusiKuvaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lisaaUusiKuvaMouseClicked
