@@ -17,7 +17,10 @@ public class EtsiReittiUI extends javax.swing.JFrame {
      */
     static boolean piste = true;
     static String tiedostojenSijainti = "C:/Users/Toni/Documents/GitHub/TiraLabra/LuolaPako/src";
-
+    static int xAlkuPiste = 0, yAlkuPiste = 0, xLoppuPiste = 0, yLoppuPiste = 0, valinta=0;
+    
+    
+    
     public EtsiReittiUI() {
         initComponents();
     }
@@ -37,10 +40,10 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         Ratkaise = new javax.swing.JButton();
         kuvaKentta = new javax.swing.JLabel();
         lisaaUusiKuva = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
+        dijkstra = new javax.swing.JCheckBox();
+        bellmanFord = new javax.swing.JCheckBox();
         jCheckBox3 = new javax.swing.JCheckBox();
-        alkuPisteText = new javax.swing.JTextField();
+        kuvanAlkuPiste = new javax.swing.JTextField();
         loppuPisteText = new javax.swing.JTextField();
         jTextField1 = new javax.swing.JTextField();
         ratkaisuKentta = new javax.swing.JLabel();
@@ -70,6 +73,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         });
 
         kuvaKentta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Kuvat/kuva0.jpg"))); // NOI18N
+        kuvaKentta.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         kuvaKentta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 kuvaKenttaMouseClicked(evt);
@@ -83,13 +87,17 @@ public class EtsiReittiUI extends javax.swing.JFrame {
             }
         });
 
-        valintaRuudut.add(jCheckBox1);
-        jCheckBox1.setText("jCheckBox1");
+        valintaRuudut.add(dijkstra);
+        dijkstra.setMnemonic('0');
+        dijkstra.setSelected(true);
+        dijkstra.setText("Dijkstra");
 
-        valintaRuudut.add(jCheckBox2);
-        jCheckBox2.setText("jCheckBox2");
+        valintaRuudut.add(bellmanFord);
+        bellmanFord.setMnemonic('1');
+        bellmanFord.setText("Bellman Ford");
 
         valintaRuudut.add(jCheckBox3);
+        jCheckBox3.setMnemonic('2');
         jCheckBox3.setText("jCheckBox3");
 
         jTextField1.setEditable(false);
@@ -97,6 +105,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         jTextField1.setBorder(null);
 
         ratkaisuKentta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Kuvat/kuva0.jpg"))); // NOI18N
+        ratkaisuKentta.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         ratkaisuKentta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ratkaisuKenttaMouseClicked(evt);
@@ -117,8 +126,8 @@ public class EtsiReittiUI extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(193, 193, 193)
                         .addComponent(lisaaUusiKuva))
-                    .addComponent(jCheckBox1)
-                    .addComponent(jCheckBox2)
+                    .addComponent(dijkstra)
+                    .addComponent(bellmanFord)
                     .addComponent(jCheckBox3))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
@@ -128,7 +137,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
                     .addComponent(ratkaisuKentta, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(alkuPisteText, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(kuvanAlkuPiste, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(56, 56, 56)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,9 +155,9 @@ public class EtsiReittiUI extends javax.swing.JFrame {
                         .addGap(43, 43, 43)
                         .addComponent(lisaaUusiKuva)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBox1)
+                .addComponent(dijkstra, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox2)
+                .addComponent(bellmanFord)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBox3)
                 .addGap(28, 28, 28)
@@ -158,7 +167,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(loppuPisteText)
-                            .addComponent(alkuPisteText)))
+                            .addComponent(kuvanAlkuPiste)))
                     .addComponent(Ratkaise))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,22 +194,29 @@ public class EtsiReittiUI extends javax.swing.JFrame {
 
     private void RatkaiseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RatkaiseMouseClicked
         // TODO add your handling code here:
-        EtsiReitti.ratkaise(tiedostojenSijainti+"/Kuvat/kuva" + kuvaLista.getAnchorSelectionIndex() + ".bmp");
+        valinta = valintaRuudut.getSelection().getMnemonic()-48;
+        EtsiReitti.ratkaise(tiedostojenSijainti+"/Kuvat/kuva" + kuvaLista.getAnchorSelectionIndex() + ".bmp",xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste, valinta);
         ratkaisuKentta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Kuvat/ratkaisu.jpg")));
     }//GEN-LAST:event_RatkaiseMouseClicked
 
     private void lisaaUusiKuvaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lisaaUusiKuvaMouseClicked
         // TODO add your handling code here:
+        
+        
     }//GEN-LAST:event_lisaaUusiKuvaMouseClicked
 
     private void kuvaKenttaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kuvaKenttaMouseClicked
 
 
         if (piste) {
-            alkuPisteText.setText(evt.getPoint().toString().substring(14));
+            kuvanAlkuPiste.setText(evt.getPoint().toString().substring(14));
+            xAlkuPiste = evt.getX();
+            yAlkuPiste = evt.getY();
             piste = false;
         } else {
             loppuPisteText.setText(evt.getPoint().toString().substring(14));
+            xLoppuPiste = evt.getX();
+            yLoppuPiste = evt.getY();
             piste = true;
         }
 
@@ -249,18 +265,18 @@ public class EtsiReittiUI extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Ratkaise;
-    private javax.swing.JTextField alkuPisteText;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
+    public javax.swing.JCheckBox bellmanFord;
+    public javax.swing.JCheckBox dijkstra;
+    public javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel kuvaKentta;
     private javax.swing.JList kuvaLista;
+    private javax.swing.JTextField kuvanAlkuPiste;
     private javax.swing.JButton lisaaUusiKuva;
     private javax.swing.JTextField loppuPisteText;
     private javax.swing.JLabel ratkaisuKentta;
-    private javax.swing.ButtonGroup valintaRuudut;
+    public javax.swing.ButtonGroup valintaRuudut;
     // End of variables declaration//GEN-END:variables
 }

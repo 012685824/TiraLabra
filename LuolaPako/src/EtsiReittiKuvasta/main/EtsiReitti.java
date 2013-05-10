@@ -4,6 +4,7 @@
  */
 package EtsiReittiKuvasta.main;
 
+import EtsiReittiKuvasta.BellmanFord;
 import EtsiReittiKuvasta.Dijkstra;
 import EtsiReittiKuvasta.tietoRakenteet.Keko;
 import EtsiReittiKuvasta.tietoRakenteet.Sijainti;
@@ -20,35 +21,38 @@ public class EtsiReitti {
 
     static int[][] kuvaTaulu;// luodaan tarvittavat muuttujat
     static Keko K = new Keko();
+    static String ratkaisuKuvanTiedostonSijainti = "C:/Users/Toni/Documents/GitHub/TiraLabra/LuolaPako/src/Kuvat/ratkaisu.bmp";
 
     public static void main(String[] args) {
     }
 
-    public static void ratkaise(String tiedostonNimi) {
-        //Ratkaise .. luo ladatusta kuvasta kaksi uloitteisen numeraalisen taulukon 
-        //lyhimmän polun etsimistä varten
-        int xAlku = 0;
-        int yAlku = 0;
+    public static void ratkaise(String tiedostonNimi, int xAlkuPiste, int yAlkuPiste, int xLoppuPiste, int yLoppuPiste, int valinta) {
 
         BufferedImage kuva = null;
 
         kuva = haeKuva(tiedostonNimi); //haetaan kuva tiedosto käsittetyyn.
         System.out.println(tiedostonNimi);
+        System.out.println("xa=" + xAlkuPiste + "ya=" + yAlkuPiste + "xl=" + xLoppuPiste + "yl=" + yLoppuPiste);
+        System.out.println("valinta="+valinta);
         kuvaTaulu = new int[kuva.getWidth()][kuva.getHeight()]; // Luodaan oikean kokoinen taulukosta
 
         haeVaritKuvatauluun(kuva); //Haetaan kuvaTauluun kuvan väri koodit
+        switch (valinta) {
 
-        //bellmanFord(kuvaTaulu, 0, 0); // Ratkaistaan polku käyttäen bellman fordin algoritmiä.
-        int xLoppu = kuva.getWidth();
-        int yLoppu = kuva.getHeight();
-        Dijkstra D = new Dijkstra(kuvaTaulu, xAlku, yAlku, xLoppu, yLoppu);
-        D.ratkaise();
-        tulostaEtaisyyde(D.getSijaintiTaulu());
-        D.tulostaReitti1();
-        D.tulostaKaikki();
-        //piirraReitti(D.getreitti(),kuva,xAlku,yAlku,xLoppu,yLoppu);
-
-
+            case 0:
+                Dijkstra D = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+                D.ratkaise();
+                tulostaEtaisyyde(D.getSijaintiTaulu());
+                piirraReitti(D.getSijaintiTaulu(), kuva, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+                break;
+            case 1:
+                BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+                B.ratkaise();
+                tulostaEtaisyyde(B.getSijaintiTaulu());
+                B.tulostaReitti();
+                piirraReitti(B.getSijaintiTaulu(), kuva, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+                break;
+        }
 
     }
 
@@ -65,7 +69,7 @@ public class EtsiReitti {
     }
 
     public static void talletaKuva(BufferedImage ratkaistuKuva) {
-        File ratkaisuTiedosto = new File("C:/Users/Toni/Documents/GitHub/TiraLabra/LuolaPako/src/EtsiReittiKuvasta/ratkaisu.bmp");
+        File ratkaisuTiedosto = new File(ratkaisuKuvanTiedostonSijainti);
         try {
             // Talletetaan ratkaistu kuva
             ImageIO.write(ratkaistuKuva, "bmp", ratkaisuTiedosto);
@@ -75,91 +79,27 @@ public class EtsiReitti {
         }
     }
 
-    /*    
-     public static void bellmanFord(int[][] g, int s, int s1) {
-     /*
-     * Pseudo koodina Bellman Ford
-     Bellman-Ford(G,w,s)
-     1 Initialise-Single-Source(G,s)
-     2 for i = 1 to | V | − 1
-     3      for jokaiselle kaarelle (u, v) ∈ E
-     4          Relax(u,v,w)
-     5 for jokaiselle kaarelle (u, v) ∈ E
-     6      if distance[v] > distance[u] + w(u,v)
-     7          return false
-     8 return true
-         
-     initialiseSingleSource(g, s, s1); // Kutsutaan muutujien alustus ..
-
-     for (int u2 = 0; u2 < g.length; u2++) {             //alustettu taulukko läpi
-     for (int u3 = 0; u3 < g[0].length; u3++) {
-     for (int u = 0; u < g.length; u++) {
-     for (int u1 = 0; u1 < g[0].length; u1++) {
-     if (u1 + 1 < g[0].length) {     // tarkastetaan ollaan taulukon reunassa
-     relaxB(u, u1, u, u1 + 1);    // jos ei niin suoritetaan relax
-     }
-                        
-     if (u1 - 1 >= 0) {
-     relaxB(u, u1, u, u1 - 1);
-     }
-                        
-     if (u + 1 < g.length) {
-     relaxB(u, u1, u + 1, u1);
-     }
-                        
-     if (u - 1 >= 0) {
-     relaxB(u, u1, u - 1, u1);
-     }
-     }
-     }
-     }
-     }
-        
-        
-        
-     }
-
-     */
-    public static void piirraReitti(BufferedImage kuva, int xAlku, int yAlku, int xLoppu, int yLoppu) {
-        int x = xLoppu - 1;     //Annetaan tulostukseen reitin alkupiste
-        int y = yLoppu - 1;
+    public static void piirraReitti(Sijainti[][] sijaintiTaulu, BufferedImage kuva, int xAlku, int yAlku, int xLoppu, int yLoppu) {
+        int x = xLoppu;     //Annetaan tulostukseen reitin alkupiste tulostus tapahtuu siis 
+        int y = yLoppu;     //lopusta alkuun päin.
         int xApu = 0;
-        int r = 10;// red component 0...255
-        int g = 10;// green component 0...255
-        int b = 10;// blue component 0...255
+        int r = 30;// red component 0...255
+        int g = 30;// green component 0...255
+        int b = 230;// blue component 0...255
         int col = (r << 16) | (g << 8) | b;
+
         BufferedImage kuvaRatkaisu = null;
         kuvaRatkaisu = kuva;
-        kuvaRatkaisu.setRGB(xLoppu - 1, yLoppu - 1, col);
+        kuvaRatkaisu.setRGB(xLoppu, yLoppu, col);
+
         while (x != xAlku || y != yAlku) {
-            kuvaRatkaisu.setRGB(x, y, 1000);
-           // xApu = reitti[x][y].getX();
-            //y = reitti[x][y].getY();
+            kuvaRatkaisu.setRGB(x, y, col);
+            xApu = sijaintiTaulu[x][y].getX();
+            y = sijaintiTaulu[x][y].getY();
             x = xApu;
         }
         kuvaRatkaisu.setRGB(xAlku, yAlku, col);
         talletaKuva(kuvaRatkaisu);
-    }
-
-    public static void relaxB(int u, int u1, int v, int v1) {
-
-        /*Relax(u,v,w)
-         1 if distance[v] > distance[u] + w(u,v)
-         2  distance[v] = distance[u]+w(u,v)
-         3  path[v] = u*/
-        //int ero = 0;
-
-        // ero = ero(kuvaTaulu[u][u1], kuvaTaulu[v][v1]);
-
-        // System.out.println(ero);
-/*
-        if (distance[v][v1] > distance[u][u1] + kuvaTaulu[u][u1]) { // verrataan onko etäisyys suurempi vai pienempi uutta solmua käyttäen
-            distance[v][v1] = distance[u][u1] + kuvaTaulu[u][u1];
-
-            //path[v][v1] = ero;
-        }
-        //käydyt[v][1] = true;
-*/
     }
 
     public static void haeVaritKuvatauluun(BufferedImage kuva) {
