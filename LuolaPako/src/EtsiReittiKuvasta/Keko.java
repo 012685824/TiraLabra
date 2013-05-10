@@ -22,6 +22,22 @@ public class Keko {
 
     }
 
+    public Sijainti[] getKeko() {
+        return keko;
+    }
+
+    public void setKeko(Sijainti[] keko) {
+        this.keko = keko;
+    }
+
+    public int getKeonKoko() {
+        return keonKoko;
+    }
+
+    public void setKeonKoko(int keonKoko) {
+        this.keonKoko = keonKoko;
+    }
+
     //Lisää kekoon uuden arvon oikealle paikalle.
     public void lisaa(int x, int y, double uusi) {
         keko[keonKoko + 1] = new Sijainti(0, 0, 0); //Jätetään taulukon paikka 0 käyttämättä kun taulukko "alkaa" kohdasta 1

@@ -46,7 +46,7 @@ public class EtsiReitti {
 
         //laitaKekoonTesti(kuva);
         tulostaEtaisyydet(D.getEtaisyysTaulu());
-        piirraReitti();
+        piirraReitti(D.getreitti(),kuva,xAlku,yAlku,xLoppu,yLoppu);
 
 
 
@@ -65,6 +65,19 @@ public class EtsiReitti {
 
         return ratkaistavaKuva; // Palautetaan kuva onnistuneen latauksen jälkeen
     }
+    public static void talletaKuva(BufferedImage ratkaistuKuva) {
+        File ratkaisuTiedosto = new File("C:/Users/Toni/Documents/GitHub/TiraLabra/LuolaPako/src/EtsiReittiKuvasta/ratkaisu.bmp");
+        try {
+             // Talletetaan ratkaistu kuva
+            ImageIO.write(ratkaistuKuva, "bmp", ratkaisuTiedosto );
+
+        } catch (IOException e) {
+            System.out.println(e); // Tulostetaan virhe jos sellainen tulee
+
+        }
+
+     }
+    
     /*    
      public static void bellmanFord(int[][] g, int s, int s1) {
      /*
@@ -111,7 +124,23 @@ public class EtsiReitti {
 
      */
 
-    public static void piirraReitti() {
+    public static void piirraReitti(Reitti[][] reitti,BufferedImage kuva, int xAlku, int yAlku, int xLoppu, int yLoppu) {
+        int x = xLoppu - 1;     //Annetaan tulostukseen reitin alkupiste
+        int y = yLoppu - 1;
+        int r = 10;// red component 0...255
+        int g = 10;// green component 0...255
+        int b = 10;// blue component 0...255
+        int col = (r << 16) | (g << 8) | b;
+        BufferedImage kuvaRatkaisu = null;
+        kuvaRatkaisu = kuva;
+        kuvaRatkaisu.setRGB(xLoppu-1, yLoppu-1, col);
+        while (x != xAlku || y != yAlku) {
+            kuvaRatkaisu.setRGB(x, y, 1000);
+            x = reitti[x][y].getX();
+            y = reitti[x][y].getY();
+        }
+        kuvaRatkaisu.setRGB(xAlku, yAlku, col);
+        talletaKuva(kuvaRatkaisu);
     }
     /*    
      public static void initialiseSingleSource(int[][] g, int s, int s1) {

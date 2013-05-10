@@ -16,6 +16,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
      * Creates new form LuolaPakoUI
      */
     static boolean piste = true;
+
     public EtsiReittiUI() {
         initComponents();
     }
@@ -41,6 +42,8 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         alkuPisteText = new javax.swing.JTextField();
         loppuPisteText = new javax.swing.JTextField();
         jTextField1 = new javax.swing.JTextField();
+        ratkaisuKentta = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -92,6 +95,17 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         jTextField1.setText("Alku piste");
         jTextField1.setBorder(null);
 
+        ratkaisuKentta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/EtsiReittiKuvasta/kuva0.jpg"))); // NOI18N
+        ratkaisuKentta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ratkaisuKenttaMouseClicked(evt);
+            }
+        });
+
+        jTextField2.setEditable(false);
+        jTextField2.setText("Loppu piste");
+        jTextField2.setBorder(null);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -108,16 +122,19 @@ public class EtsiReittiUI extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(Ratkaise)
-                .addGap(159, 159, 159)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(kuvaKentta, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(alkuPisteText)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(loppuPisteText, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(212, Short.MAX_VALUE))
+                .addGap(289, 289, 289)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ratkaisuKentta, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(alkuPisteText, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(56, 56, 56)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(loppuPisteText, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(kuvaKentta, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(204, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,17 +153,22 @@ public class EtsiReittiUI extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(Ratkaise)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(kuvaKentta, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(loppuPisteText)
-                            .addComponent(alkuPisteText))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(alkuPisteText)))
+                    .addComponent(Ratkaise))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 311, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                        .addComponent(ratkaisuKentta, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(22, 22, 22))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -163,6 +185,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
     private void RatkaiseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RatkaiseMouseClicked
         // TODO add your handling code here:
         EtsiReitti.ratkaise("C:/Users/Toni/Documents/GitHub/TiraLabra/LuolaPako/src/EtsiReittiKuvasta/kuva" + kuvaLista.getAnchorSelectionIndex() + ".bmp");
+        ratkaisuKentta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/EtsiReittiKuvasta/ratkaisu.jpg")));
     }//GEN-LAST:event_RatkaiseMouseClicked
 
     private void lisaaUusiKuvaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lisaaUusiKuvaMouseClicked
@@ -171,19 +194,23 @@ public class EtsiReittiUI extends javax.swing.JFrame {
 
     private void kuvaKenttaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kuvaKenttaMouseClicked
 
-        
-        if(piste){
-        alkuPisteText.setText(evt.getPoint().toString().substring(14));
-            piste=false;
-        }else{
+
+        if (piste) {
+            alkuPisteText.setText(evt.getPoint().toString().substring(14));
+            piste = false;
+        } else {
             loppuPisteText.setText(evt.getPoint().toString().substring(14));
-            piste=true;
+            piste = true;
         }
-        
-        
-        
+
+
+
         // TODO add your handling code here:
     }//GEN-LAST:event_kuvaKenttaMouseClicked
+
+    private void ratkaisuKenttaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ratkaisuKenttaMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ratkaisuKenttaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -227,10 +254,12 @@ public class EtsiReittiUI extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel kuvaKentta;
     private javax.swing.JList kuvaLista;
     private javax.swing.JButton lisaaUusiKuva;
     private javax.swing.JTextField loppuPisteText;
+    private javax.swing.JLabel ratkaisuKentta;
     private javax.swing.ButtonGroup valintaRuudut;
     // End of variables declaration//GEN-END:variables
 }

@@ -28,10 +28,10 @@ public class Dijkstra {
 
     public void ratsaise() {
         dijkstraKeko();
-        //tulostaReitti();
+        tulostaReitti();
     }
 
-    public void initialiseSingleSource() {
+    private void initialiseSingleSource() {
         for (int x = 0; x < this.kuvaTaulu.length; x++) {        // alustetaan etäisyys taulukko
             for (int y = 0; y < kuvaTaulu[0].length; y++) {
                 etaisyysTaulu[x][y] = Double.MAX_VALUE / 2;
@@ -43,7 +43,7 @@ public class Dijkstra {
 
     }
 
-    public void relax(int x, int y, int x1, int y1) {
+    private void relax(int x, int y, int x1, int y1) {
 
         if (etaisyysTaulu[x1][y1] > etaisyysTaulu[x][y] + kuvaTaulu[x1][y1]) { // verrataan onko etäisyys suurempi vai pienempi uutta solmua käyttäen
             etaisyysTaulu[x1][y1] = etaisyysTaulu[x][y] + kuvaTaulu[x1][y1];
@@ -54,7 +54,7 @@ public class Dijkstra {
         }
     }
 
-    public void dijkstraKeko() {
+    private void dijkstraKeko() {
         initialiseSingleSource();
         Sijainti sijaintiApu = new Sijainti(0, 0, 0); //luodaan apu sijainti muuttuja 
 
@@ -96,8 +96,12 @@ public class Dijkstra {
     public double[][] getEtaisyysTaulu() {
         return this.etaisyysTaulu;
     }
+    
+    public Reitti[][] getreitti(){
+        return this.reitti;
+    }
 
-    public void testiTulostaEtaisyydet(double[][] etaisyydet) {
+    private void testiTulostaEtaisyydet(double[][] etaisyydet) {
         System.out.println("");
         for (int y = 0; y < etaisyydet[0].length; y++) { // testi tulostus toimiiko
             for (int x = 0; x < etaisyydet.length; x++) {
@@ -110,7 +114,7 @@ public class Dijkstra {
     }
 
     public void tulostaReitti() {
-        int x=xLoppu-1;
+        int x=xLoppu-1;     //Annetaan tulostukseen reitin alkupiste
         int y=yLoppu-1;
         System.out.println("X=" + x + " Y=" + y);
         while(x !=xAlku || y!=yAlku){

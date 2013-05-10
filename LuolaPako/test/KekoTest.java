@@ -3,6 +3,7 @@
  * and open the template in the editor.
  */
 
+import EtsiReittiKuvasta.Keko;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -14,9 +15,10 @@ import static org.junit.Assert.*;
  *
  * @author Toni
  */
-public class EtsiReittiKuvastaTest {
+public class KekoTest {
+    Keko testikeko;
     
-    public EtsiReittiKuvastaTest() {
+    public KekoTest() {
     }
     
     @BeforeClass
@@ -29,10 +31,25 @@ public class EtsiReittiKuvastaTest {
     
     @Before
     public void setUp() {
+        testikeko = new Keko();
     }
     
     @After
     public void tearDown() {
+    }
+    
+    @Test
+    public void keonKokoOikeinKunLuodaanUusiKeko() {
+        
+        assertTrue(testikeko.getKeonKoko() == 0);
+    }
+    
+    @Test
+    public void keossaKahdeksanAlkiotaKunKahdeksanUuttaAlkiotaLisattyTyhjaanKekoon(){
+        for (int i = 0; i < 8; i++) {
+            testikeko.lisaa(i, i, i);
+        }
+        assertEquals(testikeko.getKeonKoko(),8);
     }
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
