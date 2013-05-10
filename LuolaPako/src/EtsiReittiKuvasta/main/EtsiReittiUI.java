@@ -5,6 +5,14 @@
 package EtsiReittiKuvasta.main;
 
 import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 
 /**
  *
@@ -48,8 +56,12 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         ratkaisuKentta = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
+        jFileChooser1 = new javax.swing.JFileChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(5000, 5000));
+        setMinimumSize(new java.awt.Dimension(500, 500));
+        setPreferredSize(new java.awt.Dimension(1200, 800));
 
         kuvaLista.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Kuva 1", "Kuva 2", "Kuva 3" };
@@ -58,6 +70,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         });
         kuvaLista.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         kuvaLista.setToolTipText("");
+        kuvaLista.setSelectedIndex(0);
         kuvaLista.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 kuvaListaMouseClicked(evt);
@@ -73,7 +86,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         });
 
         kuvaKentta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Kuvat/kuva0.jpg"))); // NOI18N
-        kuvaKentta.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        kuvaKentta.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         kuvaKentta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 kuvaKenttaMouseClicked(evt);
@@ -101,11 +114,11 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         jCheckBox3.setText("jCheckBox3");
 
         jTextField1.setEditable(false);
-        jTextField1.setText("Alku piste");
+        jTextField1.setText(" Alku piste ");
         jTextField1.setBorder(null);
 
         ratkaisuKentta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Kuvat/kuva0.jpg"))); // NOI18N
-        ratkaisuKentta.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        ratkaisuKentta.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         ratkaisuKentta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ratkaisuKenttaMouseClicked(evt);
@@ -113,8 +126,19 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         });
 
         jTextField2.setEditable(false);
-        jTextField2.setText("Loppu piste");
+        jTextField2.setText(" Loppu piste ");
         jTextField2.setBorder(null);
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
+
+        jFileChooser1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFileChooser1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -122,38 +146,41 @@ public class EtsiReittiUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(193, 193, 193)
-                        .addComponent(lisaaUusiKuva))
                     .addComponent(dijkstra)
                     .addComponent(bellmanFord)
                     .addComponent(jCheckBox3))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 1373, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addComponent(Ratkaise)
-                .addGap(289, 289, 289)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lisaaUusiKuva)
+                .addGap(552, 552, 552))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ratkaisuKentta, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Ratkaise)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(kuvanAlkuPiste, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(56, 56, 56)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(loppuPisteText, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(kuvaKentta, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(204, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(116, 116, 116)
+                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(kuvanAlkuPiste, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(loppuPisteText, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(kuvaKentta)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ratkaisuKentta)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addComponent(lisaaUusiKuva)))
+                    .addComponent(lisaaUusiKuva))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(dijkstra, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -161,24 +188,21 @@ public class EtsiReittiUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBox3)
                 .addGap(28, 28, 28)
+                .addComponent(Ratkaise)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 564, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(kuvaKentta, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(kuvaKentta)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(loppuPisteText)
-                            .addComponent(kuvanAlkuPiste)))
-                    .addComponent(Ratkaise))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                        .addComponent(ratkaisuKentta, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(kuvanAlkuPiste, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(loppuPisteText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(ratkaisuKentta))
+                .addContainerGap())
         );
 
         pack();
@@ -196,9 +220,31 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         valinta = valintaRuudut.getSelection().getMnemonic()-48;
         EtsiReitti.ratkaise(tiedostojenSijainti+"/Kuvat/kuva" + kuvaLista.getAnchorSelectionIndex() + ".bmp",xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste, valinta);
-        ratkaisuKentta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Kuvat/ratkaisu.jpg")));
+        muutaKuva();
+        
+            //ImageIcon ii = new ImageIcon(getClass().getResource("/Kuvat/ratkaisu.jpg"));
+            //ii.getImage().flush();
+            String tiedostonNimi = "/Kuvat/ratkaisu.jpg";
+        try {
+            ratkaisuKentta.setIcon(new ImageIcon(ImageIO.read(new File(tiedostojenSijainti+tiedostonNimi))));
+            //ratkaisuKentta.setIcon(ii);
+        } catch (IOException ex) {
+            Logger.getLogger(EtsiReittiUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+ 
+        
     }//GEN-LAST:event_RatkaiseMouseClicked
-
+    private void muutaKuva(){
+            BufferedImage muunnettavaKuva = null; // Luodaan uusi BufferedImage kuvien käsittelyä varten
+            File ratkaisuTiedosto = new File(tiedostojenSijainti+"/Kuvat/ratkaisu.jpg");
+        try {
+            muunnettavaKuva = ImageIO.read(new File(tiedostojenSijainti+"/Kuvat/ratkaisu.bmp")); // Ladataan käsiteltävä kuva luolaKuva muuttujaan
+            ImageIO.write(muunnettavaKuva, "jpg", ratkaisuTiedosto);
+        } catch (IOException e) {
+            System.out.println(e); // Tulostetaan virhe jos sellainen tulee
+        }
+        
+    } 
     private void lisaaUusiKuvaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lisaaUusiKuvaMouseClicked
         // TODO add your handling code here:
         
@@ -228,6 +274,14 @@ public class EtsiReittiUI extends javax.swing.JFrame {
     private void ratkaisuKenttaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ratkaisuKenttaMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_ratkaisuKenttaMouseClicked
+
+    private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFileChooser1ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -268,6 +322,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
     public javax.swing.JCheckBox bellmanFord;
     public javax.swing.JCheckBox dijkstra;
     public javax.swing.JCheckBox jCheckBox3;
+    private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;

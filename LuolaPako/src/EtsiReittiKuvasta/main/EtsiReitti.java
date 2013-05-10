@@ -42,14 +42,14 @@ public class EtsiReitti {
             case 0:
                 Dijkstra D = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
                 D.ratkaise();
-                tulostaEtaisyyde(D.getSijaintiTaulu());
+                //tulostaEtaisyyde(D.getSijaintiTaulu());
                 piirraReitti(D.getSijaintiTaulu(), kuva, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
                 break;
             case 1:
                 BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
                 B.ratkaise();
-                tulostaEtaisyyde(B.getSijaintiTaulu());
-                B.tulostaReitti();
+                //tulostaEtaisyyde(B.getSijaintiTaulu());
+                //B.tulostaReitti();
                 piirraReitti(B.getSijaintiTaulu(), kuva, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
                 break;
         }
