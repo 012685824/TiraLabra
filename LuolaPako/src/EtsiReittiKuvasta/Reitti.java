@@ -18,6 +18,11 @@ public class Reitti {
         this.y = y;
     }
 
+    public String tulostaReitti(){
+        String tulostus ="";
+        tulostus = "X="+this.x+" Y="+this.y;
+        return tulostus;
+    }
     
     public int getX() {
         return this.x;

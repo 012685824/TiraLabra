@@ -42,10 +42,14 @@ public class EtsiReitti {
         int xLoppu = kuva.getWidth();
         int yLoppu = kuva.getHeight();
         Dijkstra D = new Dijkstra(kuvaTaulu, xAlku, yAlku, xLoppu, yLoppu);
-        D.ratsaise();
+        //D.ratkaise();
+        D.ratkaise1();
 
         //laitaKekoonTesti(kuva);
-        tulostaEtaisyydet(D.getEtaisyysTaulu());
+        //tulostaEtaisyydet(D.getEtaisyysTaulu());
+        tulostaEtaisyyde1(D.getSijaintiTaulu());
+        D.tulostaReitti1();
+        D.tulostaKaikki();
         piirraReitti(D.getreitti(),kuva,xAlku,yAlku,xLoppu,yLoppu);
 
 
@@ -127,6 +131,7 @@ public class EtsiReitti {
     public static void piirraReitti(Reitti[][] reitti,BufferedImage kuva, int xAlku, int yAlku, int xLoppu, int yLoppu) {
         int x = xLoppu - 1;     //Annetaan tulostukseen reitin alkupiste
         int y = yLoppu - 1;
+        int xApu =0;
         int r = 10;// red component 0...255
         int g = 10;// green component 0...255
         int b = 10;// blue component 0...255
@@ -136,8 +141,9 @@ public class EtsiReitti {
         kuvaRatkaisu.setRGB(xLoppu-1, yLoppu-1, col);
         while (x != xAlku || y != yAlku) {
             kuvaRatkaisu.setRGB(x, y, 1000);
-            x = reitti[x][y].getX();
+            xApu = reitti[x][y].getX();
             y = reitti[x][y].getY();
+            x=xApu;
         }
         kuvaRatkaisu.setRGB(xAlku, yAlku, col);
         talletaKuva(kuvaRatkaisu);
@@ -218,6 +224,16 @@ public class EtsiReitti {
 
     }
 
+        public static void tulostaEtaisyyde1(Sijainti[][] sijainti) {
+        System.out.println("");
+        for (int y = 0; y < sijainti[0].length; y++) { // testi tulostus toimiiko
+            for (int x = 0; x < sijainti.length; x++) {
+                System.out.print(sijainti[x][y].getEtaisyys()+"\t");
+            }
+            System.out.println("");
+        }
+
+    }
     public static void laitaKekoonTesti(BufferedImage kuva) {
 
         Keko Ke = new Keko();
