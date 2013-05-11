@@ -5,14 +5,28 @@
 package EtsiReittiKuvasta.main;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileFilter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.ListModel;
 
 /**
  *
@@ -25,12 +39,40 @@ public class EtsiReittiUI extends javax.swing.JFrame {
      */
     static boolean piste = true;
     static String tiedostojenSijainti = "C:/Users/Toni/Documents/GitHub/TiraLabra/LuolaPako/src";
-    static int xAlkuPiste = 0, yAlkuPiste = 0, xLoppuPiste = 0, yLoppuPiste = 0, valinta=0;
-    
-    
-    
-    public EtsiReittiUI() {
+    static int xAlkuPiste = 0, yAlkuPiste = 0, xLoppuPiste = 0, yLoppuPiste = 0, valinta = 0;
+
+    public EtsiReittiUI() throws FileNotFoundException, IOException {
         initComponents();
+        jFileChooser1.setVisible(false);
+        frame.setVisible(false);
+        valintaListanTiedot();
+    }
+
+    private void valintaListanTiedot() throws FileNotFoundException, IOException {
+        FileInputStream asetuksetTiedosto = new FileInputStream(tiedostojenSijainti + "/asetukset.txt");
+        final Scanner tiedotTiedostosta = new Scanner(asetuksetTiedosto, "UTF-8");
+        ArrayList<String> kuvaListaAlustus = new ArrayList<String>();
+        while (tiedotTiedostosta.hasNextLine()) {
+            kuvaListaAlustus.add(tiedotTiedostosta.nextLine());
+        }
+        final String[] kuvalistaValmis = new String[kuvaListaAlustus.size()];
+        for (int i = 0; i < kuvalistaValmis.length; i++) {
+            kuvalistaValmis[i] = kuvaListaAlustus.get(i);
+        }
+        asetuksetTiedosto.close();
+
+        kuvaLista.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = kuvalistaValmis;
+
+            public int getSize() {
+                return strings.length;
+            }
+
+            public Object getElementAt(int i) {
+                return strings[i];
+            }
+        });
+        kuvaLista.setSelectedIndex(0);
     }
 
     /**
@@ -56,12 +98,15 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         ratkaisuKentta = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
+        poistaKuva = new javax.swing.JButton();
         jFileChooser1 = new javax.swing.JFileChooser();
+        frame = new javax.swing.JInternalFrame();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(5000, 5000));
-        setMinimumSize(new java.awt.Dimension(500, 500));
-        setPreferredSize(new java.awt.Dimension(1200, 800));
+        setMinimumSize(new java.awt.Dimension(50, 50));
+        setPreferredSize(new java.awt.Dimension(1000, 850));
+        setResizable(false);
 
         kuvaLista.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Kuva 1", "Kuva 2", "Kuva 3" };
@@ -134,11 +179,32 @@ public class EtsiReittiUI extends javax.swing.JFrame {
             }
         });
 
+        poistaKuva.setText("Poista kuva");
+        poistaKuva.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                poistaKuvaMouseClicked(evt);
+            }
+        });
+
+        jFileChooser1.setCurrentDirectory(new java.io.File("C:\\Koulu\\2013\\Tiralabra\\Kuvat"));
         jFileChooser1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jFileChooser1ActionPerformed(evt);
             }
         });
+
+        frame.setVisible(true);
+
+        javax.swing.GroupLayout frameLayout = new javax.swing.GroupLayout(frame.getContentPane());
+        frame.getContentPane().setLayout(frameLayout);
+        frameLayout.setHorizontalGroup(
+            frameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 237, Short.MAX_VALUE)
+        );
+        frameLayout.setVerticalGroup(
+            frameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 20, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -146,18 +212,27 @@ public class EtsiReittiUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dijkstra)
-                    .addComponent(bellmanFord)
-                    .addComponent(jCheckBox3))
-                .addGap(0, 1373, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lisaaUusiKuva)
-                .addGap(552, 552, 552))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dijkstra)
+                            .addComponent(bellmanFord)
+                            .addComponent(jCheckBox3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(poistaKuva))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(402, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(lisaaUusiKuva)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(frame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(96, 96, 96)))
+                        .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(127, 127, 127))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Ratkaise)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,24 +247,36 @@ public class EtsiReittiUI extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(kuvaKentta)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ratkaisuKentta)))))
+                                .addComponent(ratkaisuKentta))))
+                    .addComponent(Ratkaise))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lisaaUusiKuva))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(dijkstra, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bellmanFord)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox3)
-                .addGap(28, 28, 28)
-                .addComponent(Ratkaise)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 564, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(poistaKuva)
+                                .addGap(31, 31, 31)
+                                .addComponent(lisaaUusiKuva))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(dijkstra, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bellmanFord)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckBox3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Ratkaise)
+                        .addGap(44, 44, 44)
+                        .addComponent(frame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(87, 87, 87)
+                        .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 295, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(kuvaKentta)
@@ -211,44 +298,49 @@ public class EtsiReittiUI extends javax.swing.JFrame {
     private void kuvaListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kuvaListaMouseClicked
 
         // TODO add your handling code here:
+        try {
 
-        kuvaKentta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Kuvat/kuva" + kuvaLista.getAnchorSelectionIndex() + ".jpg")));
+            kuvaKentta.setIcon(new ImageIcon(ImageIO.read(new File(tiedostojenSijainti + "/Kuvat/kuva" + kuvaLista.getAnchorSelectionIndex() + ".jpg"))));
+            ratkaisuKentta.setIcon(new ImageIcon(ImageIO.read(new File(tiedostojenSijainti + "/Kuvat/kuva" + kuvaLista.getAnchorSelectionIndex() + ".jpg"))));
+
+        } catch (IOException ex) {
+            Logger.getLogger(EtsiReittiUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_kuvaListaMouseClicked
 
     private void RatkaiseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RatkaiseMouseClicked
         // TODO add your handling code here:
-        valinta = valintaRuudut.getSelection().getMnemonic()-48;
-        EtsiReitti.ratkaise(tiedostojenSijainti+"/Kuvat/kuva" + kuvaLista.getAnchorSelectionIndex() + ".bmp",xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste, valinta);
+        valinta = valintaRuudut.getSelection().getMnemonic() - 48;
+        EtsiReitti.ratkaise(tiedostojenSijainti + "/Kuvat/kuva" + kuvaLista.getAnchorSelectionIndex() + ".bmp", xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste, valinta);
         muutaKuva();
-        
-            //ImageIcon ii = new ImageIcon(getClass().getResource("/Kuvat/ratkaisu.jpg"));
-            //ii.getImage().flush();
-            String tiedostonNimi = "/Kuvat/ratkaisu.jpg";
+
+        //ImageIcon ii = new ImageIcon(getClass().getResource("/Kuvat/ratkaisu.jpg"));
+        //ii.getImage().flush();
+        String tiedostonNimi = "/Kuvat/ratkaisu.jpg";
         try {
-            ratkaisuKentta.setIcon(new ImageIcon(ImageIO.read(new File(tiedostojenSijainti+tiedostonNimi))));
+            ratkaisuKentta.setIcon(new ImageIcon(ImageIO.read(new File(tiedostojenSijainti + tiedostonNimi))));
             //ratkaisuKentta.setIcon(ii);
         } catch (IOException ex) {
             Logger.getLogger(EtsiReittiUI.class.getName()).log(Level.SEVERE, null, ex);
         }
- 
-        
+
+
     }//GEN-LAST:event_RatkaiseMouseClicked
-    private void muutaKuva(){
-            BufferedImage muunnettavaKuva = null; // Luodaan uusi BufferedImage kuvien käsittelyä varten
-            File ratkaisuTiedosto = new File(tiedostojenSijainti+"/Kuvat/ratkaisu.jpg");
+    private void muutaKuva() {
+        BufferedImage muunnettavaKuva = null; // Luodaan uusi BufferedImage kuvien käsittelyä varten
+        File ratkaisuTiedosto = new File(tiedostojenSijainti + "/Kuvat/ratkaisu.jpg");
         try {
-            muunnettavaKuva = ImageIO.read(new File(tiedostojenSijainti+"/Kuvat/ratkaisu.bmp")); // Ladataan käsiteltävä kuva luolaKuva muuttujaan
+            muunnettavaKuva = ImageIO.read(new File(tiedostojenSijainti + "/Kuvat/ratkaisu.bmp")); // Ladataan käsiteltävä kuva luolaKuva muuttujaan
             ImageIO.write(muunnettavaKuva, "jpg", ratkaisuTiedosto);
         } catch (IOException e) {
             System.out.println(e); // Tulostetaan virhe jos sellainen tulee
         }
-        
-    } 
+
+    }
     private void lisaaUusiKuvaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lisaaUusiKuvaMouseClicked
         // TODO add your handling code here:
-        
-        
+        jFileChooser1.setVisible(true);
     }//GEN-LAST:event_lisaaUusiKuvaMouseClicked
 
     private void kuvaKenttaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kuvaKenttaMouseClicked
@@ -275,13 +367,98 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ratkaisuKenttaMouseClicked
 
-    private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jFileChooser1ActionPerformed
-
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void poistaKuvaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_poistaKuvaMouseClicked
+        // TODO add your handling code here:
+        BufferedImage uusiKuva = null;
+        File poistettavaKuvaJpg = new File(tiedostojenSijainti + "/Kuvat/kuva" + kuvaLista.getAnchorSelectionIndex() + ".jpg");
+        poistettavaKuvaJpg.delete();
+        File poistettavaKuvaBmp = new File(tiedostojenSijainti + "/Kuvat/kuva" + kuvaLista.getAnchorSelectionIndex() + ".bmp");
+        poistettavaKuvaBmp.delete();
+        File siirrettavaKuvaJpg = new File(tiedostojenSijainti + "/Kuvat/kuva" + kuvaLista.getLastVisibleIndex() + ".jpg");
+        siirrettavaKuvaJpg.delete();
+        File siirrettavaKuvaBmp = new File(tiedostojenSijainti + "/Kuvat/kuva" + kuvaLista.getLastVisibleIndex() + ".bmp");
+
+
+        try {
+            uusiKuva = ImageIO.read(siirrettavaKuvaBmp);
+            ImageIO.write(uusiKuva, "jpg", poistettavaKuvaJpg);
+            ImageIO.write(uusiKuva, "bmp", poistettavaKuvaBmp);
+
+
+            FileWriter asetuksetTiedosto = new FileWriter(tiedostojenSijainti + "/asetukset.txt");
+            BufferedWriter asennusTiedostonPaivitys = new BufferedWriter(asetuksetTiedosto);
+            for (int i = 0; i < kuvaLista.getLastVisibleIndex(); i++) {
+                asennusTiedostonPaivitys.write(kuvaLista.getModel().getElementAt(i).toString() + "\n");
+            }
+            asennusTiedostonPaivitys.close();
+            valintaListanTiedot();
+        } catch (IOException ex) {
+            Logger.getLogger(EtsiReittiUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        siirrettavaKuvaBmp.delete();
+        try {
+            //System.out.println(tiedostojenSijainti + "/Kuvat/kuva" + kuvaLista.getAnchorSelectionIndex() + ".jpg");
+            kuvaKentta.setIcon(new ImageIcon(ImageIO.read(new File(tiedostojenSijainti + "/Kuvat/kuva" + kuvaLista.getAnchorSelectionIndex() + ".jpg"))));
+            //ratkaisuKentta.setIcon(ii);
+        } catch (IOException ex) {
+            Logger.getLogger(EtsiReittiUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_poistaKuvaMouseClicked
+
+    private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
+        // TODO add your handling code here:
+        jFileChooser1.setVisible(false);
+        if (evt.getActionCommand().equalsIgnoreCase("ApproveSelection")) {
+            System.out.println(evt.getActionCommand());
+            File uusiTiedosto = jFileChooser1.getSelectedFile();
+            System.out.println(uusiTiedosto.getName().substring(uusiTiedosto.getName().length()-3,uusiTiedosto.getName().length()));
+            if(uusiTiedosto.getName().substring(uusiTiedosto.getName().length()-3,uusiTiedosto.getName().length()).contains("jpg") ||
+               uusiTiedosto.getName().substring(uusiTiedosto.getName().length()-3,uusiTiedosto.getName().length()).contains("bmp")){
+               System.out.println(uusiTiedosto.getAbsolutePath());
+               lisaaUusiTiedosto(uusiTiedosto);
+            }else{
+                JOptionPane.showMessageDialog(frame,"Et valinnut tiedostoa .jpg tai .bmp");
+            }
+        }
+    }//GEN-LAST:event_jFileChooser1ActionPerformed
+    private void lisaaUusiTiedosto(File uusiTiedosto) {
+        BufferedImage uusiKuva = null;
+
+        //System.out.println(kuvaLista.getLastVisibleIndex());
+        File uusiKuvaTiedostoJpg = new File(tiedostojenSijainti + "/Kuvat/kuva" + (kuvaLista.getLastVisibleIndex() + 1) + ".jpg");
+        File uusiKuvaTiedostoBmp = new File(tiedostojenSijainti + "/Kuvat/kuva" + (kuvaLista.getLastVisibleIndex() + 1) + ".bmp");
+        try {
+            uusiKuva = ImageIO.read(uusiTiedosto); // Ladataan käsiteltävä kuva uusiKuva muuttujaan
+            BufferedImage uusiKokoKuvaan = new BufferedImage(450, 450, 1);
+            Graphics2D g = uusiKokoKuvaan.createGraphics();
+            g.drawImage(uusiKuva, 0, 0, 450, 450, null);
+            g.dispose();
+            uusiKuva = uusiKokoKuvaan;
+            ImageIO.write(uusiKuva, "jpg", uusiKuvaTiedostoJpg);
+            ImageIO.write(uusiKuva, "bmp", uusiKuvaTiedostoBmp);
+
+        } catch (IOException e) {
+            System.out.println(e); // Tulostetaan virhe jos sellainen tulee
+        }
+        try {
+            FileWriter asetuksetTiedosto = new FileWriter(tiedostojenSijainti + "/asetukset.txt");
+            BufferedWriter asennusTiedostonPaivitys = new BufferedWriter(asetuksetTiedosto);
+            for (int i = 0; i <= kuvaLista.getLastVisibleIndex(); i++) {
+                asennusTiedostonPaivitys.write(kuvaLista.getModel().getElementAt(i).toString() + "\n");
+            }
+            asennusTiedostonPaivitys.write("Kuva" + (kuvaLista.getLastVisibleIndex() + 2));
+            asennusTiedostonPaivitys.close();
+            valintaListanTiedot();
+        } catch (IOException ex) {
+            Logger.getLogger(EtsiReittiUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+    }
 
     /**
      * @param args the command line arguments
@@ -313,7 +490,14 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EtsiReittiUI().setVisible(true);
+                try {
+                    new EtsiReittiUI().setVisible(true);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(EtsiReittiUI.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(EtsiReittiUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
         });
     }
@@ -321,6 +505,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
     private javax.swing.JButton Ratkaise;
     public javax.swing.JCheckBox bellmanFord;
     public javax.swing.JCheckBox dijkstra;
+    private javax.swing.JInternalFrame frame;
     public javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -331,6 +516,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
     private javax.swing.JTextField kuvanAlkuPiste;
     private javax.swing.JButton lisaaUusiKuva;
     private javax.swing.JTextField loppuPisteText;
+    private javax.swing.JButton poistaKuva;
     private javax.swing.JLabel ratkaisuKentta;
     public javax.swing.ButtonGroup valintaRuudut;
     // End of variables declaration//GEN-END:variables

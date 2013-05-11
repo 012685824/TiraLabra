@@ -17,7 +17,7 @@ public class Keko {
     //Konstruktori luo minimikeon jonka maksimi koko on 10 000
     //keonkoko muuttuja kertoo sen hetkisen keon koon.
     public Keko() {
-        keko = new Sijainti[10000];
+        keko = new Sijainti[10];
         keonKoko = 0;
 
     }
@@ -40,6 +40,12 @@ public class Keko {
 
     //Lisää kekoon uuden arvon oikealle paikalle.
     public void lisaa(int x, int y, double uusi) {
+        if (keko.length-1 == keonKoko) {
+            tuplaaKeko();
+        }
+        if (keko.length/3 == keonKoko && keonKoko > 10) {
+            pienennaKeko();
+        }
         keko[keonKoko + 1] = new Sijainti(0, 0, 0); //Jätetään taulukon paikka 0 käyttämättä kun taulukko "alkaa" kohdasta 1
 
         keko[keonKoko + 1].setEtaisyys(uusi);
@@ -173,5 +179,23 @@ public class Keko {
             }
             System.out.println("");
         }
+    }
+
+    private void tuplaaKeko() {
+
+        Sijainti[] kekoApuIso = new Sijainti[keko.length * 2];
+        System.arraycopy(keko, 0, kekoApuIso, 0, keko.length);
+        keko = new Sijainti[kekoApuIso.length];
+        System.arraycopy(kekoApuIso, 0, keko, 0, kekoApuIso.length);
+
+    }
+
+    private void pienennaKeko() {
+        System.out.println(keko.length/2+"xx"+keonKoko);
+        Sijainti[] kekoApu = new Sijainti[keko.length / 2];
+        System.arraycopy(keko, 0, kekoApu, 0, kekoApu.length);
+        keko = new Sijainti[kekoApu.length];
+        System.arraycopy(kekoApu, 0, keko, 0, keko.length);
+
     }
 }
