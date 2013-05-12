@@ -6,6 +6,7 @@ package EtsiReittiKuvasta.main;
 
 import EtsiReittiKuvasta.BellmanFord;
 import EtsiReittiKuvasta.Dijkstra;
+import EtsiReittiKuvasta.Dijkstra8;
 import EtsiReittiKuvasta.tietoRakenteet.Keko;
 import EtsiReittiKuvasta.tietoRakenteet.Sijainti;
 import java.awt.image.BufferedImage;
@@ -22,25 +23,27 @@ public class EtsiReitti {
     static int[][] kuvaTaulu;// luodaan tarvittavat muuttujat
     static Keko K = new Keko();
     static String ratkaisuKuvanTiedostonSijainti = "C:/Users/Toni/Documents/GitHub/TiraLabra/LuolaPako/src/Kuvat/ratkaisu.bmp";
-
+    static double reitinPituus = 0;
+    
     public static void main(String[] args) {
     }
 
     public static void ratkaise(String tiedostonNimi, int xAlkuPiste, int yAlkuPiste, int xLoppuPiste, int yLoppuPiste, int valinta) {
-
+        //Luodaan BufferedImage ratkaistavan kuvan käsittelyä varten ja nollataan reitin pituus joka kerta kun uuttä kuvaa aletaan ratkaisemaan.
         BufferedImage kuva = null;
-
+        reitinPituus = 0;
         kuva = haeKuva(tiedostonNimi); //haetaan kuva tiedosto käsittetyyn.
-        System.out.println(tiedostonNimi);
+        /*System.out.println(tiedostonNimi); //tulostuksia toiminnan tarkastelua varten
         System.out.println("xa=" + xAlkuPiste + "ya=" + yAlkuPiste + "xl=" + xLoppuPiste + "yl=" + yLoppuPiste);
-        System.out.println("valinta="+valinta);
+        System.out.println("valinta=" + valinta);*/
         kuvaTaulu = new int[kuva.getWidth()][kuva.getHeight()]; // Luodaan oikean kokoinen taulukosta
 
         haeVaritKuvatauluun(kuva); //Haetaan kuvaTauluun kuvan väri koodit
+        // Valitaan valinnan mukainen algoritmi
         switch (valinta) {
 
             case 0:
-                Dijkstra D = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+                Dijkstra D = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste); 
                 D.ratkaise();
                 //tulostaEtaisyyde(D.getSijaintiTaulu());
                 piirraReitti(D.getSijaintiTaulu(), kuva, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
@@ -52,6 +55,11 @@ public class EtsiReitti {
                 //B.tulostaReitti();
                 piirraReitti(B.getSijaintiTaulu(), kuva, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
                 break;
+            case 2:
+                Dijkstra8 D8 = new Dijkstra8(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+                D8.ratkaise();
+                piirraReitti(D8.getSijaintiTaulu(), kuva, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+                break;
         }
 
     }
@@ -60,7 +68,7 @@ public class EtsiReitti {
         BufferedImage ratkaistavaKuva = null; // Luodaan uusi BufferedImage kuvien käsittelyä varten
 
         try {
-            ratkaistavaKuva = ImageIO.read(new File(tiedosto)); // Ladataan käsiteltävä kuva luolaKuva muuttujaan
+            ratkaistavaKuva = ImageIO.read(new File(tiedosto)); // Ladataan käsiteltävä kuva ratkaistavaKuva muuttujaan
 
         } catch (IOException e) {
             System.out.println(e); // Tulostetaan virhe jos sellainen tulee
@@ -69,7 +77,7 @@ public class EtsiReitti {
     }
 
     public static void talletaKuva(BufferedImage ratkaistuKuva) {
-        File ratkaisuTiedosto = new File(ratkaisuKuvanTiedostonSijainti);
+        File ratkaisuTiedosto = new File(ratkaisuKuvanTiedostonSijainti);//Luodaan uusi File muuttuja tiedoston käsittelyä varten
         try {
             // Talletetaan ratkaistu kuva
             ImageIO.write(ratkaistuKuva, "bmp", ratkaisuTiedosto);
@@ -83,23 +91,25 @@ public class EtsiReitti {
         int x = xLoppu;     //Annetaan tulostukseen reitin alkupiste tulostus tapahtuu siis 
         int y = yLoppu;     //lopusta alkuun päin.
         int xApu = 0;
+        //Ei pakollinen reitin värin valinnassa. Mutta valmiina jos päivitän ohjelmaa niin että voi valita itse välin.-->
         int r = 30;// red component 0...255
         int g = 30;// green component 0...255
         int b = 230;// blue component 0...255
         int col = (r << 16) | (g << 8) | b;
-
+        //<--
         BufferedImage kuvaRatkaisu = null;
         kuvaRatkaisu = kuva;
-        kuvaRatkaisu.setRGB(xLoppu, yLoppu, col);
-
+        kuvaRatkaisu.setRGB(xLoppu, yLoppu, col);//Lisätään ensimmäinen piste
+        //Käydään reitti läpi ja "piirretään" reitti
         while (x != xAlku || y != yAlku) {
+            reitinPituus = reitinPituus + sijaintiTaulu[x][y].getEtaisyys();
             kuvaRatkaisu.setRGB(x, y, col);
             xApu = sijaintiTaulu[x][y].getX();
             y = sijaintiTaulu[x][y].getY();
             x = xApu;
         }
-        kuvaRatkaisu.setRGB(xAlku, yAlku, col);
-        talletaKuva(kuvaRatkaisu);
+        kuvaRatkaisu.setRGB(xAlku, yAlku, col);//lisätään viimeinen piste
+        talletaKuva(kuvaRatkaisu);//talletetaan valmis kuva
     }
 
     public static void haeVaritKuvatauluun(BufferedImage kuva) {
@@ -119,6 +129,8 @@ public class EtsiReitti {
             }
             System.out.println("");
         }
-
+    }
+    public double getReitinPituus(){
+        return this.reitinPituus;
     }
 }

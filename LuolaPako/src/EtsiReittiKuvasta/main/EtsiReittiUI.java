@@ -37,30 +37,35 @@ public class EtsiReittiUI extends javax.swing.JFrame {
     /**
      * Creates new form LuolaPakoUI
      */
-    static boolean piste = true;
+    static boolean piste = true;// Apu muuttuja kun koordinaatteja valitaan.
     static String tiedostojenSijainti = "C:/Users/Toni/Documents/GitHub/TiraLabra/LuolaPako/src";
     static int xAlkuPiste = 0, yAlkuPiste = 0, xLoppuPiste = 0, yLoppuPiste = 0, valinta = 0;
 
     public EtsiReittiUI() throws FileNotFoundException, IOException {
         initComponents();
-        jFileChooser1.setVisible(false);
-        frame.setVisible(false);
-        valintaListanTiedot();
+        jFileChooser1.setVisible(false);//Piillotetaan tiedosto valitsin
+        frame.setVisible(false);//Piillotetaan virhe ikkuna
+        valintaListanTiedot();//Päivitetään tiedostojen valinta valinta lista 
     }
 
     private void valintaListanTiedot() throws FileNotFoundException, IOException {
+        //Kuvien valinta listan tiedot ovat talletettu tiedostoon mistä me pitää ensin hakea
         FileInputStream asetuksetTiedosto = new FileInputStream(tiedostojenSijainti + "/asetukset.txt");
+        //Tehdään uusi Scanner että saadaan luettua tiedosto rivi kerrallaan.
         final Scanner tiedotTiedostosta = new Scanner(asetuksetTiedosto, "UTF-8");
+        //Luodaan ArrayList koska ei tiedetä valinta listan kokoa
         ArrayList<String> kuvaListaAlustus = new ArrayList<String>();
+        //Luetaan tiedosto listaan rivi kerrallaan.
         while (tiedotTiedostosta.hasNextLine()) {
             kuvaListaAlustus.add(tiedotTiedostosta.nextLine());
         }
+        //Nyt luodaan String taulukko kun tiedetään montako kuvaa listalla on.
         final String[] kuvalistaValmis = new String[kuvaListaAlustus.size()];
         for (int i = 0; i < kuvalistaValmis.length; i++) {
             kuvalistaValmis[i] = kuvaListaAlustus.get(i);
         }
-        asetuksetTiedosto.close();
-
+        asetuksetTiedosto.close();// Suljetaan avattu tiedosto
+        //Nyt voidaan lisätä "luoda uudelleen kuvien valinta lista.
         kuvaLista.setModel(new javax.swing.AbstractListModel() {
             String[] strings = kuvalistaValmis;
 
@@ -72,7 +77,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
                 return strings[i];
             }
         });
-        kuvaLista.setSelectedIndex(0);
+        kuvaLista.setSelectedIndex(0);// Valitaan valmiiksi listan ensimmäinen kuva.
     }
 
     /**
@@ -101,9 +106,13 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         poistaKuva = new javax.swing.JButton();
         jFileChooser1 = new javax.swing.JFileChooser();
         frame = new javax.swing.JInternalFrame();
+        kulunutAika = new javax.swing.JTextField();
+        reitinPituus = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(5000, 5000));
+        setMaximumSize(new java.awt.Dimension(50000, 50000));
         setMinimumSize(new java.awt.Dimension(50, 50));
         setPreferredSize(new java.awt.Dimension(1000, 850));
         setResizable(false);
@@ -156,7 +165,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
 
         valintaRuudut.add(jCheckBox3);
         jCheckBox3.setMnemonic('2');
-        jCheckBox3.setText("jCheckBox3");
+        jCheckBox3.setText("Dijkstra8");
 
         jTextField1.setEditable(false);
         jTextField1.setText(" Alku piste ");
@@ -203,8 +212,21 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         );
         frameLayout.setVerticalGroup(
             frameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
+            .addGap(0, 40, Short.MAX_VALUE)
         );
+
+        jTextField3.setEditable(false);
+        jTextField3.setText(" Reitin pituus ");
+        jTextField3.setBorder(null);
+
+        jTextField4.setEditable(false);
+        jTextField4.setText(" Aikaa kului ms ");
+        jTextField4.setBorder(null);
+        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -236,18 +258,26 @@ public class EtsiReittiUI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(kuvaKentta)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(116, 116, 116)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(kuvanAlkuPiste, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(kuvanAlkuPiste, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(loppuPisteText, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(loppuPisteText, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ratkaisuKentta)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(kuvaKentta)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(reitinPituus, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ratkaisuKentta))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(kulunutAika, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addComponent(Ratkaise))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -287,8 +317,16 @@ public class EtsiReittiUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(ratkaisuKentta))
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(ratkaisuKentta)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(reitinPituus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(kulunutAika, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -298,6 +336,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
     private void kuvaListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kuvaListaMouseClicked
 
         // TODO add your handling code here:
+        //Kun listasta valitaan joku kuva niin päivitetään kuva ja ratkaisu kenttä.
         try {
 
             kuvaKentta.setIcon(new ImageIcon(ImageIO.read(new File(tiedostojenSijainti + "/Kuvat/kuva" + kuvaLista.getAnchorSelectionIndex() + ".jpg"))));
@@ -311,23 +350,28 @@ public class EtsiReittiUI extends javax.swing.JFrame {
 
     private void RatkaiseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RatkaiseMouseClicked
         // TODO add your handling code here:
+        //Kun ratkaisu painiketta painetaan niin ensin aloitetaan ajan otto ja haetaan valintaruudusta tiedo mitä algoritmiä käytetään.
+        long startTime = System.currentTimeMillis();
         valinta = valintaRuudut.getSelection().getMnemonic() - 48;
+        //Kutsutaan ratkaisijaa ja kutsutaan muutaRatkaisuKuvaBmpToJpg koska ikoneina ei voi olla bmp kuvia
         EtsiReitti.ratkaise(tiedostojenSijainti + "/Kuvat/kuva" + kuvaLista.getAnchorSelectionIndex() + ".bmp", xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste, valinta);
-        muutaKuva();
+        muutaRatkaisuKuvaBmpToJpg();
 
-        //ImageIcon ii = new ImageIcon(getClass().getResource("/Kuvat/ratkaisu.jpg"));
-        //ii.getImage().flush();
         String tiedostonNimi = "/Kuvat/ratkaisu.jpg";
+        //päivitetään ratkaisuKenttä uudella ratkaisulla
         try {
             ratkaisuKentta.setIcon(new ImageIcon(ImageIO.read(new File(tiedostojenSijainti + tiedostonNimi))));
-            //ratkaisuKentta.setIcon(ii);
         } catch (IOException ex) {
             Logger.getLogger(EtsiReittiUI.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        //Lopetetaan ajan otto ja is't''n tiedot ohjelmaan samalla isätään myös reitin pituus.
+        long endTime = System.currentTimeMillis();
+        long totalTime = endTime - startTime;
+        kulunutAika.setText(totalTime + "ms");
+        reitinPituus.setText(EtsiReitti.reitinPituus + "");
 
     }//GEN-LAST:event_RatkaiseMouseClicked
-    private void muutaKuva() {
+    private void muutaRatkaisuKuvaBmpToJpg() {
         BufferedImage muunnettavaKuva = null; // Luodaan uusi BufferedImage kuvien käsittelyä varten
         File ratkaisuTiedosto = new File(tiedostojenSijainti + "/Kuvat/ratkaisu.jpg");
         try {
@@ -344,7 +388,8 @@ public class EtsiReittiUI extends javax.swing.JFrame {
     }//GEN-LAST:event_lisaaUusiKuvaMouseClicked
 
     private void kuvaKenttaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kuvaKenttaMouseClicked
-
+        //kun kuvakenttää painetaan niin ensin valitaan alku piste ja toisella painalluksella loppu piste
+        //sen takia piste muuttuja joka muuttuu joka painalluksessa.
 
         if (piste) {
             kuvanAlkuPiste.setText(evt.getPoint().toString().substring(14));
@@ -373,35 +418,71 @@ public class EtsiReittiUI extends javax.swing.JFrame {
 
     private void poistaKuvaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_poistaKuvaMouseClicked
         // TODO add your handling code here:
+        //Kun painat poista kuva niin ohjelma ei varmistele poistoa vaan poistaa valitun kuvan ja 
+        //siirtää viimeisen kuvan poistetun tilalle.
         BufferedImage uusiKuva = null;
-        File poistettavaKuvaJpg = new File(tiedostojenSijainti + "/Kuvat/kuva" + kuvaLista.getAnchorSelectionIndex() + ".jpg");
-        poistettavaKuvaJpg.delete();
-        File poistettavaKuvaBmp = new File(tiedostojenSijainti + "/Kuvat/kuva" + kuvaLista.getAnchorSelectionIndex() + ".bmp");
-        poistettavaKuvaBmp.delete();
-        File siirrettavaKuvaJpg = new File(tiedostojenSijainti + "/Kuvat/kuva" + kuvaLista.getLastVisibleIndex() + ".jpg");
-        siirrettavaKuvaJpg.delete();
-        File siirrettavaKuvaBmp = new File(tiedostojenSijainti + "/Kuvat/kuva" + kuvaLista.getLastVisibleIndex() + ".bmp");
-
-
-        try {
-            uusiKuva = ImageIO.read(siirrettavaKuvaBmp);
-            ImageIO.write(uusiKuva, "jpg", poistettavaKuvaJpg);
-            ImageIO.write(uusiKuva, "bmp", poistettavaKuvaBmp);
-
-
-            FileWriter asetuksetTiedosto = new FileWriter(tiedostojenSijainti + "/asetukset.txt");
+        if (kuvaLista.getAnchorSelectionIndex() == kuvaLista.getLastVisibleIndex()) {
+            File poistettavaKuvaJpg = new File(tiedostojenSijainti + "/Kuvat/kuva" + kuvaLista.getAnchorSelectionIndex() + ".jpg");
+            poistettavaKuvaJpg.delete();
+            File poistettavaKuvaBmp = new File(tiedostojenSijainti + "/Kuvat/kuva" + kuvaLista.getAnchorSelectionIndex() + ".bmp");
+            poistettavaKuvaBmp.delete();
+            FileWriter asetuksetTiedosto = null;
+            try {
+                asetuksetTiedosto = new FileWriter(tiedostojenSijainti + "/asetukset.txt");
+            } catch (IOException ex) {
+                Logger.getLogger(EtsiReittiUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
             BufferedWriter asennusTiedostonPaivitys = new BufferedWriter(asetuksetTiedosto);
             for (int i = 0; i < kuvaLista.getLastVisibleIndex(); i++) {
-                asennusTiedostonPaivitys.write(kuvaLista.getModel().getElementAt(i).toString() + "\n");
+                try {
+                    asennusTiedostonPaivitys.write(kuvaLista.getModel().getElementAt(i).toString() + "\n");
+                } catch (IOException ex) {
+                    Logger.getLogger(EtsiReittiUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-            asennusTiedostonPaivitys.close();
-            valintaListanTiedot();
-        } catch (IOException ex) {
-            Logger.getLogger(EtsiReittiUI.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                asennusTiedostonPaivitys.close();
+            } catch (IOException ex) {
+                Logger.getLogger(EtsiReittiUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                valintaListanTiedot();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(EtsiReittiUI.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(EtsiReittiUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            File poistettavaKuvaJpg = new File(tiedostojenSijainti + "/Kuvat/kuva" + kuvaLista.getAnchorSelectionIndex() + ".jpg");
+            poistettavaKuvaJpg.delete();
+            File poistettavaKuvaBmp = new File(tiedostojenSijainti + "/Kuvat/kuva" + kuvaLista.getAnchorSelectionIndex() + ".bmp");
+            poistettavaKuvaBmp.delete();
+            File siirrettavaKuvaJpg = new File(tiedostojenSijainti + "/Kuvat/kuva" + kuvaLista.getLastVisibleIndex() + ".jpg");
+            siirrettavaKuvaJpg.delete();
+            File siirrettavaKuvaBmp = new File(tiedostojenSijainti + "/Kuvat/kuva" + kuvaLista.getLastVisibleIndex() + ".bmp");
+
+            //Luodaan uudet kuvat poistetun kuvan tilalle viimeisestä listan kuvasta
+            try {
+                uusiKuva = ImageIO.read(siirrettavaKuvaBmp);
+                ImageIO.write(uusiKuva, "jpg", poistettavaKuvaJpg);
+                ImageIO.write(uusiKuva, "bmp", poistettavaKuvaBmp);
+
+                //päivitetään kuvien valinta lista
+                FileWriter asetuksetTiedosto = new FileWriter(tiedostojenSijainti + "/asetukset.txt");
+                BufferedWriter asennusTiedostonPaivitys = new BufferedWriter(asetuksetTiedosto);
+                for (int i = 0; i < kuvaLista.getLastVisibleIndex(); i++) {
+                    asennusTiedostonPaivitys.write(kuvaLista.getModel().getElementAt(i).toString() + "\n");
+                }
+                asennusTiedostonPaivitys.close();
+                valintaListanTiedot();
+            } catch (IOException ex) {
+                Logger.getLogger(EtsiReittiUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            siirrettavaKuvaBmp.delete();//poistetaan listan viileisenä ollut kuva
         }
-        siirrettavaKuvaBmp.delete();
         try {
             //System.out.println(tiedostojenSijainti + "/Kuvat/kuva" + kuvaLista.getAnchorSelectionIndex() + ".jpg");
+            ratkaisuKentta.setIcon(new ImageIcon(ImageIO.read(new File(tiedostojenSijainti + "/Kuvat/kuva" + kuvaLista.getAnchorSelectionIndex() + ".jpg"))));
             kuvaKentta.setIcon(new ImageIcon(ImageIO.read(new File(tiedostojenSijainti + "/Kuvat/kuva" + kuvaLista.getAnchorSelectionIndex() + ".jpg"))));
             //ratkaisuKentta.setIcon(ii);
         } catch (IOException ex) {
@@ -411,26 +492,37 @@ public class EtsiReittiUI extends javax.swing.JFrame {
 
     private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
         // TODO add your handling code here:
+        //Palautetaan tiedosto valinta ikkuna näkyväksi
         jFileChooser1.setVisible(false);
         if (evt.getActionCommand().equalsIgnoreCase("ApproveSelection")) {
-            System.out.println(evt.getActionCommand());
+            //System.out.println(evt.getActionCommand());
             File uusiTiedosto = jFileChooser1.getSelectedFile();
-            System.out.println(uusiTiedosto.getName().substring(uusiTiedosto.getName().length()-3,uusiTiedosto.getName().length()));
-            if(uusiTiedosto.getName().substring(uusiTiedosto.getName().length()-3,uusiTiedosto.getName().length()).contains("jpg") ||
-               uusiTiedosto.getName().substring(uusiTiedosto.getName().length()-3,uusiTiedosto.getName().length()).contains("bmp")){
-               System.out.println(uusiTiedosto.getAbsolutePath());
-               lisaaUusiTiedosto(uusiTiedosto);
-            }else{
-                JOptionPane.showMessageDialog(frame,"Et valinnut tiedostoa .jpg tai .bmp");
+
+            //System.out.println(uusiTiedosto.getName().substring(uusiTiedosto.getName().length() - 3, uusiTiedosto.getName().length()));
+            //Tarkastetaan on valittu tiedosto oikeaa muotoa..
+            if (uusiTiedosto.getName().substring(uusiTiedosto.getName().length() - 3, uusiTiedosto.getName().length()).contains("jpg")
+                    || uusiTiedosto.getName().substring(uusiTiedosto.getName().length() - 3, uusiTiedosto.getName().length()).contains("bmp")) {
+                System.out.println(uusiTiedosto.getAbsolutePath());
+                lisaaUusiTiedosto(uusiTiedosto);
+            } else {
+                //Jos kuva ei ollut valittua muotoa annetaan siintä virhe ilmoitus
+                JOptionPane.showMessageDialog(frame, "Et valinnut tiedostoa .jpg tai .bmp");
             }
         }
     }//GEN-LAST:event_jFileChooser1ActionPerformed
+
+    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField4ActionPerformed
     private void lisaaUusiTiedosto(File uusiTiedosto) {
         BufferedImage uusiKuva = null;
 
-        //System.out.println(kuvaLista.getLastVisibleIndex());
-        File uusiKuvaTiedostoJpg = new File(tiedostojenSijainti + "/Kuvat/kuva" + (kuvaLista.getLastVisibleIndex() + 1) + ".jpg");
-        File uusiKuvaTiedostoBmp = new File(tiedostojenSijainti + "/Kuvat/kuva" + (kuvaLista.getLastVisibleIndex() + 1) + ".bmp");
+        System.out.println(kuvaLista.getModel().getSize() - 1);
+        //Jos valittu tiedosto oli oikeaa muotoa luodaan siintä .bmp ja .jpg tiedostot .bmp ratkaisemista varten 
+        //.jpg tiedoston näyttämistä varten ja muutetaan kuvien koko 450x450 jotta kuvat asettuu ohjelmaan hyvin.
+        //Muutetaan myös kuvan nimi kuva....
+        File uusiKuvaTiedostoJpg = new File(tiedostojenSijainti + "/Kuvat/kuva" + ((kuvaLista.getModel().getSize() - 1) + 1) + ".jpg");
+        File uusiKuvaTiedostoBmp = new File(tiedostojenSijainti + "/Kuvat/kuva" + ((kuvaLista.getModel().getSize() - 1) + 1) + ".bmp");
         try {
             uusiKuva = ImageIO.read(uusiTiedosto); // Ladataan käsiteltävä kuva uusiKuva muuttujaan
             BufferedImage uusiKokoKuvaan = new BufferedImage(450, 450, 1);
@@ -445,12 +537,13 @@ public class EtsiReittiUI extends javax.swing.JFrame {
             System.out.println(e); // Tulostetaan virhe jos sellainen tulee
         }
         try {
+            // Päivitetään valinta listan tiedot uudella kuvalla
             FileWriter asetuksetTiedosto = new FileWriter(tiedostojenSijainti + "/asetukset.txt");
             BufferedWriter asennusTiedostonPaivitys = new BufferedWriter(asetuksetTiedosto);
             for (int i = 0; i <= kuvaLista.getLastVisibleIndex(); i++) {
                 asennusTiedostonPaivitys.write(kuvaLista.getModel().getElementAt(i).toString() + "\n");
             }
-            asennusTiedostonPaivitys.write("Kuva" + (kuvaLista.getLastVisibleIndex() + 2));
+            asennusTiedostonPaivitys.write("Kuva" + ((kuvaLista.getModel().getSize() - 1) + 2));
             asennusTiedostonPaivitys.close();
             valintaListanTiedot();
         } catch (IOException ex) {
@@ -511,6 +604,9 @@ public class EtsiReittiUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField kulunutAika;
     private javax.swing.JLabel kuvaKentta;
     private javax.swing.JList kuvaLista;
     private javax.swing.JTextField kuvanAlkuPiste;
@@ -518,6 +614,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
     private javax.swing.JTextField loppuPisteText;
     private javax.swing.JButton poistaKuva;
     private javax.swing.JLabel ratkaisuKentta;
+    private javax.swing.JTextField reitinPituus;
     public javax.swing.ButtonGroup valintaRuudut;
     // End of variables declaration//GEN-END:variables
 }

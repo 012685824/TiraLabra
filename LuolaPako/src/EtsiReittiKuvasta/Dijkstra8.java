@@ -12,14 +12,14 @@ import java.util.ArrayList;
  *
  * @author Toni
  */
-public class Dijkstra {
+public class Dijkstra8 {
 
     private int[][] kuvaTaulu;
     private int xAlku, yAlku, xLoppu, yLoppu;
     private Sijainti[][] sijaintiTaulu;
     private Keko K = new Keko();
 
-    public Dijkstra(int[][] kuvaTaulu, int xAlku, int yAlku, int xLoppu, int yLoppu) {
+    public Dijkstra8(int[][] kuvaTaulu, int xAlku, int yAlku, int xLoppu, int yLoppu) {
         this.kuvaTaulu = kuvaTaulu;
         this.xAlku = xAlku;
         this.yAlku = yAlku;
@@ -64,16 +64,28 @@ public class Dijkstra {
             if (sijaintiApu.getX() + 1 < sijaintiTaulu.length) {     // tarkastetaan ollaan taulukon reunassa X akselin suunnassa
                 relax(sijaintiApu.getX(), sijaintiApu.getY(), sijaintiApu.getX() + 1, sijaintiApu.getY());    // jos ei niin suoritetaan relax
             }
-
             if (sijaintiApu.getX() - 1 >= 0) {
                 relax(sijaintiApu.getX(), sijaintiApu.getY(), sijaintiApu.getX() - 1, sijaintiApu.getY());
             }
             if (sijaintiApu.getY() + 1 < sijaintiTaulu[0].length) {     // tarkastetaan ollaan taulukon reunassa X akselin suunnassa
                 relax(sijaintiApu.getX(), sijaintiApu.getY(), sijaintiApu.getX(), sijaintiApu.getY() + 1);    // jos ei niin suoritetaan relax
             }
-
             if (sijaintiApu.getY() - 1 >= 0) {
                 relax(sijaintiApu.getX(), sijaintiApu.getY(), sijaintiApu.getX(), sijaintiApu.getY() - 1);
+            }
+
+
+            if (sijaintiApu.getX() + 1 < sijaintiTaulu.length && sijaintiApu.getY() - 1 >= 0) {     // tarkastetaan ollaan taulukon reunassa X akselin suunnassa
+                relax(sijaintiApu.getX(), sijaintiApu.getY(), sijaintiApu.getX() + 1, sijaintiApu.getY() - 1);    // jos ei niin suoritetaan relax
+            }
+            if (sijaintiApu.getX() - 1 >= 0 && sijaintiApu.getY() - 1 >= 0) {
+                relax(sijaintiApu.getX(), sijaintiApu.getY(), sijaintiApu.getX() - 1, sijaintiApu.getY() - 1);
+            }
+            if (sijaintiApu.getY() + 1 < sijaintiTaulu[0].length && sijaintiApu.getX() + 1 < sijaintiTaulu.length) {     // tarkastetaan ollaan taulukon reunassa X akselin suunnassa
+                relax(sijaintiApu.getX(), sijaintiApu.getY(), sijaintiApu.getX() + 1, sijaintiApu.getY() + 1);    // jos ei niin suoritetaan relax
+            }
+            if (sijaintiApu.getY() - 1 >= 0 && sijaintiApu.getX() + 1 < sijaintiTaulu.length) {
+                relax(sijaintiApu.getX(), sijaintiApu.getY(), sijaintiApu.getX() + 1, sijaintiApu.getY() - 1);
             }
         }
     }

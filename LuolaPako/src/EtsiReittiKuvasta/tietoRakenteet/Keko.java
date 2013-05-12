@@ -14,14 +14,14 @@ public class Keko {
     private Sijainti[] keko;
     private int keonKoko;
 
-    //Konstruktori luo minimikeon jonka maksimi koko on 10 000
+    //Konstruktori luo minimikeon jonka maksimi koko on 10
     //keonkoko muuttuja kertoo sen hetkisen keon koon.
     public Keko() {
         keko = new Sijainti[10];
         keonKoko = 0;
 
     }
-
+    //getterit ja setteri
     public Sijainti[] getKeko() {
         return keko;
     }
@@ -105,9 +105,11 @@ public class Keko {
                 apu.setEtaisyys(keko[sijainti / 2].getEtaisyys());
                 apu.setX(keko[sijainti / 2].getX());
                 apu.setY(keko[sijainti / 2].getY());
+                
                 keko[sijainti / 2].setEtaisyys(keko[sijainti].getEtaisyys());
                 keko[sijainti / 2].setX(keko[sijainti].getX());
                 keko[sijainti / 2].setY(keko[sijainti].getY());
+                
                 keko[sijainti].setEtaisyys(apu.getEtaisyys());
                 keko[sijainti].setX(apu.getX());
                 keko[sijainti].setY(apu.getY());
@@ -191,6 +193,7 @@ public class Keko {
     }
 
     private void pienennaKeko() {
+        
         System.out.println(keko.length/2+"xx"+keonKoko);
         Sijainti[] kekoApu = new Sijainti[keko.length / 2];
         System.arraycopy(keko, 0, kekoApu, 0, kekoApu.length);
