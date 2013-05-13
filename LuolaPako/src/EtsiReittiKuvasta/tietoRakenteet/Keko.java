@@ -13,6 +13,7 @@ public class Keko {
     // luodaan tarvittavat apu muuttujat kekoa varten
     private Sijainti[] keko;
     private int keonKoko;
+    private String apuTestiTulostusString = "";
 
     //Konstruktori luo minimikeon jonka maksimi koko on 10
     //keonkoko muuttuja kertoo sen hetkisen keon koon.
@@ -22,30 +23,25 @@ public class Keko {
 
     }
     //getterit ja setteri
-    public Sijainti[] getKeko() {
-        return keko;
-    }
-
-    public void setKeko(Sijainti[] keko) {
-        this.keko = keko;
-    }
 
     public int getKeonKoko() {
         return keonKoko;
     }
 
-    public void setKeonKoko(int keonKoko) {
-        this.keonKoko = keonKoko;
+    public double palautaKekoHuippuArvo() {
+        return keko[1].getEtaisyys();
+    }
+
+    public int KekoTaulukonKoko() {
+        return keko.length;
     }
 
     //Lisää kekoon uuden arvon oikealle paikalle.
     public void lisaa(int x, int y, double uusi) {
-        if (keko.length-1 == keonKoko) {
+        if (keko.length - 1 == keonKoko) {
             tuplaaKeko();
         }
-        if (keko.length/3 == keonKoko && keonKoko > 10) {
-            pienennaKeko();
-        }
+
         keko[keonKoko + 1] = new Sijainti(0, 0, 0); //Jätetään taulukon paikka 0 käyttämättä kun taulukko "alkaa" kohdasta 1
 
         keko[keonKoko + 1].setEtaisyys(uusi);
@@ -62,6 +58,9 @@ public class Keko {
     //Poistaa keon ensimmäisen arvon.
 
     public Sijainti poista() {
+        if (keko.length / 2 > keonKoko && keonKoko >= 9) {
+            pienennaKeko();
+        }
         Sijainti apu = new Sijainti(0, 0, 0);
         if (keonKoko == 0) {
             return null;
@@ -86,7 +85,7 @@ public class Keko {
     }
 
     //Tarkistaa onko keko tyhjä.
-    public boolean empty() {
+    public boolean emptyIs() {
         if (keonKoko == 0) {
             return true;
         }
@@ -105,11 +104,11 @@ public class Keko {
                 apu.setEtaisyys(keko[sijainti / 2].getEtaisyys());
                 apu.setX(keko[sijainti / 2].getX());
                 apu.setY(keko[sijainti / 2].getY());
-                
+
                 keko[sijainti / 2].setEtaisyys(keko[sijainti].getEtaisyys());
                 keko[sijainti / 2].setX(keko[sijainti].getX());
                 keko[sijainti / 2].setY(keko[sijainti].getY());
-                
+
                 keko[sijainti].setEtaisyys(apu.getEtaisyys());
                 keko[sijainti].setX(apu.getX());
                 keko[sijainti].setY(apu.getY());
@@ -172,12 +171,19 @@ public class Keko {
         }
     }
 
+    public String apuTestiTulostus() {
+        tulosta();
+        return apuTestiTulostusString;
+    }
+
     public void tulosta() { //tulostetaan keko taulukko muodossa.
         if (keonKoko == 0) {
             System.out.println("Keko tyhjä");
+            apuTestiTulostusString = "Keko tyhjä";
         } else {
             for (int i = 1; i < keonKoko + 1; i++) {
                 System.out.println("Etäisyys = " + keko[i].getEtaisyys() + " X = " + keko[i].getX() + " Y = " + keko[i].getY());
+                apuTestiTulostusString = apuTestiTulostusString + " " + keko[i].getEtaisyys();
             }
             System.out.println("");
         }
@@ -193,8 +199,8 @@ public class Keko {
     }
 
     private void pienennaKeko() {
-        
-        System.out.println(keko.length/2+"xx"+keonKoko);
+
+        //System.out.println(keko.length/2+"xx"+keonKoko);
         Sijainti[] kekoApu = new Sijainti[keko.length / 2];
         System.arraycopy(keko, 0, kekoApu, 0, kekoApu.length);
         keko = new Sijainti[kekoApu.length];

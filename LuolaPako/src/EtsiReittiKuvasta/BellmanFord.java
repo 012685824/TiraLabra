@@ -56,9 +56,10 @@ public class BellmanFord {
         for (int x = 0; x < this.kuvaTaulu.length; x++) {        // alustetaan etäisyys taulukko
             for (int y = 0; y < kuvaTaulu[0].length; y++) {
                 sijaintiTaulu[x][y] = new Sijainti(0, 0, Double.MAX_VALUE / 2);
-                sijaintiTaulu[xAlkuPiste][yAlkuPiste] = new Sijainti(0, 0, 0);
+                
             }
         }
+        sijaintiTaulu[xAlkuPiste][yAlkuPiste] = new Sijainti(0, 0, 0);
     }
 
     private void relax(int xMistaTullaan, int yMistaTullaan, int xMihinMennaan, int yMihinMennaan) {

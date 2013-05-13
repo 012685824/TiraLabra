@@ -42,7 +42,17 @@ public class Dijkstra8 {
     }
 
     private void relax(int xMistaTullaan, int yMistaTullaan, int xMihinMennaan, int yMihinMennaan) {
+//*1.414
+        if((xMistaTullaan != xMihinMennaan) && (yMistaTullaan != yMihinMennaan)){
+            if (sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys() > sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan]*1.414){
+            
+            sijaintiTaulu[xMihinMennaan][yMihinMennaan].setEtaisyys(sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan]*1.414);
+            sijaintiTaulu[xMihinMennaan][yMihinMennaan].setX(xMistaTullaan);
+            sijaintiTaulu[xMihinMennaan][yMihinMennaan].setY(yMistaTullaan);
 
+            K.lisaa(xMihinMennaan, yMihinMennaan, sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys()*1.144);
+            }
+        }else{
         if (sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys() > sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan]) { // verrataan onko etäisyys suurempi vai pienempi uutta solmua käyttäen
 
             sijaintiTaulu[xMihinMennaan][yMihinMennaan].setEtaisyys(sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan]);
@@ -50,6 +60,7 @@ public class Dijkstra8 {
             sijaintiTaulu[xMihinMennaan][yMihinMennaan].setY(yMistaTullaan);
 
             K.lisaa(xMihinMennaan, yMihinMennaan, sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys());
+        }
         }
     }
 
@@ -59,7 +70,7 @@ public class Dijkstra8 {
 
         K.lisaa(xAlku, yAlku, 0);
 
-        while (!K.empty() && (xLoppu != sijaintiApu.getX() || yLoppu != sijaintiApu.getY())) {
+        while (!K.emptyIs() && (xLoppu != sijaintiApu.getX() || yLoppu != sijaintiApu.getY())) {
             sijaintiApu = K.poista();
             if (sijaintiApu.getX() + 1 < sijaintiTaulu.length) {     // tarkastetaan ollaan taulukon reunassa X akselin suunnassa
                 relax(sijaintiApu.getX(), sijaintiApu.getY(), sijaintiApu.getX() + 1, sijaintiApu.getY());    // jos ei niin suoritetaan relax

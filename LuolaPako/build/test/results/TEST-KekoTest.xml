@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="Toni-THINK" name="KekoTest" tests="5" time="0.136" timestamp="2013-05-12T18:18:07">
+<testsuite errors="0" failures="1" hostname="Toni-THINK" name="KekoTest" tests="13" time="6.305" timestamp="2013-05-13T11:53:37">
   <properties>
     <property name="libs.jsp-compiler.javadoc" value="" />
     <property name="netbeans.autoupdate.country" value="FI" />
@@ -53,6 +53,7 @@
     <property name="libs.ojec-ant-utils.src" value="" />
     <property name="libs.spring-webmvc3.0.src" value="" />
     <property name="libs.restapi.classpath" value="C:\Program Files\NetBeans 7.2\enterprise\modules\ext\rest\jsr311-api-1.1.1.jar" />
+    <property name="file.reference.emma.jar" value="C:/Users/Toni/AppData/Roaming/NetBeans/7.2/modules/ext/emma.jar" />
     <property name="platforms.CDC_Oracle_Java_TM__Platform_Micro_Edition_SDK_3_0_5.type" value="cdc-hi" />
     <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/" />
     <property name="libs.jaxb.maven-pom" value="" />
@@ -65,7 +66,7 @@
     <property name="manifest.available+main.class" value="true" />
     <property name="libs.spring-webmvc3.0.maven-pom" value="" />
     <property name="libs.swing-layout.maven-pom" value="" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner KekoTest filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\Toni\Documents\GitHub\TiraLabra\LuolaPako\build\test\results\TEST-KekoTest.xml crashfile=C:\Users\Toni\Documents\GitHub\TiraLabra\LuolaPako\build\junitvmwatcher1332167099693184447.properties propsfile=C:\Users\Toni\Documents\GitHub\TiraLabra\LuolaPako\build\junit6129776110940630779.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner KekoTest filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\Toni\Documents\GitHub\TiraLabra\LuolaPako\build\test\results\TEST-KekoTest.xml crashfile=C:\Users\Toni\Documents\GitHub\TiraLabra\LuolaPako\build\junitvmwatcher2878375898078844894.properties propsfile=C:\Users\Toni\Documents\GitHub\TiraLabra\LuolaPako\build\junit7763224384849518004.properties" />
     <property name="build.classes.dir" value="build/classes" />
     <property name="netbeans.accept_license_class" value="org.netbeans.license.AcceptLicense" />
     <property name="jnlp.descriptor" value="application" />
@@ -171,7 +172,7 @@
     <property name="manifest.available" value="true" />
     <property name="libs.primefaces.javadoc" value="" />
     <property name="libs.spring-framework300.maven-pom" value="" />
-    <property name="run.test.classpath" value="C:\Users\Toni\AppData\Roaming\NetBeans\7.2\modules\ext\AbsoluteLayout.jar:build/classes:C:\Users\Toni\AppData\Roaming\NetBeans\7.2\modules\ext\junit-4.10.jar:build/test/classes" />
+    <property name="run.test.classpath" value="C:\Users\Toni\AppData\Roaming\NetBeans\7.2\modules\ext\AbsoluteLayout.jar:build/classes:C:\Users\Toni\AppData\Roaming\NetBeans\7.2\modules\ext\junit-4.10.jar:build/test/classes:C:/Users/Toni/AppData/Roaming/NetBeans/7.2/modules/ext/emma.jar" />
     <property name="ant.project.invoked-targets" value="test" />
     <property name="libs.swing-layout.javadoc" value="C:\Program Files\NetBeans 7.2\platform\docs\swing-layout-1.0.4-doc.zip" />
     <property name="libs.ejb3-persistence.maven-pom" value="" />
@@ -203,7 +204,7 @@
     <property name="libs.jsp-compilation.src" value="" />
     <property name="libs.spring-webmvc.src" value="" />
     <property name="libs.ant-contrib.javadoc" value="" />
-    <property name="debug.test.classpath" value="C:\Users\Toni\AppData\Roaming\NetBeans\7.2\modules\ext\AbsoluteLayout.jar:build/classes:C:\Users\Toni\AppData\Roaming\NetBeans\7.2\modules\ext\junit-4.10.jar:build/test/classes" />
+    <property name="debug.test.classpath" value="C:\Users\Toni\AppData\Roaming\NetBeans\7.2\modules\ext\AbsoluteLayout.jar:build/classes:C:\Users\Toni\AppData\Roaming\NetBeans\7.2\modules\ext\junit-4.10.jar:build/test/classes:C:/Users/Toni/AppData/Roaming/NetBeans/7.2/modules/ext/emma.jar" />
     <property name="libs.javaee-endorsed-api-6.0.classpath" value="C:\Program Files\NetBeans 7.2\enterprise\modules\ext\javaee6-endorsed\javax.annotation.jar;C:\Program Files\NetBeans 7.2\enterprise\modules\ext\javaee6-endorsed\jaxb-api-osgi.jar;C:\Program Files\NetBeans 7.2\enterprise\modules\ext\javaee6-endorsed\webservices-api-osgi.jar" />
     <property name="libs.javaee-api-6.0.src" value="" />
     <property name="netbeans.importclass" value="org.netbeans.upgrade.AutoUpgrade" />
@@ -299,13 +300,13 @@
     <property name="java.specification.name" value="Java Platform API Specification" />
     <property name="libs.jakarta_slide_ant_webdav.maven-pom" value="" />
     <property name="do.archive+main.class.available" value="true" />
-    <property name="jnlp.mixed.code" value="default" />
     <property name="libs.sjmc-ant-utils.src" value="" />
+    <property name="jnlp.mixed.code" value="default" />
     <property name="java.specification.vendor" value="Oracle Corporation" />
     <property name="libs.cdc-agui-swing-layout.javadoc" value="" />
     <property name="libs.javac-api.classpath" value="C:\Program Files\NetBeans 7.2\java\modules\ext\nb-javac-api.jar" />
-    <property name="java.version" value="1.7.0_07" />
     <property name="libs.nokiaS80-ant-utils.classpath" value="C:\Program Files\NetBeans 7.2\mobility\modules\ext\org-netbeans-modules-j2me-cdc-project-nokiaS80.jar" />
+    <property name="java.version" value="1.7.0_07" />
     <property name="run.jvmargs.ide" value="" />
     <property name="javadoc.version" value="false" />
     <property name="libs.MySQLDriver.javadoc" value="" />
@@ -323,8 +324,8 @@
     <property name="libs.testng.maven-pom" value="" />
     <property name="libs.jaxb.src" value="" />
     <property name="libs.Java-EE-GlassFish-v3.wsgenerate" value="" />
-    <property name="libs.cdc-ant-utils.src" value="" />
     <property name="work.dir" value="C:\Users\Toni\Documents\GitHub\TiraLabra\LuolaPako" />
+    <property name="libs.cdc-ant-utils.src" value="" />
     <property name="libs.jaxb.classpath" value="C:\Program Files\NetBeans 7.2\ide\modules\ext\jaxb\jaxb-impl.jar;C:\Program Files\NetBeans 7.2\ide\modules\ext\jaxb\jaxb-xjc.jar;C:\Program Files\NetBeans 7.2\ide\modules\ext\jaxb\jaxb1-impl.jar;C:\Program Files\NetBeans 7.2\ide\modules\ext\jaxb\activation.jar;C:\Program Files\NetBeans 7.2\ide\modules\ext\jaxb\api\jaxb-api.jar;C:\Program Files\NetBeans 7.2\ide\modules\ext\jaxb\api\jsr173_1.0_api.jar" />
     <property name="php.global.include.path" value="" />
     <property name="do.depend" value="false" />
@@ -332,26 +333,26 @@
     <property name="libs.spring-webmvc3.0.classpath" value="C:\Program Files\NetBeans 7.2\java\modules\ext\spring-3.0\spring-webmvc-3.1.1.RELEASE.jar" />
     <property name="libs.swing-layout.classpath" value="C:\Program Files\NetBeans 7.2\platform\modules\ext\swing-layout-1.0.4.jar" />
     <property name="libs.restlib.src" value="" />
+    <property name="javac.source" value="1.6" />
     <property name="build.generated.dir" value="build/generated" />
-    <property name="javac.source" value="1.7" />
     <property name="line.separator" value="&#xd;&#xa;" />
     <property name="libs.hibernate-persistence.src" value="" />
     <property name="java.specification.version" value="1.7" />
-    <property name="libs.jaxws21.maven-pom" value="" />
     <property name="java.vm.info" value="mixed mode" />
+    <property name="libs.jaxws21.maven-pom" value="" />
     <property name="libs.cdc-ant-utils.javadoc" value="" />
     <property name="nb.junit.batch" value="true" />
     <property name="junit.forkmode" value="perTest" />
     <property name="libs.ojec-ant-utils.classpath" value="C:\Program Files\NetBeans 7.2\mobility\modules\ext\org-netbeans-modules-j2me-cdc-project-ojec.jar" />
     <property name="libs.spring-framework.maven-pom" value="" />
     <property name="sun.boot.class.path" value="C:\Program Files\Java\jdk1.7.0_07\jre\lib\resources.jar;C:\Program Files\Java\jdk1.7.0_07\jre\lib\rt.jar;C:\Program Files\Java\jdk1.7.0_07\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.7.0_07\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.7.0_07\jre\lib\jce.jar;C:\Program Files\Java\jdk1.7.0_07\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.7.0_07\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.7.0_07\jre\classes" />
-    <property name="javac.target" value="1.7" />
     <property name="platforms.Oracle_Java_TM__Platform_Micro_Edition_SDK_3_0_5.runcommandline" value="" />
+    <property name="javac.target" value="1.6" />
     <property name="built-jar.properties" value="C:\Users\Toni\Documents\GitHub\TiraLabra\LuolaPako\build\built-jar.properties" />
     <property name="build.test.classes.dir" value="build/test/classes" />
     <property name="src.dir" value="src" />
-    <property name="annotation.processing.enabled" value="true" />
     <property name="sun.awt.keepWorkingSetOnMinimize" value="true" />
+    <property name="annotation.processing.enabled" value="true" />
     <property name="libs.jsf20.src" value="" />
     <property name="libs.jpa20-persistence.src" value="" />
     <property name="libs.jsf12.src" value="" />
@@ -371,17 +372,17 @@
     <property name="javac.fork" value="false" />
     <property name="libs.sjmc-ant-utils.classpath" value="C:\Program Files\NetBeans 7.2\mobility\modules\ext\org-netbeans-modules-j2me-cdc-project-sjmc.jar" />
     <property name="libs.groovy-all.classpath" value="C:\Program Files\NetBeans 7.2\groovy\modules\ext\groovy-all.jar" />
-    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob" />
     <property name="libs.JMUnit4CLDC10.classpath" value="C:\Program Files\NetBeans 7.2\mobility\modules\ext\jmunit4cldc10-1.2.1.jar" />
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob" />
     <property name="default.javac.source" value="1.7" />
     <property name="debug-transport-by-os" value="dt_shmem" />
-    <property name="sun.jnu.encoding" value="Cp1252" />
     <property name="libs.MySQLDriver.src" value="" />
+    <property name="sun.jnu.encoding" value="Cp1252" />
     <property name="libs.ant-contrib.maven-pom" value="" />
     <property name="ant.file.type.LuolaPako" value="file" />
     <property name="libs.nokiadeployment.javadoc" value="" />
-    <property name="java.runtime.version" value="1.7.0_07-b11" />
     <property name="build.test.results.dir" value="build/test/results" />
+    <property name="java.runtime.version" value="1.7.0_07-b11" />
     <property name="libs.ejb3-persistence.javadoc" value="" />
     <property name="manifest.available+main.class+mkdist.available" value="true" />
     <property name="libs.sjmc-ant-utils.javadoc" value="" />
@@ -398,16 +399,16 @@
     <property name="libs.jsf20.javadoc" value="C:\Program Files\NetBeans 7.2\enterprise\docs\javaee6-doc-api.zip" />
     <property name="java.ext.dirs" value="C:\Program Files\Java\jdk1.7.0_07\jre\lib\ext;C:\Windows\Sun\Java\lib\ext" />
     <property name="libs.metro.src" value="" />
-    <property name="libs.savaje-ant-utils.maven-pom" value="" />
     <property name="endorsed.classpath" value="" />
     <property name="platforms.CDC_Oracle_Java_TM__Platform_Micro_Edition_SDK_3_0_5.home" value="C:\Program Files\NetBeans 7.2\mobility\Java_ME_platform_SDK_3.0.5" />
     <property name="libs.semc-ant-utils.src" value="" />
+    <property name="libs.savaje-ant-utils.maven-pom" value="" />
     <property name="libs.absolutelayout.classpath" value="C:\Users\Toni\AppData\Roaming\NetBeans\7.2\modules\ext\AbsoluteLayout.jar" />
     <property name="excludes" value="" />
     <property name="libs.metro.classpath" value="C:\Program Files\NetBeans 7.2\ide\modules\ext\jaxb\activation.jar;C:\Program Files\NetBeans 7.2\enterprise\modules\ext\metro\webservices-api.jar;C:\Program Files\NetBeans 7.2\enterprise\modules\ext\metro\webservices-extra-api.jar;C:\Program Files\NetBeans 7.2\enterprise\modules\ext\metro\webservices-extra.jar;C:\Program Files\NetBeans 7.2\enterprise\modules\ext\metro\webservices-rt.jar;C:\Program Files\NetBeans 7.2\enterprise\modules\ext\metro\webservices-tools.jar" />
     <property name="libs.restlib.maven-pom" value="" />
     <property name="apple.laf.useScreenMenuBar" value="true" />
-    <property name="java.class.path" value="C:\Users\Toni\AppData\Roaming\NetBeans\7.2\modules\ext\AbsoluteLayout.jar;C:\Users\Toni\Documents\GitHub\TiraLabra\LuolaPako\build\classes;C:\Users\Toni\AppData\Roaming\NetBeans\7.2\modules\ext\junit-4.10.jar;C:\Users\Toni\Documents\GitHub\TiraLabra\LuolaPako\build\test\classes;C:\Program Files\NetBeans 7.2\java\ant\lib\ant-launcher.jar;C:\Program Files\NetBeans 7.2\java\ant\lib\ant.jar;C:\Program Files\NetBeans 7.2\java\ant\lib\ant-junit.jar;C:\Program Files\NetBeans 7.2\java\ant\lib\ant-junit4.jar" />
+    <property name="java.class.path" value="C:\Users\Toni\AppData\Roaming\NetBeans\7.2\modules\ext\AbsoluteLayout.jar;C:\Users\Toni\Documents\GitHub\TiraLabra\LuolaPako\build\classes;C:\Users\Toni\AppData\Roaming\NetBeans\7.2\modules\ext\junit-4.10.jar;C:\Users\Toni\Documents\GitHub\TiraLabra\LuolaPako\build\test\classes;C:\Users\Toni\AppData\Roaming\NetBeans\7.2\modules\ext\emma.jar;C:\Program Files\NetBeans 7.2\java\ant\lib\ant-launcher.jar;C:\Program Files\NetBeans 7.2\java\ant\lib\ant.jar;C:\Program Files\NetBeans 7.2\java\ant\lib\ant-junit.jar;C:\Program Files\NetBeans 7.2\java\ant\lib\ant-junit4.jar" />
     <property name="do.mkdist" value="true" />
     <property name="libs.absolutelayout.src" value="" />
     <property name="libs.jpa20-persistence.classpath" value="C:\Program Files\NetBeans 7.2\java\modules\ext\eclipselink\javax.persistence-2.0.3.jar" />
@@ -415,16 +416,16 @@
     <property name="os.version" value="6.1" />
     <property name="application.args" value="" />
     <property name="libs.EclipseLink-GlassFish-v3.javadoc" value="C:\Program Files\NetBeans 7.2\enterprise\docs\javaee6-doc-api.zip" />
-    <property name="main.class.available" value="true" />
     <property name="libs.JMUnit4CLDC11.maven-pom" value="" />
+    <property name="main.class.available" value="true" />
     <property name="sun.awt.enableExtraMouseButtons" value="true" />
     <property name="sun.desktop" value="windows" />
     <property name="libs.Comet-GlassFish-v3.src" value="" />
     <property name="libs.restlib.javadoc" value="C:\Program Files\NetBeans 7.2\enterprise\docs\jersey-1.8-javadoc.zip;C:\Program Files\NetBeans 7.2\enterprise\docs\jersey-apache-client-1.8-javadoc.zip;C:\Program Files\NetBeans 7.2\enterprise\docs\jersey-atom-abdera-1.8-javadoc.zip;C:\Program Files\NetBeans 7.2\enterprise\docs\jersey-guice-1.8-javadoc.zip;C:\Program Files\NetBeans 7.2\enterprise\docs\jersey-multipart-1.8-javadoc.zip;C:\Program Files\NetBeans 7.2\enterprise\docs\jersey-simple-server-1.8-javadoc.zip;C:\Program Files\NetBeans 7.2\enterprise\docs\jersey-spring-1.8-javadoc.zip;C:\Program Files\NetBeans 7.2\enterprise\docs\oauth-client-1.8-javadoc.zip;C:\Program Files\NetBeans 7.2\enterprise\docs\oauth-server-1.8-javadoc.zip;C:\Program Files\NetBeans 7.2\enterprise\docs\oauth-signature-1.8-javadoc.zip" />
     <property name="libs.JAXB-ENDORSED.classpath" value="C:\Program Files\NetBeans 7.2\ide\modules\ext\jaxb\api\jaxb-api.jar" />
     <property name="libs.eclipselink.classpath" value="C:\Program Files\NetBeans 7.2\java\modules\ext\eclipselink\eclipselink-2.3.2.jar;C:\Program Files\NetBeans 7.2\java\modules\ext\eclipselink\javax.persistence-2.0.3.jar;C:\Program Files\NetBeans 7.2\java\modules\ext\eclipselink\org.eclipse.persistence.jpa.jpql_1.0.1.jar" />
-    <property name="libs.beans-binding.javadoc" value="C:\Program Files\NetBeans 7.2\java\docs\beansbinding-1.2.1-doc.zip" />
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment" />
+    <property name="libs.beans-binding.javadoc" value="C:\Program Files\NetBeans 7.2\java\docs\beansbinding-1.2.1-doc.zip" />
     <property name="libs.Java-EE-GlassFish-v3.classpath" value="C:\Program Files\glassfish-3.1.2.2\glassfish\modules\javax.servlet.jsp.jstl.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\javax.ejb.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\javax.security.auth.message.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\javax.enterprise.deploy.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\bean-validator.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\javax.servlet.jsp-api.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\javax.jms.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\weld-osgi-bundle.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\jaxb-osgi.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\javax.transaction.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\javax.servlet.jsp.jstl-api.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\endorsed\javax.annotation.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\javax.el-api.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\javax.management.j2ee.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\javax.persistence.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\javax.resource.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\javax.mail.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\javax.servlet-api.jar;C:\Program Files\glassfish-3.1.2.2\mq\lib\jaxm-api.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\webservices-osgi.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\endorsed\webservices-api-osgi.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\javax.security.jacc.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\javax.faces.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\endorsed\jaxb-api-osgi.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\jersey-core.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\web-core.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\jackson-core-asl.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\jackson-jaxrs.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\jackson-mapper-asl.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\jersey-client.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\jersey-core.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\jersey-gf-server.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\jersey-json.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\jersey-multipart.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\jettison.jar;C:\Program Files\glassfish-3.1.2.2\glassfish\modules\mimepull.jar" />
     <property name="java.vm.vendor" value="Oracle Corporation" />
     <property name="libs.CopyLibs.classpath" value="C:\Program Files\NetBeans 7.2\java\ant\extra\org-netbeans-modules-java-j2seproject-copylibstask.jar" />
@@ -434,8 +435,8 @@
     <property name="libs.spring-webmvc.maven-pom" value="" />
     <property name="run.jvmargs" value="" />
     <property name="libs.ejb3-persistence.classpath" value="C:\Program Files\NetBeans 7.2\java\modules\ext\hibernate\ejb3-persistence.jar" />
-    <property name="libs.spring-framework.javadoc" value="" />
     <property name="libs.JAXB-ENDORSED.src" value="" />
+    <property name="libs.spring-framework.javadoc" value="" />
     <property name="libs.testng.javadoc" value="C:\Program Files\NetBeans 7.2\platform\docs\testng-6.5.1-javadoc.zip" />
     <property name="user.script" value="" />
     <property name="libs.PostgreSQLDriver.classpath" value="C:\Program Files\NetBeans 7.2\ide\modules\ext\postgresql-9.1-901.jdbc4.jar" />
@@ -443,8 +444,8 @@
     <property name="jnlp.signing" value="" />
     <property name="libs.junit.src" value="" />
     <property name="annotation.processing.source.output" value="build/generated-sources/ap-source-output" />
-    <property name="jnlp.signed" value="false" />
     <property name="ant.file.type.LuolaPako-impl" value="file" />
+    <property name="jnlp.signed" value="false" />
     <property name="main.class" value="EtsiReittiKuvasta.main.EtsiReittiUI" />
     <property name="libs.CopyLibs.src" value="" />
     <property name="build.dir" value="build" />
@@ -452,16 +453,47 @@
     <property name="ant.version" value="Apache Ant(TM) version 1.8.3 compiled on February 26 2012" />
     <property name="file.encoding" value="Cp1252" />
     <property name="build.classes.excludes" value="**/*.java,**/*.form" />
-    <property name="javadoc.nonavbar" value="false" />
     <property name="jdkBug6558476" value="false" />
+    <property name="javadoc.nonavbar" value="false" />
     <property name="platform.active" value="default_platform" />
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
   </properties>
-  <testcase classname="KekoTest" name="keossaKahdeksanAlkiotaKunKahdeksanUuttaAlkiotaLisattyTyhjaanKekoon" time="0.002" />
+  <testcase classname="KekoTest" name="onkoKekoTaulukonKokoOikeinKunLisataanPaljonAlkioitaJaPoistetaanPaljonAlkioita" time="0.118" />
+  <testcase classname="KekoTest" name="onkoPieninLukuHuipullaKunLisätäänKekoonSatunnainenMaaraAlkioitaKunArvoiOikein" time="0.001" />
+  <testcase classname="KekoTest" name="onkoPieninLukuHuipullaKunLisätäänKekoonSatunnainenMaaraAlkioitaKunArvoiVaarin" time="0.002" />
+  <testcase classname="KekoTest" name="testataanPalaittaakoEmptyOikeanArvonJosEiTyhja" time="0.0" />
+  <testcase classname="KekoTest" name="onkoKekoTaulukonKokoOikeinKunLisataanPaljonAlkioita" time="0.004" />
+  <testcase classname="KekoTest" name="keossaKahdeksanAlkiotaKunKahdeksanUuttaAlkiotaLisattyTyhjaanKekoon" time="0.0" />
   <testcase classname="KekoTest" name="keonKokoOikeinKunLuodaanUusiKeko" time="0.0" />
-  <testcase classname="KekoTest" name="tyhjaanKekoonLisataanPaljonAlkioita" time="0.015" />
-  <testcase classname="KekoTest" name="poistetaanKekostaJossaPaljonAlkioita" time="0.037" />
-  <testcase classname="KekoTest" name="poistetaanLiikaaKekostaJossaPaljonAlkioita" time="0.013" />
-  <system-out><![CDATA[]]></system-out>
+  <testcase classname="KekoTest" name="tyhjaanKekoonLisataanPaljonAlkioita" time="0.004" />
+  <testcase classname="KekoTest" name="poistetaanKekostaJossaPaljonAlkioita" time="0.022" />
+  <testcase classname="KekoTest" name="poistetaanLiikaaKekostaJossaPaljonAlkioita" time="0.022" />
+  <testcase classname="KekoTest" name="testataanPalaittaakoEmptyOikeanArvonJosTyhja" time="0.0" />
+  <testcase classname="KekoTest" name="vartaillaaKeonNopeuttaPriorityQueue" time="6.056">
+    <failure type="junit.framework.AssertionFailedError">junit.framework.AssertionFailedError
+	at KekoTest.vartaillaaKeonNopeuttaPriorityQueue(KekoTest.java:163)
+</failure>
+  </testcase>
+  <testcase classname="KekoTest" name="tulostuukoKekoOikein" time="0.001" />
+  <system-out><![CDATA[EMMA: collecting runtime coverage data ...
+keko taulukon koko=10
+PqTotal=10.0 KekoTotal=2.0 Tulos= 5.0
+PqTotal=4.0 KekoTotal=4.0 Tulos= 1.0
+PqTotal=46.0 KekoTotal=7.0 Tulos= 6.571428571428571
+PqTotal=2.0 KekoTotal=7.0 Tulos= 0.2857142857142857
+PqTotal=5.0 KekoTotal=21.0 Tulos= 0.23809523809523808
+PqTotal=10.0 KekoTotal=70.0 Tulos= 0.14285714285714285
+PqTotal=21.0 KekoTotal=57.0 Tulos= 0.3684210526315789
+PqTotal=2412.0 KekoTotal=170.0 Tulos= 14.188235294117646
+PqTotal=85.0 KekoTotal=3117.0 Tulos= 0.027269810715431504
+Etäisyys = 1.0 X = 0 Y = 0
+Etäisyys = 2.0 X = 0 Y = 0
+Etäisyys = 3.0 X = 0 Y = 0
+Etäisyys = 9.0 X = 0 Y = 0
+Etäisyys = 8.0 X = 0 Y = 0
+Etäisyys = 7.0 X = 0 Y = 0
+Etäisyys = 5.0 X = 0 Y = 0
+
+]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

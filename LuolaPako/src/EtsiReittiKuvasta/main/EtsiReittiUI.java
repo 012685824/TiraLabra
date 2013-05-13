@@ -38,8 +38,8 @@ public class EtsiReittiUI extends javax.swing.JFrame {
      * Creates new form LuolaPakoUI
      */
     static boolean piste = true;// Apu muuttuja kun koordinaatteja valitaan.
-    static String tiedostojenSijainti = "C:/Users/Toni/Documents/GitHub/TiraLabra/LuolaPako/src";
-    static int xAlkuPiste = 0, yAlkuPiste = 0, xLoppuPiste = 0, yLoppuPiste = 0, valinta = 0;
+    static String tiedostojenSijainti = "src";
+    static int xAlkuPiste = 1, yAlkuPiste = 1, xLoppuPiste = 1, yLoppuPiste = 1, valinta = 0;
 
     public EtsiReittiUI() throws FileNotFoundException, IOException {
         initComponents();
@@ -50,7 +50,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
 
     private void valintaListanTiedot() throws FileNotFoundException, IOException {
         //Kuvien valinta listan tiedot ovat talletettu tiedostoon mistä me pitää ensin hakea
-        FileInputStream asetuksetTiedosto = new FileInputStream(tiedostojenSijainti + "/asetukset.txt");
+        FileInputStream asetuksetTiedosto = new FileInputStream(tiedostojenSijainti+"/asetukset.txt");
         //Tehdään uusi Scanner että saadaan luettua tiedosto rivi kerrallaan.
         final Scanner tiedotTiedostosta = new Scanner(asetuksetTiedosto, "UTF-8");
         //Luodaan ArrayList koska ei tiedetä valinta listan kokoa
@@ -540,7 +540,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
             // Päivitetään valinta listan tiedot uudella kuvalla
             FileWriter asetuksetTiedosto = new FileWriter(tiedostojenSijainti + "/asetukset.txt");
             BufferedWriter asennusTiedostonPaivitys = new BufferedWriter(asetuksetTiedosto);
-            for (int i = 0; i <= kuvaLista.getLastVisibleIndex(); i++) {
+            for (int i = 0; i <= (kuvaLista.getModel().getSize() - 1); i++) {
                 asennusTiedostonPaivitys.write(kuvaLista.getModel().getElementAt(i).toString() + "\n");
             }
             asennusTiedostonPaivitys.write("Kuva" + ((kuvaLista.getModel().getSize() - 1) + 2));
