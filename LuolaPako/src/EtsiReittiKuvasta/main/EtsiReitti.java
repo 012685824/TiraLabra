@@ -24,7 +24,8 @@ public class EtsiReitti {
     static Keko K = new Keko();
     static String ratkaisuKuvanTiedostonSijainti = "C:/Users/Toni/Documents/GitHub/TiraLabra/LuolaPako/src/Kuvat/ratkaisu.bmp";
     static double reitinPituus = 0;
-    
+    static String testiVirhe = "";
+
     public static void main(String[] args) {
     }
 
@@ -32,10 +33,11 @@ public class EtsiReitti {
         //Luodaan BufferedImage ratkaistavan kuvan käsittelyä varten ja nollataan reitin pituus joka kerta kun uuttä kuvaa aletaan ratkaisemaan.
         BufferedImage kuva = null;
         reitinPituus = 0;
+        testiVirhe = "";
         kuva = haeKuva(tiedostonNimi); //haetaan kuva tiedosto käsittetyyn.
         /*System.out.println(tiedostonNimi); //tulostuksia toiminnan tarkastelua varten
-        System.out.println("xa=" + xAlkuPiste + "ya=" + yAlkuPiste + "xl=" + xLoppuPiste + "yl=" + yLoppuPiste);
-        System.out.println("valinta=" + valinta);*/
+         System.out.println("xa=" + xAlkuPiste + "ya=" + yAlkuPiste + "xl=" + xLoppuPiste + "yl=" + yLoppuPiste);
+         System.out.println("valinta=" + valinta);*/
         kuvaTaulu = new int[kuva.getWidth()][kuva.getHeight()]; // Luodaan oikean kokoinen taulukosta
 
         haeVaritKuvatauluun(kuva); //Haetaan kuvaTauluun kuvan väri koodit
@@ -43,7 +45,7 @@ public class EtsiReitti {
         switch (valinta) {
 
             case 0:
-                Dijkstra D = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste); 
+                Dijkstra D = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
                 D.ratkaise();
                 //tulostaEtaisyyde(D.getSijaintiTaulu());
                 piirraReitti(D.getSijaintiTaulu(), kuva, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
@@ -59,7 +61,7 @@ public class EtsiReitti {
                 Dijkstra8 D8 = new Dijkstra8(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
                 D8.ratkaise();
                 piirraReitti(D8.getSijaintiTaulu(), kuva, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
-                break;
+            //break;
         }
 
     }
@@ -72,6 +74,7 @@ public class EtsiReitti {
 
         } catch (IOException e) {
             System.out.println(e); // Tulostetaan virhe jos sellainen tulee
+            testiVirhe = e.toString();
         }
         return ratkaistavaKuva; // Palautetaan kuva onnistuneen latauksen jälkeen
     }
@@ -84,7 +87,12 @@ public class EtsiReitti {
 
         } catch (IOException e) {
             System.out.println(e); // Tulostetaan virhe jos sellainen tulee
+            testiVirhe = e.toString();
         }
+    }
+
+    public static String testiVirhe() {
+        return testiVirhe;
     }
 
     public static void piirraReitti(Sijainti[][] sijaintiTaulu, BufferedImage kuva, int xAlku, int yAlku, int xLoppu, int yLoppu) {
@@ -97,12 +105,13 @@ public class EtsiReitti {
         int b = 230;// blue component 0...255
         int col = (r << 16) | (g << 8) | b;
         //<--
+        reitinPituus = sijaintiTaulu[xLoppu][yLoppu].getEtaisyys();
         BufferedImage kuvaRatkaisu = null;
         kuvaRatkaisu = kuva;
         kuvaRatkaisu.setRGB(xLoppu, yLoppu, col);//Lisätään ensimmäinen piste
         //Käydään reitti läpi ja "piirretään" reitti
         while (x != xAlku || y != yAlku) {
-            reitinPituus = reitinPituus + sijaintiTaulu[x][y].getEtaisyys();
+
             kuvaRatkaisu.setRGB(x, y, col);
             xApu = sijaintiTaulu[x][y].getX();
             y = sijaintiTaulu[x][y].getY();
@@ -120,17 +129,17 @@ public class EtsiReitti {
         }
 
     }
-
-    public static void tulostaEtaisyyde(Sijainti[][] sijainti) {
-        System.out.println("");
-        for (int y = 0; y < sijainti[0].length; y++) { // testi tulostus toimiiko
-            for (int x = 0; x < sijainti.length; x++) {
-                System.out.print(sijainti[x][y].getEtaisyys() + "\t");
-            }
-            System.out.println("");
-        }
+    
+    public static int[][] testiGetKuvaTaulu() {
+        return kuvaTaulu;
     }
-    public double getReitinPituus(){
-        return this.reitinPituus;
+
+    public static double reitinPituus() {
+        return reitinPituus;
+    }
+
+
+    public static void setKuvaTaulu(int[][] kuvaTaulu) {
+        EtsiReitti.kuvaTaulu = kuvaTaulu;
     }
 }

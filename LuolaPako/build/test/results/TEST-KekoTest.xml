@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="1" hostname="Toni-THINK" name="KekoTest" tests="13" time="6.305" timestamp="2013-05-13T11:53:37">
+<testsuite errors="0" failures="1" hostname="Toni-THINK" name="KekoTest" tests="14" time="1.93" timestamp="2013-05-15T12:56:12">
   <properties>
     <property name="libs.jsp-compiler.javadoc" value="" />
     <property name="netbeans.autoupdate.country" value="FI" />
@@ -66,7 +66,7 @@
     <property name="manifest.available+main.class" value="true" />
     <property name="libs.spring-webmvc3.0.maven-pom" value="" />
     <property name="libs.swing-layout.maven-pom" value="" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner KekoTest filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\Toni\Documents\GitHub\TiraLabra\LuolaPako\build\test\results\TEST-KekoTest.xml crashfile=C:\Users\Toni\Documents\GitHub\TiraLabra\LuolaPako\build\junitvmwatcher2878375898078844894.properties propsfile=C:\Users\Toni\Documents\GitHub\TiraLabra\LuolaPako\build\junit7763224384849518004.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner KekoTest filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\Toni\Documents\GitHub\TiraLabra\LuolaPako\build\test\results\TEST-KekoTest.xml crashfile=C:\Users\Toni\Documents\GitHub\TiraLabra\LuolaPako\build\junitvmwatcher4620946073282892625.properties propsfile=C:\Users\Toni\Documents\GitHub\TiraLabra\LuolaPako\build\junit1924964388861569212.properties" />
     <property name="build.classes.dir" value="build/classes" />
     <property name="netbeans.accept_license_class" value="org.netbeans.license.AcceptLicense" />
     <property name="jnlp.descriptor" value="application" />
@@ -458,34 +458,34 @@
     <property name="platform.active" value="default_platform" />
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
   </properties>
-  <testcase classname="KekoTest" name="onkoKekoTaulukonKokoOikeinKunLisataanPaljonAlkioitaJaPoistetaanPaljonAlkioita" time="0.118" />
-  <testcase classname="KekoTest" name="onkoPieninLukuHuipullaKunLisätäänKekoonSatunnainenMaaraAlkioitaKunArvoiOikein" time="0.001" />
-  <testcase classname="KekoTest" name="onkoPieninLukuHuipullaKunLisätäänKekoonSatunnainenMaaraAlkioitaKunArvoiVaarin" time="0.002" />
-  <testcase classname="KekoTest" name="testataanPalaittaakoEmptyOikeanArvonJosEiTyhja" time="0.0" />
-  <testcase classname="KekoTest" name="onkoKekoTaulukonKokoOikeinKunLisataanPaljonAlkioita" time="0.004" />
-  <testcase classname="KekoTest" name="keossaKahdeksanAlkiotaKunKahdeksanUuttaAlkiotaLisattyTyhjaanKekoon" time="0.0" />
-  <testcase classname="KekoTest" name="keonKokoOikeinKunLuodaanUusiKeko" time="0.0" />
-  <testcase classname="KekoTest" name="tyhjaanKekoonLisataanPaljonAlkioita" time="0.004" />
-  <testcase classname="KekoTest" name="poistetaanKekostaJossaPaljonAlkioita" time="0.022" />
-  <testcase classname="KekoTest" name="poistetaanLiikaaKekostaJossaPaljonAlkioita" time="0.022" />
+  <testcase classname="KekoTest" name="keonKokoOikeinKunLuodaanUusiKeko" time="0.041" />
+  <testcase classname="KekoTest" name="tyhjaanKekoonLisataanPaljonAlkioita" time="0.021" />
+  <testcase classname="KekoTest" name="poistetaanKekostaJossaPaljonAlkioita" time="0.063" />
+  <testcase classname="KekoTest" name="poistetaanLiikaaKekostaJossaPaljonAlkioita" time="0.025" />
   <testcase classname="KekoTest" name="testataanPalaittaakoEmptyOikeanArvonJosTyhja" time="0.0" />
-  <testcase classname="KekoTest" name="vartaillaaKeonNopeuttaPriorityQueue" time="6.056">
+  <testcase classname="KekoTest" name="vartaillaaKeonNopeuttaPriorityQueue" time="1.673">
     <failure type="junit.framework.AssertionFailedError">junit.framework.AssertionFailedError
 	at KekoTest.vartaillaaKeonNopeuttaPriorityQueue(KekoTest.java:163)
 </failure>
   </testcase>
-  <testcase classname="KekoTest" name="tulostuukoKekoOikein" time="0.001" />
+  <testcase classname="KekoTest" name="keossaKahdeksanAlkiotaKunKahdeksanUuttaAlkiotaLisattyTyhjaanKekoon" time="0.0" />
+  <testcase classname="KekoTest" name="onkoKekoTaulukonKokoOikeinKunLisataanPaljonAlkioitaJaPoistetaanPaljonAlkioita" time="0.022" />
+  <testcase classname="KekoTest" name="onkoPieninLukuHuipullaKunLisätäänKekoonSatunnainenMaaraAlkioitaKunArvoiOikein" time="0.002" />
+  <testcase classname="KekoTest" name="onkoPieninLukuHuipullaKunLisätäänKekoonSatunnainenMaaraAlkioitaKunArvoiVaarin" time="0.001" />
+  <testcase classname="KekoTest" name="tulostuukoKekoOikein" time="0.0" />
+  <testcase classname="KekoTest" name="tulostuukoKekoOikeinKunTyhja" time="0.0" />
+  <testcase classname="KekoTest" name="testataanPalaittaakoEmptyOikeanArvonJosEiTyhja" time="0.0" />
+  <testcase classname="KekoTest" name="onkoKekoTaulukonKokoOikeinKunLisataanPaljonAlkioita" time="0.004" />
   <system-out><![CDATA[EMMA: collecting runtime coverage data ...
-keko taulukon koko=10
 PqTotal=10.0 KekoTotal=2.0 Tulos= 5.0
-PqTotal=4.0 KekoTotal=4.0 Tulos= 1.0
-PqTotal=46.0 KekoTotal=7.0 Tulos= 6.571428571428571
-PqTotal=2.0 KekoTotal=7.0 Tulos= 0.2857142857142857
-PqTotal=5.0 KekoTotal=21.0 Tulos= 0.23809523809523808
-PqTotal=10.0 KekoTotal=70.0 Tulos= 0.14285714285714285
-PqTotal=21.0 KekoTotal=57.0 Tulos= 0.3684210526315789
-PqTotal=2412.0 KekoTotal=170.0 Tulos= 14.188235294117646
-PqTotal=85.0 KekoTotal=3117.0 Tulos= 0.027269810715431504
+PqTotal=3.0 KekoTotal=5.0 Tulos= 0.6
+PqTotal=7.0 KekoTotal=8.0 Tulos= 0.875
+PqTotal=11.0 KekoTotal=6.0 Tulos= 1.8333333333333333
+PqTotal=5.0 KekoTotal=24.0 Tulos= 0.20833333333333334
+PqTotal=10.0 KekoTotal=28.0 Tulos= 0.35714285714285715
+PqTotal=55.0 KekoTotal=59.0 Tulos= 0.9322033898305084
+PqTotal=57.0 KekoTotal=1378.0 Tulos= 0.041364296081277216
+keko taulukon koko=10
 Etäisyys = 1.0 X = 0 Y = 0
 Etäisyys = 2.0 X = 0 Y = 0
 Etäisyys = 3.0 X = 0 Y = 0
@@ -494,6 +494,7 @@ Etäisyys = 8.0 X = 0 Y = 0
 Etäisyys = 7.0 X = 0 Y = 0
 Etäisyys = 5.0 X = 0 Y = 0
 
+Keko tyhjä
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

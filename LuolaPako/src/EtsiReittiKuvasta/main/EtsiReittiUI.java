@@ -14,6 +14,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -46,11 +47,15 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         jFileChooser1.setVisible(false);//Piillotetaan tiedosto valitsin
         frame.setVisible(false);//Piillotetaan virhe ikkuna
         valintaListanTiedot();//Päivitetään tiedostojen valinta valinta lista 
+        kuvanAlkuPiste.setText("" + 0);
+        kuvanLoppuPiste.setText("" + 0);
+        reitinPituus.setText("" + 0);
+        kulunutAika.setText("" + 0);
     }
 
     private void valintaListanTiedot() throws FileNotFoundException, IOException {
         //Kuvien valinta listan tiedot ovat talletettu tiedostoon mistä me pitää ensin hakea
-        FileInputStream asetuksetTiedosto = new FileInputStream(tiedostojenSijainti+"/asetukset.txt");
+        FileInputStream asetuksetTiedosto = new FileInputStream(tiedostojenSijainti + "/asetukset.txt");
         //Tehdään uusi Scanner että saadaan luettua tiedosto rivi kerrallaan.
         final Scanner tiedotTiedostosta = new Scanner(asetuksetTiedosto, "UTF-8");
         //Luodaan ArrayList koska ei tiedetä valinta listan kokoa
@@ -99,7 +104,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         bellmanFord = new javax.swing.JCheckBox();
         jCheckBox3 = new javax.swing.JCheckBox();
         kuvanAlkuPiste = new javax.swing.JTextField();
-        loppuPisteText = new javax.swing.JTextField();
+        kuvanLoppuPiste = new javax.swing.JTextField();
         jTextField1 = new javax.swing.JTextField();
         ratkaisuKentta = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
@@ -112,7 +117,6 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         jTextField4 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(50000, 50000));
         setMinimumSize(new java.awt.Dimension(50, 50));
         setPreferredSize(new java.awt.Dimension(1000, 850));
         setResizable(false);
@@ -212,7 +216,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         );
         frameLayout.setVerticalGroup(
             frameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
+            .addGap(0, 52, Short.MAX_VALUE)
         );
 
         jTextField3.setEditable(false);
@@ -266,7 +270,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(loppuPisteText, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(kuvanLoppuPiste, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(ratkaisuKentta)
@@ -313,7 +317,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(kuvanAlkuPiste, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(loppuPisteText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(kuvanLoppuPiste, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -345,6 +349,10 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(EtsiReittiUI.class.getName()).log(Level.SEVERE, null, ex);
         }
+        kuvanAlkuPiste.setText("" + 0);
+        kuvanLoppuPiste.setText("" + 0);
+        reitinPituus.setText("" + 0);
+        kulunutAika.setText("" + 0);
 
     }//GEN-LAST:event_kuvaListaMouseClicked
 
@@ -368,7 +376,8 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         long endTime = System.currentTimeMillis();
         long totalTime = endTime - startTime;
         kulunutAika.setText(totalTime + "ms");
-        reitinPituus.setText(EtsiReitti.reitinPituus + "");
+        DecimalFormat df = new DecimalFormat("#.##");
+        reitinPituus.setText(df.format(EtsiReitti.reitinPituus) + "");
 
     }//GEN-LAST:event_RatkaiseMouseClicked
     private void muutaRatkaisuKuvaBmpToJpg() {
@@ -397,7 +406,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
             yAlkuPiste = evt.getY();
             piste = false;
         } else {
-            loppuPisteText.setText(evt.getPoint().toString().substring(14));
+            kuvanLoppuPiste.setText(evt.getPoint().toString().substring(14));
             xLoppuPiste = evt.getX();
             yLoppuPiste = evt.getY();
             piste = true;
@@ -488,6 +497,10 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(EtsiReittiUI.class.getName()).log(Level.SEVERE, null, ex);
         }
+        kuvanAlkuPiste.setText("" + 0);
+        kuvanLoppuPiste.setText("" + 0);
+        reitinPituus.setText("" + 0);
+        kulunutAika.setText("" + 0);
     }//GEN-LAST:event_poistaKuvaMouseClicked
 
     private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
@@ -549,6 +562,10 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(EtsiReittiUI.class.getName()).log(Level.SEVERE, null, ex);
         }
+        kuvanAlkuPiste.setText("" + 0);
+        kuvanLoppuPiste.setText("" + 0);
+        reitinPituus.setText("" + 0);
+        kulunutAika.setText("" + 0);
 
 
     }
@@ -610,8 +627,8 @@ public class EtsiReittiUI extends javax.swing.JFrame {
     private javax.swing.JLabel kuvaKentta;
     private javax.swing.JList kuvaLista;
     private javax.swing.JTextField kuvanAlkuPiste;
+    private javax.swing.JTextField kuvanLoppuPiste;
     private javax.swing.JButton lisaaUusiKuva;
-    private javax.swing.JTextField loppuPisteText;
     private javax.swing.JButton poistaKuva;
     private javax.swing.JLabel ratkaisuKentta;
     private javax.swing.JTextField reitinPituus;

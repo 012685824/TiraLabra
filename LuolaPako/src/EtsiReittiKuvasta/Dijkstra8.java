@@ -105,7 +105,7 @@ public class Dijkstra8 {
         return this.sijaintiTaulu;
     }
 
-    public void tulostaReitti() {
+ /*   public void tulostaReitti() {
         int x = xLoppu;     //Annetaan tulostukseen reitin alkupiste
         int y = yLoppu;
         int xApu = 0;
@@ -117,15 +117,6 @@ public class Dijkstra8 {
             x = xApu;
         }
     }
+*/
 
-    public void tulostaKaikki() {
-        for (int y = 0; y < yLoppu; y++) {
-            for (int x = 0; x < xLoppu; x++) {
-                System.out.print("X=" + sijaintiTaulu[x][y].getX() + " Y=" + sijaintiTaulu[x][y].getY() + "\t\t");
-            }
-            System.out.println("");
-            System.out.println("");
-        }
-
-    }
 }

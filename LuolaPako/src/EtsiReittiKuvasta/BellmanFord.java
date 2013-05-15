@@ -28,7 +28,7 @@ public class BellmanFord {
 
     public void ratkaise() {
         initialiseSingleSource(); // Kutsutaan muutujien alustus ..
-        for (int i = 0; i < kuvaTaulu.length*2; i++) {
+        for (int i = 0; i < kuvaTaulu.length*kuvaTaulu[0].length; i++) {
             for (int y = 0; y < kuvaTaulu[0].length; y++) {
                 for (int x = 0; x < kuvaTaulu.length; x++) {
                     
@@ -74,7 +74,7 @@ public class BellmanFord {
     public Sijainti[][] getSijaintiTaulu() {
         return this.sijaintiTaulu;
     }
-
+/*
     public void tulostaReitti() {
         int x = xLoppuPiste;     //Annetaan tulostukseen reitin alkupiste
         int y = yLoppuPiste;
@@ -97,5 +97,5 @@ public class BellmanFord {
             System.out.println("");
         }
 
-    }
+    }*/
 }

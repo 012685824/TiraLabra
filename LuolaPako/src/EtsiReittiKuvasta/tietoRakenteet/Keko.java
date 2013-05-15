@@ -4,6 +4,8 @@
  */
 package EtsiReittiKuvasta.tietoRakenteet;
 
+import EtsiReittiKuvasta.main.EtsiReitti;
+
 /**
  *
  * @author Toni
@@ -173,7 +175,9 @@ public class Keko {
 
     public String apuTestiTulostus() {
         tulosta();
+     
         return apuTestiTulostusString;
+        
     }
 
     public void tulosta() { //tulostetaan keko taulukko muodossa.
