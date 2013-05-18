@@ -116,6 +116,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
         Astar = new javax.swing.JCheckBox();
+        kaydytPisteet = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(50, 50));
@@ -217,7 +218,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         );
         frameLayout.setVerticalGroup(
             frameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 136, Short.MAX_VALUE)
         );
 
         jTextField3.setEditable(false);
@@ -237,6 +238,9 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         Astar.setMnemonic('3');
         Astar.setText("Astar");
 
+        kaydytPisteet.setMnemonic('c');
+        kaydytPisteet.setText("Näytetään kaikki käydyt pisteet");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -246,7 +250,6 @@ public class EtsiReittiUI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bellmanFord)
                             .addComponent(Dijkstra8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(poistaKuva))
@@ -261,9 +264,13 @@ public class EtsiReittiUI extends javax.swing.JFrame {
                                 .addGap(96, 96, 96)))
                         .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(dijkstra)
-                        .addGap(30, 30, 30)
-                        .addComponent(Astar)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dijkstra)
+                            .addComponent(bellmanFord))
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(kaydytPisteet)
+                            .addComponent(Astar))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(127, 127, 127))
             .addGroup(layout.createSequentialGroup()
@@ -311,7 +318,9 @@ public class EtsiReittiUI extends javax.swing.JFrame {
                             .addComponent(dijkstra, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Astar))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bellmanFord)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(bellmanFord)
+                            .addComponent(kaydytPisteet))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Dijkstra8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -360,8 +369,8 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(EtsiReittiUI.class.getName()).log(Level.SEVERE, null, ex);
         }
-        kuvanAlkuPiste.setText("" + 0);
-        kuvanLoppuPiste.setText("" + 0);
+        kuvanAlkuPiste.setText("" + 1);
+        kuvanLoppuPiste.setText("" + 1);
         reitinPituus.setText("" + 0);
         kulunutAika.setText("" + 0);
 
@@ -373,7 +382,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         long startTime = System.currentTimeMillis();
         valinta = valintaRuudut.getSelection().getMnemonic() - 48;
         //Kutsutaan ratkaisijaa ja kutsutaan muutaRatkaisuKuvaBmpToJpg koska ikoneina ei voi olla bmp kuvia
-        EtsiReitti.ratkaise(tiedostojenSijainti + "/Kuvat/kuva" + kuvaLista.getAnchorSelectionIndex() + ".bmp", xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste, valinta);
+        EtsiReitti.ratkaise(tiedostojenSijainti + "/Kuvat/kuva" + kuvaLista.getAnchorSelectionIndex() + ".bmp", xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste, valinta, kaydytPisteet.getSelectedObjects());
         muutaRatkaisuKuvaBmpToJpg();
 
         String tiedostonNimi = "/Kuvat/ratkaisu.jpg";
@@ -580,7 +589,14 @@ public class EtsiReittiUI extends javax.swing.JFrame {
 
 
     }
-
+    private static javax.swing.JInternalFrame frame1;
+    
+    
+    public static void virhe(String viesti){
+      
+        JOptionPane.showMessageDialog(frame1, viesti);
+        
+    }
     /**
      * @param args the command line arguments
      */
@@ -635,6 +651,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JCheckBox kaydytPisteet;
     private javax.swing.JTextField kulunutAika;
     private javax.swing.JLabel kuvaKentta;
     private javax.swing.JList kuvaLista;
