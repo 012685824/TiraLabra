@@ -4,6 +4,7 @@
  */
 package EtsiReittiKuvasta.main;
 
+import EtsiReittiKuvasta.Astar;
 import EtsiReittiKuvasta.BellmanFord;
 import EtsiReittiKuvasta.Dijkstra;
 import EtsiReittiKuvasta.Dijkstra8;
@@ -25,6 +26,7 @@ public class EtsiReitti {
     static String ratkaisuKuvanTiedostonSijainti = "C:/Users/Toni/Documents/GitHub/TiraLabra/LuolaPako/src/Kuvat/ratkaisu.bmp";
     static double reitinPituus = 0;
     static String testiVirhe = "";
+    static long kertojaAstariin = 0;
 
     public static void main(String[] args) {
     }
@@ -36,8 +38,8 @@ public class EtsiReitti {
         testiVirhe = "";
         kuva = haeKuva(tiedostonNimi); //haetaan kuva tiedosto käsittetyyn.
         /*System.out.println(tiedostonNimi); //tulostuksia toiminnan tarkastelua varten
-         System.out.println("xa=" + xAlkuPiste + "ya=" + yAlkuPiste + "xl=" + xLoppuPiste + "yl=" + yLoppuPiste);
-         System.out.println("valinta=" + valinta);*/
+         System.out.println("xa=" + xAlkuPiste + "ya=" + yAlkuPiste + "xl=" + xLoppuPiste + "yl=" + yLoppuPiste);*/
+         System.out.println("valinta=" + valinta);
         kuvaTaulu = new int[kuva.getWidth()][kuva.getHeight()]; // Luodaan oikean kokoinen taulukosta
 
         haeVaritKuvatauluun(kuva); //Haetaan kuvaTauluun kuvan väri koodit
@@ -61,6 +63,11 @@ public class EtsiReitti {
                 Dijkstra8 D8 = new Dijkstra8(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
                 D8.ratkaise();
                 piirraReitti(D8.getSijaintiTaulu(), kuva, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+                break;
+            case 3:
+                Astar AS = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+                AS.ratkaise();
+                piirraReitti(AS.getSijaintiTaulu(), kuva, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
             //break;
         }
 
@@ -110,6 +117,16 @@ public class EtsiReitti {
         kuvaRatkaisu = kuva;
         kuvaRatkaisu.setRGB(xLoppu, yLoppu, col);//Lisätään ensimmäinen piste
         //Käydään reitti läpi ja "piirretään" reitti
+        
+        for (int y1 = 0; y1 < kuvaTaulu[0].length; y1++) {
+            for (int x1 = 0; x1 < kuvaTaulu.length; x1++) {
+                
+                if(sijaintiTaulu[x1][y1].getEtaisyys() != Double.MAX_VALUE / 2){
+                    
+                kuvaRatkaisu.setRGB(x1, y1, 10000);
+                }
+            }
+        }
         while (x != xAlku || y != yAlku) {
 
             kuvaRatkaisu.setRGB(x, y, col);
@@ -118,6 +135,7 @@ public class EtsiReitti {
             x = xApu;
         }
         kuvaRatkaisu.setRGB(xAlku, yAlku, col);//lisätään viimeinen piste
+        
         talletaKuva(kuvaRatkaisu);//talletetaan valmis kuva
     }
 
@@ -125,9 +143,14 @@ public class EtsiReitti {
         for (int y = 0; y < kuvaTaulu[0].length; y++) {
             for (int x = 0; x < kuvaTaulu.length; x++) {
                 kuvaTaulu[x][y] = -kuva.getRGB(x, y); // haetaan RGB värin arvo taulukkoon.
+                kertojaAstariin += -kuva.getRGB(x, y);
             }
         }
-
+        kertojaAstariin /= ((kuvaTaulu.length*kuvaTaulu[0].length));
+        System.out.println("kertoja=" + kertojaAstariin);
+    }
+    public static long getKertojaAstariin(){
+        return kertojaAstariin;
     }
     
     public static int[][] testiGetKuvaTaulu() {

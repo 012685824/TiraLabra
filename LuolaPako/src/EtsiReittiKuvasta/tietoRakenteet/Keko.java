@@ -20,7 +20,7 @@ public class Keko {
     //Konstruktori luo minimikeon jonka maksimi koko on 10
     //keonkoko muuttuja kertoo sen hetkisen keon koon.
     public Keko() {
-        keko = new Sijainti[10];
+        keko = new Sijainti[100000];
         keonKoko = 0;
 
     }
@@ -61,7 +61,7 @@ public class Keko {
 
     public Sijainti poista() {
         if (keko.length / 2 > keonKoko && keonKoko >= 9) {
-            pienennaKeko();
+            //pienennaKeko();
         }
         Sijainti apu = new Sijainti(0, 0, 0);
         if (keonKoko == 0) {
@@ -199,7 +199,7 @@ public class Keko {
         System.arraycopy(keko, 0, kekoApuIso, 0, keko.length);
         keko = new Sijainti[kekoApuIso.length];
         System.arraycopy(kekoApuIso, 0, keko, 0, kekoApuIso.length);
-
+        System.out.println("Keon koko = " + keko.length);
     }
 
     private void pienennaKeko() {

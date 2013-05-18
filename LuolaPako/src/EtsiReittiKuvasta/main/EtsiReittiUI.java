@@ -47,8 +47,8 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         jFileChooser1.setVisible(false);//Piillotetaan tiedosto valitsin
         frame.setVisible(false);//Piillotetaan virhe ikkuna
         valintaListanTiedot();//Päivitetään tiedostojen valinta valinta lista 
-        kuvanAlkuPiste.setText("" + 0);
-        kuvanLoppuPiste.setText("" + 0);
+        kuvanAlkuPiste.setText("" + 1);
+        kuvanLoppuPiste.setText("" + 1);
         reitinPituus.setText("" + 0);
         kulunutAika.setText("" + 0);
     }
@@ -102,7 +102,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         lisaaUusiKuva = new javax.swing.JButton();
         dijkstra = new javax.swing.JCheckBox();
         bellmanFord = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
+        Dijkstra8 = new javax.swing.JCheckBox();
         kuvanAlkuPiste = new javax.swing.JTextField();
         kuvanLoppuPiste = new javax.swing.JTextField();
         jTextField1 = new javax.swing.JTextField();
@@ -115,6 +115,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         reitinPituus = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
+        Astar = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(50, 50));
@@ -167,9 +168,9 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         bellmanFord.setMnemonic('1');
         bellmanFord.setText("Bellman Ford");
 
-        valintaRuudut.add(jCheckBox3);
-        jCheckBox3.setMnemonic('2');
-        jCheckBox3.setText("Dijkstra8");
+        valintaRuudut.add(Dijkstra8);
+        Dijkstra8.setMnemonic('2');
+        Dijkstra8.setText("Dijkstra8");
 
         jTextField1.setEditable(false);
         jTextField1.setText(" Alku piste ");
@@ -216,7 +217,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         );
         frameLayout.setVerticalGroup(
             frameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 52, Short.MAX_VALUE)
+            .addGap(0, 100, Short.MAX_VALUE)
         );
 
         jTextField3.setEditable(false);
@@ -232,6 +233,10 @@ public class EtsiReittiUI extends javax.swing.JFrame {
             }
         });
 
+        valintaRuudut.add(Astar);
+        Astar.setMnemonic('3');
+        Astar.setText("Astar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -241,9 +246,8 @@ public class EtsiReittiUI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dijkstra)
                             .addComponent(bellmanFord)
-                            .addComponent(jCheckBox3))
+                            .addComponent(Dijkstra8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(poistaKuva))
                     .addGroup(layout.createSequentialGroup()
@@ -255,7 +259,12 @@ public class EtsiReittiUI extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(frame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(96, 96, 96)))
-                        .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(dijkstra)
+                        .addGap(30, 30, 30)
+                        .addComponent(Astar)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(127, 127, 127))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -298,11 +307,13 @@ public class EtsiReittiUI extends javax.swing.JFrame {
                                 .addComponent(lisaaUusiKuva))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(dijkstra, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(dijkstra, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Astar))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bellmanFord)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox3)
+                        .addComponent(Dijkstra8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Ratkaise)
                         .addGap(44, 44, 44)
@@ -612,11 +623,12 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox Astar;
+    public javax.swing.JCheckBox Dijkstra8;
     private javax.swing.JButton Ratkaise;
     public javax.swing.JCheckBox bellmanFord;
     public javax.swing.JCheckBox dijkstra;
     private javax.swing.JInternalFrame frame;
-    public javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;

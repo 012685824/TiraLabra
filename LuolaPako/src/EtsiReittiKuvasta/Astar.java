@@ -4,6 +4,7 @@
  */
 package EtsiReittiKuvasta;
 
+import EtsiReittiKuvasta.main.EtsiReitti;
 import EtsiReittiKuvasta.tietoRakenteet.Keko;
 import EtsiReittiKuvasta.tietoRakenteet.Sijainti;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class Astar {
     private int xAlku, yAlku, xLoppu, yLoppu;
     private Sijainti[][] sijaintiTaulu;
     private Keko K = new Keko();
+    private long [][] arvioTaulu;
 
     public Astar(int[][] kuvaTaulu, int xAlku, int yAlku, int xLoppu, int yLoppu) {
         this.kuvaTaulu = kuvaTaulu;
@@ -26,6 +28,7 @@ public class Astar {
         this.xLoppu = xLoppu;
         this.yLoppu = yLoppu;
         sijaintiTaulu = new Sijainti[this.kuvaTaulu.length][this.kuvaTaulu[0].length];
+        arvioTaulu = new long[this.kuvaTaulu.length][this.kuvaTaulu[0].length];
     }
 
     public void ratkaise() {
@@ -36,21 +39,40 @@ public class Astar {
         for (int x = 0; x < sijaintiTaulu.length; x++) {        // alustetaan sijaintiTaulu taulukko
             for (int y = 0; y < sijaintiTaulu[0].length; y++) {
                 sijaintiTaulu[x][y] = new Sijainti(0, 0, Double.MAX_VALUE / 2); //asetetaan etäisyys arvoksi suuri arvo
-                sijaintiTaulu[xAlku][yAlku] = new Sijainti(0, 0, 0);            //aloitus kohdan etäisyys arvo asetetaan 0
+                //aloitus kohdan etäisyys arvo asetetaan 0
+
             }
         }
+        sijaintiTaulu[xAlku][yAlku] = new Sijainti(0, 0, 0);
+
+        long kertoja = EtsiReitti.getKertojaAstariin();
+
+       
+        for (int x = 0; x < arvioTaulu[0].length; x++) {
+            for (int y = 0; y < arvioTaulu.length; y++) {
+                arvioTaulu[x][y] = (itseisArvo(xLoppu - x) + itseisArvo(yLoppu - y));
+                //System.out.println(itseisArvo(xLoppu - x) + itseisArvo(yLoppu - y));
+            }
+        }
+
+       /* for (int i = 0; i < sijaintiTaulu.length; i++) {
+            for (int j = 0; j < sijaintiTaulu[0].length; j++) {
+                System.out.print(" "+arvioTaulu[i][j]);
+            }
+            System.out.println("");
+        }*/
     }
 
     private void relax(int xMistaTullaan, int yMistaTullaan, int xMihinMennaan, int yMihinMennaan) {
         // verrataan onko etäisyys arvo suurempi ruudussa mihin ollaan menossa 
         // jos on niin päivitetään se uudella pienemmällä arvolla.
-        if (sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys() > sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan]) { 
+        if (sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys() > sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan]) {
 
             sijaintiTaulu[xMihinMennaan][yMihinMennaan].setEtaisyys(sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan]);
             sijaintiTaulu[xMihinMennaan][yMihinMennaan].setX(xMistaTullaan);
             sijaintiTaulu[xMihinMennaan][yMihinMennaan].setY(yMistaTullaan);
             //Lisätään kekoon uusi arvo.
-            K.lisaa(xMihinMennaan, yMihinMennaan, sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys());
+            K.lisaa(xMihinMennaan, yMihinMennaan, sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys()+arvioTaulu[xMihinMennaan][yMihinMennaan]);
         }
     }
 
@@ -64,16 +86,16 @@ public class Astar {
             sijaintiApu = K.poista();
             // tarkastetaan ollaan taulukon reunassa X tai y akselin suunnassa
             // jos ei niin suoritetaan relax 
-            if (sijaintiApu.getX() + 1 < sijaintiTaulu.length) {     
-                relax(sijaintiApu.getX(), sijaintiApu.getY(), sijaintiApu.getX() + 1, sijaintiApu.getY());    
+            if (sijaintiApu.getX() + 1 < sijaintiTaulu.length) {
+                relax(sijaintiApu.getX(), sijaintiApu.getY(), sijaintiApu.getX() + 1, sijaintiApu.getY());
             }
 
             if (sijaintiApu.getX() - 1 >= 0) {
                 relax(sijaintiApu.getX(), sijaintiApu.getY(), sijaintiApu.getX() - 1, sijaintiApu.getY());
             }
 
-            if (sijaintiApu.getY() + 1 < sijaintiTaulu[0].length) {     
-                relax(sijaintiApu.getX(), sijaintiApu.getY(), sijaintiApu.getX(), sijaintiApu.getY() + 1);    
+            if (sijaintiApu.getY() + 1 < sijaintiTaulu[0].length) {
+                relax(sijaintiApu.getX(), sijaintiApu.getY(), sijaintiApu.getX(), sijaintiApu.getY() + 1);
             }
 
             if (sijaintiApu.getY() - 1 >= 0) {
@@ -108,5 +130,13 @@ public class Astar {
             System.out.println("");
         }
 
+    }
+
+    private static int itseisArvo(int luku) {
+        if (luku < 0) {
+            return -luku;
+        } else {
+            return luku;
+        }
     }
 }
