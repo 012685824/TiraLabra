@@ -218,7 +218,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         );
         frameLayout.setVerticalGroup(
             frameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 136, Short.MAX_VALUE)
+            .addGap(0, 140, Short.MAX_VALUE)
         );
 
         jTextField3.setEditable(false);
@@ -248,20 +248,9 @@ public class EtsiReittiUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Dijkstra8))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(poistaKuva))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap(402, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(lisaaUusiKuva)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(frame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(96, 96, 96)))
+                        .addComponent(frame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(96, 96, 96)
                         .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -300,6 +289,15 @@ public class EtsiReittiUI extends javax.swing.JFrame {
                                     .addComponent(kulunutAika, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addComponent(Ratkaise))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Dijkstra8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(poistaKuva)
+                    .addComponent(lisaaUusiKuva))
+                .addGap(109, 109, 109))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -307,11 +305,12 @@ public class EtsiReittiUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(poistaKuva)
-                                .addGap(31, 31, 31)
-                                .addComponent(lisaaUusiKuva))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lisaaUusiKuva)
+                                .addGap(55, 55, 55))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -373,12 +372,17 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         kuvanLoppuPiste.setText("" + 1);
         reitinPituus.setText("" + 0);
         kulunutAika.setText("" + 0);
+        xAlkuPiste = 1;
+        xLoppuPiste = 1;
+        yAlkuPiste = 1;
+        yLoppuPiste = 1;
 
     }//GEN-LAST:event_kuvaListaMouseClicked
 
     private void RatkaiseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RatkaiseMouseClicked
         // TODO add your handling code here:
         //Kun ratkaisu painiketta painetaan niin ensin aloitetaan ajan otto ja haetaan valintaruudusta tiedo mitä algoritmiä käytetään.
+
         long startTime = System.currentTimeMillis();
         valinta = valintaRuudut.getSelection().getMnemonic() - 48;
         //Kutsutaan ratkaisijaa ja kutsutaan muutaRatkaisuKuvaBmpToJpg koska ikoneina ei voi olla bmp kuvia
@@ -517,8 +521,8 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(EtsiReittiUI.class.getName()).log(Level.SEVERE, null, ex);
         }
-        kuvanAlkuPiste.setText("" + 0);
-        kuvanLoppuPiste.setText("" + 0);
+        kuvanAlkuPiste.setText("" + 1);
+        kuvanLoppuPiste.setText("" + 1);
         reitinPituus.setText("" + 0);
         kulunutAika.setText("" + 0);
     }//GEN-LAST:event_poistaKuvaMouseClicked
@@ -558,11 +562,13 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         File uusiKuvaTiedostoBmp = new File(tiedostojenSijainti + "/Kuvat/kuva" + ((kuvaLista.getModel().getSize() - 1) + 1) + ".bmp");
         try {
             uusiKuva = ImageIO.read(uusiTiedosto); // Ladataan käsiteltävä kuva uusiKuva muuttujaan
-            BufferedImage uusiKokoKuvaan = new BufferedImage(450, 450, 1);
-            Graphics2D g = uusiKokoKuvaan.createGraphics();
-            g.drawImage(uusiKuva, 0, 0, 450, 450, null);
-            g.dispose();
-            uusiKuva = uusiKokoKuvaan;
+            if (uusiKuva.getHeight() > 450 || uusiKuva.getWidth() > 450) {
+                BufferedImage uusiKokoKuvaan = new BufferedImage(450, 450, 1);
+                Graphics2D g = uusiKokoKuvaan.createGraphics();
+                g.drawImage(uusiKuva, 0, 0, 450, 450, null);
+                g.dispose();
+                uusiKuva = uusiKokoKuvaan;
+            }
             ImageIO.write(uusiKuva, "jpg", uusiKuvaTiedostoJpg);
             ImageIO.write(uusiKuva, "bmp", uusiKuvaTiedostoBmp);
 
@@ -590,13 +596,13 @@ public class EtsiReittiUI extends javax.swing.JFrame {
 
     }
     private static javax.swing.JInternalFrame frame1;
-    
-    
-    public static void virhe(String viesti){
-      
+
+    public static void virhe(String viesti) {
+
         JOptionPane.showMessageDialog(frame1, viesti);
-        
+
     }
+
     /**
      * @param args the command line arguments
      */

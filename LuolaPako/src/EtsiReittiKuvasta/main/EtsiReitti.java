@@ -57,8 +57,8 @@ public class EtsiReitti {
                 piirraReitti(D.getSijaintiTaulu(), kuva, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
                 break;
             case 1:
-                if (kuvaTaulu.length >= 51 || kuvaTaulu[0].length >= 51) {
-                    EtsiReittiUI.virhe("Valitsit kuvan joka oli liian iso maksimi koko on 50x50 \n Joten käytetään Dijkstraa");
+                if (kuvaTaulu.length >= 101 || kuvaTaulu[0].length >= 101) {
+                    EtsiReittiUI.virhe("Valitsit kuvan joka oli liian iso maksimi koko on 100x100 \n Joten käytetään Dijkstraa");
                     Dijkstra D1 = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
                     D1.ratkaise();
                     //tulostaEtaisyyde(D.getSijaintiTaulu());
