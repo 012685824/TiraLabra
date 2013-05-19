@@ -40,25 +40,25 @@ public class EtsiReittiTest {
 
     @Test
     public void tulostaakoReitinPituudenOikeinKunKaytetaanDijkstraa() {
-        EtsiReitti.ratkaise("./src/Kuvat/testiKuva0.bmp", 0, 0, 49, 49, 0);
+        EtsiReitti.ratkaise("./src/Kuvat/testiKuva0.bmp", 0, 0, 49, 49, 0,true);
         assertTrue(98 == EtsiReitti.reitinPituus());
     }
 
     @Test
     public void tulostaakoReitinPituudenOikeinKunKaytetaanDijkstraa8() {
-        EtsiReitti.ratkaise("./src/Kuvat/testiKuva0.bmp", 0, 0, 49, 49, 2);
+        EtsiReitti.ratkaise("./src/Kuvat/testiKuva0.bmp", 0, 0, 49, 49, 2,true);
         assertTrue((49 * 1.414) + 0.00000000000004 == EtsiReitti.reitinPituus());
     }
 
     @Test
     public void tulostaakoReitinPituudenOikeinKunKaytetaanBellmanFord() {
-        EtsiReitti.ratkaise("./src/Kuvat/testiKuva0.bmp", 0, 0, 49, 49, 1);
+        EtsiReitti.ratkaise("./src/Kuvat/testiKuva0.bmp", 0, 0, 49, 49, 1,true);
         assertTrue(98 == EtsiReitti.reitinPituus());
     }
 
     @Test
     public void haetaankoOikeatVaritKuvaTauluun() {
-        EtsiReitti.ratkaise("./src/Kuvat/testiKuva0.bmp", 0, 0, 49, 49, 1);
+        EtsiReitti.ratkaise("./src/Kuvat/testiKuva0.bmp", 0, 0, 49, 49, 1,true);
         BufferedImage kuva = null;
         kuva = EtsiReitti.haeKuva("./src/Kuvat/testiKuva0.bmp");
         EtsiReitti.haeVaritKuvatauluun(kuva);
@@ -73,7 +73,7 @@ public class EtsiReittiTest {
 
     @Test
     public void haetaankoOikeatVaritKuvaTauluun2() {
-        EtsiReitti.ratkaise("./src/Kuvat/testiKuva1.bmp", 0, 0, 49, 49, 1);
+        EtsiReitti.ratkaise("./src/Kuvat/testiKuva1.bmp", 0, 0, 49, 49, 1,true);
         BufferedImage kuva = null;
         kuva = EtsiReitti.haeKuva("./src/Kuvat/testiKuva1.bmp");
         EtsiReitti.haeVaritKuvatauluun(kuva);
@@ -92,7 +92,7 @@ public class EtsiReittiTest {
 
     @Test
     public void piirretäänköReittiOikeinKunKaytetaanDijkstraa8() {
-        EtsiReitti.ratkaise("./src/Kuvat/testiKuva0.bmp", 0, 0, 49, 49, 2);
+        EtsiReitti.ratkaise("./src/Kuvat/testiKuva0.bmp", 0, 0, 49, 49, 2,true);
         BufferedImage kuva = null;
         BufferedImage ratkaisuKuva = null;
         kuva = EtsiReitti.haeKuva("./src/Kuvat/testiKuva2.bmp");
@@ -110,7 +110,7 @@ public class EtsiReittiTest {
 
     @Test
     public void piirretäänköReittiOikeinKunKaytetaanDijkstraa8_2() {
-        EtsiReitti.ratkaise("./src/Kuvat/testiKuva0.bmp", 0, 0, 49, 49, 2);
+        EtsiReitti.ratkaise("./src/Kuvat/testiKuva0.bmp", 0, 0, 49, 49, 2,true);
         BufferedImage kuva = null;
         BufferedImage ratkaisuKuva = null;
         kuva = EtsiReitti.haeKuva("./src/Kuvat/testiKuva3.bmp");
