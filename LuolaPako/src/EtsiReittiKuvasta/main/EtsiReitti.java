@@ -43,7 +43,7 @@ public class EtsiReitti {
         kuva = haeKuva(tiedostonNimi); //haetaan kuva tiedosto käsittetyyn.
         /*System.out.println(tiedostonNimi); //tulostuksia toiminnan tarkastelua varten
          System.out.println("xa=" + xAlkuPiste + "ya=" + yAlkuPiste + "xl=" + xLoppuPiste + "yl=" + yLoppuPiste);*/
-        System.out.println("valinta=" + valinta);
+        //System.out.println("valinta=" + valinta);
         kuvaTaulu = new int[kuva.getWidth()][kuva.getHeight()]; // Luodaan oikean kokoinen taulukosta
 
         haeVaritKuvatauluun(kuva); //Haetaan kuvaTauluun kuvan väri koodit
@@ -161,7 +161,7 @@ public class EtsiReitti {
             }
         }
         kertojaAstariin /= ((kuvaTaulu.length * kuvaTaulu[0].length));
-        System.out.println("kertoja=" + kertojaAstariin);
+        //System.out.println("kertoja=" + kertojaAstariin);
     }
 
     public static long getKertojaAstariin() {

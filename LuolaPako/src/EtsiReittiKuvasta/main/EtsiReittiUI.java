@@ -539,7 +539,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
             //Tarkastetaan on valittu tiedosto oikeaa muotoa..
             if (uusiTiedosto.getName().substring(uusiTiedosto.getName().length() - 3, uusiTiedosto.getName().length()).contains("jpg")
                     || uusiTiedosto.getName().substring(uusiTiedosto.getName().length() - 3, uusiTiedosto.getName().length()).contains("bmp")) {
-                System.out.println(uusiTiedosto.getAbsolutePath());
+                //System.out.println(uusiTiedosto.getAbsolutePath());
                 lisaaUusiTiedosto(uusiTiedosto);
             } else {
                 //Jos kuva ei ollut valittua muotoa annetaan siintä virhe ilmoitus
@@ -554,7 +554,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
     private void lisaaUusiTiedosto(File uusiTiedosto) {
         BufferedImage uusiKuva = null;
 
-        System.out.println(kuvaLista.getModel().getSize() - 1);
+        //System.out.println(kuvaLista.getModel().getSize() - 1);
         //Jos valittu tiedosto oli oikeaa muotoa luodaan siintä .bmp ja .jpg tiedostot .bmp ratkaisemista varten 
         //.jpg tiedoston näyttämistä varten ja muutetaan kuvien koko 450x450 jotta kuvat asettuu ohjelmaan hyvin.
         //Muutetaan myös kuvan nimi kuva....

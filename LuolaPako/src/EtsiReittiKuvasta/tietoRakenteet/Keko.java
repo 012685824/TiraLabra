@@ -199,7 +199,7 @@ public class Keko {
         System.arraycopy(keko, 0, kekoApuIso, 0, keko.length);
         keko = new Sijainti[kekoApuIso.length];
         System.arraycopy(kekoApuIso, 0, keko, 0, kekoApuIso.length);
-        System.out.println("Keon koko = " + keko.length);
+        //System.out.println("Keon koko = " + keko.length);
     }
 
     private void pienennaKeko() {
