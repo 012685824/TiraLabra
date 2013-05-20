@@ -30,9 +30,23 @@ public class EtsiReitti {
     static long kertojaAstariin = 0;
     static Object piirretaankoKaikkiPisteet;
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
     }
 
+    /**
+     *
+     * @param tiedostonNimi
+     * @param xAlkuPiste
+     * @param yAlkuPiste
+     * @param xLoppuPiste
+     * @param yLoppuPiste
+     * @param valinta
+     * @param piirretaankoKaikkiPisteetA
+     */
     public static void ratkaise(String tiedostonNimi, int xAlkuPiste, int yAlkuPiste, int xLoppuPiste, int yLoppuPiste, int valinta, Object piirretaankoKaikkiPisteetA) {
         //Luodaan BufferedImage ratkaistavan kuvan käsittelyä varten ja nollataan reitin pituus joka kerta kun uuttä kuvaa aletaan ratkaisemaan.
         BufferedImage kuva = null;
@@ -85,6 +99,11 @@ public class EtsiReitti {
 
     }
 
+    /**
+     *
+     * @param tiedosto
+     * @return
+     */
     public static BufferedImage haeKuva(String tiedosto) {
         BufferedImage ratkaistavaKuva = null; // Luodaan uusi BufferedImage kuvien käsittelyä varten
 
@@ -98,6 +117,10 @@ public class EtsiReitti {
         return ratkaistavaKuva; // Palautetaan kuva onnistuneen latauksen jälkeen
     }
 
+    /**
+     *
+     * @param ratkaistuKuva
+     */
     public static void talletaKuva(BufferedImage ratkaistuKuva) {
         File ratkaisuTiedosto = new File(ratkaisuKuvanTiedostonSijainti);//Luodaan uusi File muuttuja tiedoston käsittelyä varten
         try {
@@ -110,10 +133,23 @@ public class EtsiReitti {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public static String testiVirhe() {
         return testiVirhe;
     }
 
+    /**
+     *
+     * @param sijaintiTaulu
+     * @param kuva
+     * @param xAlku
+     * @param yAlku
+     * @param xLoppu
+     * @param yLoppu
+     */
     public static void piirraReitti(Sijainti[][] sijaintiTaulu, BufferedImage kuva, int xAlku, int yAlku, int xLoppu, int yLoppu) {
         int x = xLoppu;     //Annetaan tulostukseen reitin alkupiste tulostus tapahtuu siis 
         int y = yLoppu;     //lopusta alkuun päin.
@@ -153,6 +189,10 @@ public class EtsiReitti {
         talletaKuva(kuvaRatkaisu);//talletetaan valmis kuva
     }
 
+    /**
+     * 
+     * @param kuva
+     */
     public static void haeVaritKuvatauluun(BufferedImage kuva) {
         for (int y = 0; y < kuvaTaulu[0].length; y++) {
             for (int x = 0; x < kuvaTaulu.length; x++) {
@@ -164,18 +204,34 @@ public class EtsiReitti {
         //System.out.println("kertoja=" + kertojaAstariin);
     }
 
+    /**
+     *
+     * @return
+     */
     public static long getKertojaAstariin() {
         return kertojaAstariin;
     }
 
+    /**
+     *
+     * @return
+     */
     public static int[][] testiGetKuvaTaulu() {
         return kuvaTaulu;
     }
 
+    /**
+     *
+     * @return
+     */
     public static double reitinPituus() {
         return reitinPituus;
     }
 
+    /**
+     *
+     * @param kuvaTaulu
+     */
     public static void setKuvaTaulu(int[][] kuvaTaulu) {
         EtsiReitti.kuvaTaulu = kuvaTaulu;
     }

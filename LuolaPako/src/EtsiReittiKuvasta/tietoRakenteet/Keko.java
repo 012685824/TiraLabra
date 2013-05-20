@@ -142,8 +142,7 @@ public class Keko {
                 keko[2].setY(apu.getY());
             }
         } else {
-
-
+            
             while (sijainti <= keonKoko / 2) { //käydään keko läpi ja siirretään uusi arvo oikealle paikalle.
 
                 if (keko[sijainti * 2].getEtaisyys() < keko[sijainti * 2 + 1].getEtaisyys()) {//verrataan kumpi laspista on pienempi

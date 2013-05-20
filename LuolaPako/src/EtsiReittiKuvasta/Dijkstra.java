@@ -34,6 +34,10 @@ public class Dijkstra {
         dijkstraKeko();
     }
 
+    public void initialiseSingleSourceTest() {
+        initialiseSingleSource();
+    }
+
     private void initialiseSingleSource() {
         for (int x = 0; x < sijaintiTaulu.length; x++) {        // alustetaan sijaintiTaulu taulukko
             for (int y = 0; y < sijaintiTaulu[0].length; y++) {
@@ -43,6 +47,10 @@ public class Dijkstra {
         }
         sijaintiTaulu[xAlku][yAlku] = new Sijainti(0, 0, 0);            //aloitus kohdan etäisyys arvo asetetaan 0
 
+    }
+
+    public void relaxTest(int xMistaTullaan, int yMistaTullaan, int xMihinMennaan, int yMihinMennaan) {
+        relax(xMistaTullaan, yMistaTullaan, xMihinMennaan, yMihinMennaan);
     }
 
     private void relax(int xMistaTullaan, int yMistaTullaan, int xMihinMennaan, int yMihinMennaan) {
@@ -57,7 +65,9 @@ public class Dijkstra {
             K.lisaa(xMihinMennaan, yMihinMennaan, sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys());
         }
     }
-
+public void dijkstraKekoTest(){
+    dijkstraKeko();
+}
     private void dijkstraKeko() {
         initialiseSingleSource();
         Sijainti sijaintiApu = new Sijainti(0, 0, 0); //luodaan apu sijainti muuttuja 
@@ -86,12 +96,68 @@ public class Dijkstra {
         }
     }
 
+    public int[][] getKuvaTaulu() {
+        return kuvaTaulu;
+    }
+
+    public void setKuvaTaulu(int[][] kuvaTaulu) {
+        this.kuvaTaulu = kuvaTaulu;
+    }
+
+    public int getxAlku() {
+        return xAlku;
+    }
+
+    public void setxAlku(int xAlku) {
+        this.xAlku = xAlku;
+    }
+
+    public int getyAlku() {
+        return yAlku;
+    }
+
+    public void setyAlku(int yAlku) {
+        this.yAlku = yAlku;
+    }
+
+    public int getxLoppu() {
+        return xLoppu;
+    }
+
+    public void setxLoppu(int xLoppu) {
+        this.xLoppu = xLoppu;
+    }
+
+    public int getyLoppu() {
+        return yLoppu;
+    }
+
+    public void setyLoppu(int yLoppu) {
+        this.yLoppu = yLoppu;
+    }
+
+    public Keko getK() {
+        return K;
+    }
+
+    public void setK(Keko K) {
+        this.K = K;
+    }
+
+    public int[] getTestiTulostus() {
+        return testiTulostus;
+    }
+
+    public void setTestiTulostus(int[] testiTulostus) {
+        this.testiTulostus = testiTulostus;
+    }
+
     public Sijainti[][] getSijaintiTaulu() {
         return this.sijaintiTaulu;
     }
 
     public int[] testiTulosReitti() {
-        
+
         tulostaReitti();
         return testiTulostus;
     }
@@ -101,7 +167,7 @@ public class Dijkstra {
         int y = yLoppu;
         int xApu = 0;
         int i = 0;
-        testiTulostus = new int[48*4];
+        testiTulostus = new int[48 * 4];
 
         while (x != xAlku || y != yAlku) {
             System.out.println("X=" + sijaintiTaulu[x][y].getX() + " Y=" + sijaintiTaulu[x][y].getY());
@@ -114,5 +180,4 @@ public class Dijkstra {
             x = xApu;
         }
     }
-
 }

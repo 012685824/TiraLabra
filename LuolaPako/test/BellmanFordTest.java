@@ -3,7 +3,8 @@
  * and open the template in the editor.
  */
 
-import EtsiReittiKuvasta.Dijkstra;
+import EtsiReittiKuvasta.Astar;
+import EtsiReittiKuvasta.BellmanFord;
 import EtsiReittiKuvasta.main.EtsiReitti;
 import EtsiReittiKuvasta.tietoRakenteet.Sijainti;
 import java.awt.image.BufferedImage;
@@ -19,11 +20,9 @@ import static org.junit.Assert.*;
  *
  * @author Toni
  */
-public class DijstraTest {
-
-    int kuvaTaulu[][] = new int[450][450];
-
-    public DijstraTest() {
+public class BellmanFordTest {
+    int kuvaTaulu[][] = new int[50][50];
+    public BellmanFordTest() {
     }
 
     @BeforeClass
@@ -55,14 +54,14 @@ public class DijstraTest {
 
 
             Random random = new Random();
-            int xAlkuPiste = random.nextInt(450);
-            int yAlkuPiste = random.nextInt(450);
-            int xLoppuPiste = random.nextInt(450);
-            int yLoppuPiste = random.nextInt(450);
-            Dijkstra D = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+            int xAlkuPiste = random.nextInt(50);
+            int yAlkuPiste = random.nextInt(50);
+            int xLoppuPiste = random.nextInt(50);
+            int yLoppuPiste = random.nextInt(50);
+            BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
-            D.ratkaise();
-            Sijainti[][] sijaintiTaulu = D.getSijaintiTaulu();
+            B.ratkaise();
+            Sijainti[][] sijaintiTaulu = B.getSijaintiTaulu();
             int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
             int maara = 0;
             int xApu = 0;
@@ -89,9 +88,9 @@ public class DijstraTest {
         EtsiReitti.haeVaritKuvatauluun(kuva);
         kuvaTaulu = EtsiReitti.testiGetKuvaTaulu();
 
-        Dijkstra testD = new Dijkstra(kuvaTaulu, 1, 1, 49, 49);
-        testD.ratkaise();
-        int[] tulostuksenTulosApu = testD.testiTulosReitti();
+        BellmanFord B = new BellmanFord(kuvaTaulu, 1, 1, 49, 49);
+        B.ratkaise();
+        int[] tulostuksenTulosApu = B.testiTulosReitti();
         String tulostuksenTulos = "";
         for (int i = 0; i < tulostuksenTulosApu.length; i++) {
             tulostuksenTulos = tulostuksenTulos + tulostuksenTulosApu[i] + "";
@@ -106,14 +105,14 @@ public class DijstraTest {
 
 
             Random random = new Random();
-            int xAlkuPiste = random.nextInt(450);
-            int yAlkuPiste = random.nextInt(450);
-            int xLoppuPiste = random.nextInt(450);
-            int yLoppuPiste = random.nextInt(450);
-            Dijkstra D = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+            int xAlkuPiste = random.nextInt(50);
+            int yAlkuPiste = random.nextInt(50);
+            int xLoppuPiste = random.nextInt(50);
+            int yLoppuPiste = random.nextInt(50);
+            BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
-            D.ratkaise();
-            Sijainti[][] sijaintiTaulu = D.getSijaintiTaulu();
+            B.ratkaise();
+            Sijainti[][] sijaintiTaulu = B.getSijaintiTaulu();
             int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
 
             assertTrue(tulos == sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys());
@@ -126,11 +125,11 @@ public class DijstraTest {
             Random random = new Random();
             int xAlkuPiste = 0;
             int yAlkuPiste = 0;
-            int xLoppuPiste = random.nextInt(450);
-            int yLoppuPiste = random.nextInt(450);
-            Dijkstra D = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
-            D.initialiseSingleSourceTest();
-            Sijainti[][] sijaintiTaulu = D.getSijaintiTaulu();
+            int xLoppuPiste = random.nextInt(50);
+            int yLoppuPiste = random.nextInt(50);
+            BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+            B.initialiseSingleSourceTest();
+            Sijainti[][] sijaintiTaulu = B.getSijaintiTaulu();
             for (int x = 1; x < sijaintiTaulu[0].length; x++) {
                 for (int y = 1; y < sijaintiTaulu.length; y++) {
                     assertTrue(sijaintiTaulu[x][y].getEtaisyys() == Double.MAX_VALUE / 2);
@@ -145,32 +144,27 @@ public class DijstraTest {
     public void toimiikoRelaxKunSilleAnnetaaSanunnaisiasyötteita() {
         for (int i = 0; i < 30; i++) {
             Random random = new Random();
-            int xAlkuPiste = random.nextInt(450);
-            int yAlkuPiste = random.nextInt(450);
-            int xLoppuPiste = random.nextInt(450);
-            int yLoppuPiste = random.nextInt(450);
-            Dijkstra D = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
-            D.initialiseSingleSourceTest();
-            D.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+            int xAlkuPiste = random.nextInt(50);
+            int yAlkuPiste = random.nextInt(50);
+            int xLoppuPiste = random.nextInt(50);
+            int yLoppuPiste = random.nextInt(50);
+            BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+            B.initialiseSingleSourceTest();
+            B.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
             
-            Sijainti[][] sijaintiTaulu = D.getSijaintiTaulu();
+            Sijainti[][] sijaintiTaulu = B.getSijaintiTaulu();
 
             assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
 
         }
     }
     @Test
-    public void toimiikoDijkstraKekoOikeinJosOnYhdenKokoinenSyote(){
+    public void toimiikoAstarKekoOikeinJosOnYhdenKokoinenSyote(){
         int[][] koeTaulu = new int[1][1];
         koeTaulu[0][0] = 1;
-        Dijkstra D = new Dijkstra(koeTaulu, 0, 0, 0, 0);
-        D.dijkstraKekoTest();
-        assertTrue(D.getSijaintiTaulu()[0][0].getEtaisyys() == 0.0);
+        BellmanFord A = new BellmanFord(koeTaulu, 0, 0, 0, 0);
+        A.ratkaise();
+        assertTrue(A.getSijaintiTaulu()[0][0].getEtaisyys() == 0.0);
     }        
     
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
 }

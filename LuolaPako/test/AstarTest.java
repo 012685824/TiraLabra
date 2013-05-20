@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-import EtsiReittiKuvasta.Dijkstra;
+import EtsiReittiKuvasta.Astar;
 import EtsiReittiKuvasta.main.EtsiReitti;
 import EtsiReittiKuvasta.tietoRakenteet.Sijainti;
 import java.awt.image.BufferedImage;
@@ -19,12 +19,12 @@ import static org.junit.Assert.*;
  *
  * @author Toni
  */
-public class DijstraTest {
+public class AstarTest {
+        int kuvaTaulu[][] = new int[450][450];
 
-    int kuvaTaulu[][] = new int[450][450];
-
-    public DijstraTest() {
+    public AstarTest() {
     }
+    
 
     @BeforeClass
     public static void setUpClass() {
@@ -59,10 +59,10 @@ public class DijstraTest {
             int yAlkuPiste = random.nextInt(450);
             int xLoppuPiste = random.nextInt(450);
             int yLoppuPiste = random.nextInt(450);
-            Dijkstra D = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+            Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
-            D.ratkaise();
-            Sijainti[][] sijaintiTaulu = D.getSijaintiTaulu();
+            A.ratkaise();
+            Sijainti[][] sijaintiTaulu = A.getSijaintiTaulu();
             int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
             int maara = 0;
             int xApu = 0;
@@ -89,9 +89,9 @@ public class DijstraTest {
         EtsiReitti.haeVaritKuvatauluun(kuva);
         kuvaTaulu = EtsiReitti.testiGetKuvaTaulu();
 
-        Dijkstra testD = new Dijkstra(kuvaTaulu, 1, 1, 49, 49);
-        testD.ratkaise();
-        int[] tulostuksenTulosApu = testD.testiTulosReitti();
+        Astar A = new Astar(kuvaTaulu, 1, 1, 49, 49);
+        A.ratkaise();
+        int[] tulostuksenTulosApu = A.testiTulosReitti();
         String tulostuksenTulos = "";
         for (int i = 0; i < tulostuksenTulosApu.length; i++) {
             tulostuksenTulos = tulostuksenTulos + tulostuksenTulosApu[i] + "";
@@ -110,10 +110,10 @@ public class DijstraTest {
             int yAlkuPiste = random.nextInt(450);
             int xLoppuPiste = random.nextInt(450);
             int yLoppuPiste = random.nextInt(450);
-            Dijkstra D = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+            Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
-            D.ratkaise();
-            Sijainti[][] sijaintiTaulu = D.getSijaintiTaulu();
+            A.ratkaise();
+            Sijainti[][] sijaintiTaulu = A.getSijaintiTaulu();
             int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
 
             assertTrue(tulos == sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys());
@@ -128,9 +128,9 @@ public class DijstraTest {
             int yAlkuPiste = 0;
             int xLoppuPiste = random.nextInt(450);
             int yLoppuPiste = random.nextInt(450);
-            Dijkstra D = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
-            D.initialiseSingleSourceTest();
-            Sijainti[][] sijaintiTaulu = D.getSijaintiTaulu();
+            Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+            A.initialiseSingleSourceTest();
+            Sijainti[][] sijaintiTaulu = A.getSijaintiTaulu();
             for (int x = 1; x < sijaintiTaulu[0].length; x++) {
                 for (int y = 1; y < sijaintiTaulu.length; y++) {
                     assertTrue(sijaintiTaulu[x][y].getEtaisyys() == Double.MAX_VALUE / 2);
@@ -149,23 +149,23 @@ public class DijstraTest {
             int yAlkuPiste = random.nextInt(450);
             int xLoppuPiste = random.nextInt(450);
             int yLoppuPiste = random.nextInt(450);
-            Dijkstra D = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
-            D.initialiseSingleSourceTest();
-            D.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+            Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+            A.initialiseSingleSourceTest();
+            A.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
             
-            Sijainti[][] sijaintiTaulu = D.getSijaintiTaulu();
+            Sijainti[][] sijaintiTaulu = A.getSijaintiTaulu();
 
             assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
 
         }
     }
     @Test
-    public void toimiikoDijkstraKekoOikeinJosOnYhdenKokoinenSyote(){
+    public void toimiikoAstarKekoOikeinJosOnYhdenKokoinenSyote(){
         int[][] koeTaulu = new int[1][1];
         koeTaulu[0][0] = 1;
-        Dijkstra D = new Dijkstra(koeTaulu, 0, 0, 0, 0);
-        D.dijkstraKekoTest();
-        assertTrue(D.getSijaintiTaulu()[0][0].getEtaisyys() == 0.0);
+        Astar A = new Astar(koeTaulu, 0, 0, 0, 0);
+        A.aStarKekoTest();
+        assertTrue(A.getSijaintiTaulu()[0][0].getEtaisyys() == 0.0);
     }        
     
     // TODO add test methods here.

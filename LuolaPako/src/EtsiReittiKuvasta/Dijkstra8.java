@@ -18,6 +18,7 @@ public class Dijkstra8 {
     private int xAlku, yAlku, xLoppu, yLoppu;
     private Sijainti[][] sijaintiTaulu;
     private Keko K = new Keko();
+    private int[] testiTulostus;
 
     public Dijkstra8(int[][] kuvaTaulu, int xAlku, int yAlku, int xLoppu, int yLoppu) {
         this.kuvaTaulu = kuvaTaulu;
@@ -29,7 +30,11 @@ public class Dijkstra8 {
     }
 
     public void ratkaise() {
-        dijkstraKeko();
+        dijkstra8Keko();
+    }
+
+    public void initialiseSingleSourceTest() {
+        initialiseSingleSource();
     }
 
     private void initialiseSingleSource() {
@@ -41,30 +46,38 @@ public class Dijkstra8 {
         }
     }
 
+    public void relaxTest(int xMistaTullaan, int yMistaTullaan, int xMihinMennaan, int yMihinMennaan) {
+        relax(xMistaTullaan, yMistaTullaan, xMihinMennaan, yMihinMennaan);
+    }
+
     private void relax(int xMistaTullaan, int yMistaTullaan, int xMihinMennaan, int yMihinMennaan) {
 //*1.414
-        if((xMistaTullaan != xMihinMennaan) && (yMistaTullaan != yMihinMennaan)){
-            if (sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys() > sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan]*1.414){
-            
-            sijaintiTaulu[xMihinMennaan][yMihinMennaan].setEtaisyys(sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan]*1.414);
-            sijaintiTaulu[xMihinMennaan][yMihinMennaan].setX(xMistaTullaan);
-            sijaintiTaulu[xMihinMennaan][yMihinMennaan].setY(yMistaTullaan);
+        if ((xMistaTullaan != xMihinMennaan) && (yMistaTullaan != yMihinMennaan)) {
+            if (sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys() > sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan] * 1.414) {
 
-            K.lisaa(xMihinMennaan, yMihinMennaan, sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys()*1.144);
+                sijaintiTaulu[xMihinMennaan][yMihinMennaan].setEtaisyys(sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan] * 1.414);
+                sijaintiTaulu[xMihinMennaan][yMihinMennaan].setX(xMistaTullaan);
+                sijaintiTaulu[xMihinMennaan][yMihinMennaan].setY(yMistaTullaan);
+
+                K.lisaa(xMihinMennaan, yMihinMennaan, sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys() * 1.144);
             }
-        }else{
-        if (sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys() > sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan]) { // verrataan onko etäisyys suurempi vai pienempi uutta solmua käyttäen
+        } else {
+            if (sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys() > sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan]) { // verrataan onko etäisyys suurempi vai pienempi uutta solmua käyttäen
 
-            sijaintiTaulu[xMihinMennaan][yMihinMennaan].setEtaisyys(sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan]);
-            sijaintiTaulu[xMihinMennaan][yMihinMennaan].setX(xMistaTullaan);
-            sijaintiTaulu[xMihinMennaan][yMihinMennaan].setY(yMistaTullaan);
+                sijaintiTaulu[xMihinMennaan][yMihinMennaan].setEtaisyys(sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan]);
+                sijaintiTaulu[xMihinMennaan][yMihinMennaan].setX(xMistaTullaan);
+                sijaintiTaulu[xMihinMennaan][yMihinMennaan].setY(yMistaTullaan);
 
-            K.lisaa(xMihinMennaan, yMihinMennaan, sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys());
-        }
+                K.lisaa(xMihinMennaan, yMihinMennaan, sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys());
+            }
         }
     }
 
-    private void dijkstraKeko() {
+    public void dijkstraKeko8Test() {
+        dijkstra8Keko();
+    }
+
+    private void dijkstra8Keko() {
         initialiseSingleSource();
         Sijainti sijaintiApu = new Sijainti(0, 0, 0); //luodaan apu sijainti muuttuja 
 
@@ -105,18 +118,28 @@ public class Dijkstra8 {
         return this.sijaintiTaulu;
     }
 
- /*   public void tulostaReitti() {
+    public int[] testiTulosReitti() {
+
+        tulostaReitti();
+        return testiTulostus;
+    }
+
+    public void tulostaReitti() {
         int x = xLoppu;     //Annetaan tulostukseen reitin alkupiste
         int y = yLoppu;
         int xApu = 0;
+        int i = 0;
+        testiTulostus = new int[48 * 4];
 
         while (x != xAlku || y != yAlku) {
             System.out.println("X=" + sijaintiTaulu[x][y].getX() + " Y=" + sijaintiTaulu[x][y].getY());
+            testiTulostus[i] = sijaintiTaulu[x][y].getX();
+            i++;
+            testiTulostus[i] = sijaintiTaulu[x][y].getY();
+            i++;
             xApu = sijaintiTaulu[x][y].getX();
             y = sijaintiTaulu[x][y].getY();
             x = xApu;
         }
     }
-*/
-
 }
