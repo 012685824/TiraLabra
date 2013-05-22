@@ -1,9 +1,11 @@
+package EtsiReittiKuvasta;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 
-import EtsiReittiKuvasta.Dijkstra;
+import EtsiReittiKuvasta.tietoRakenteet.Dijkstra;
 import EtsiReittiKuvasta.main.EtsiReitti;
 import EtsiReittiKuvasta.tietoRakenteet.Sijainti;
 import java.awt.image.BufferedImage;
@@ -52,7 +54,7 @@ public class DijstraTest {
     @Test
     public void selvitetaankoReittiOikein() {
         for (int i = 0; i < 30; i++) {
-
+//5testiä
 
             Random random = new Random();
             int xAlkuPiste = random.nextInt(450);
@@ -104,7 +106,7 @@ public class DijstraTest {
     public void onkoloppuPisteOikea() {
         for (int i = 0; i < 30; i++) {
 
-
+//5testiä
             Random random = new Random();
             int xAlkuPiste = random.nextInt(450);
             int yAlkuPiste = random.nextInt(450);

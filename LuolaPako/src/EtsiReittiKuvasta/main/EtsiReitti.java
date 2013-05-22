@@ -4,10 +4,10 @@
  */
 package EtsiReittiKuvasta.main;
 
-import EtsiReittiKuvasta.Astar;
-import EtsiReittiKuvasta.BellmanFord;
-import EtsiReittiKuvasta.Dijkstra;
-import EtsiReittiKuvasta.Dijkstra8;
+import EtsiReittiKuvasta.tietoRakenteet.Astar;
+import EtsiReittiKuvasta.tietoRakenteet.BellmanFord;
+import EtsiReittiKuvasta.tietoRakenteet.Dijkstra;
+import EtsiReittiKuvasta.tietoRakenteet.Dijkstra8;
 import EtsiReittiKuvasta.tietoRakenteet.Keko;
 import EtsiReittiKuvasta.tietoRakenteet.Sijainti;
 import java.awt.image.BufferedImage;

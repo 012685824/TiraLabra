@@ -1,8 +1,9 @@
+package EtsiReittiKuvasta.tietoRakenteet;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import EtsiReittiKuvasta.tietoRakenteet.Keko;
 import EtsiReittiKuvasta.tietoRakenteet.Sijainti;
 import java.util.Comparator;
@@ -83,7 +84,7 @@ public class KekoTest {
         for (int i = 0; i < 50000; i++) {
             testikeko.lisaa(i, i, i);
         }
-        assertTrue(testikeko.KekoTaulukonKoko() == 81920);
+        assertTrue(testikeko.KekoTaulukonKoko() == 51200);
     }
 
     @Test
@@ -94,8 +95,7 @@ public class KekoTest {
         for (int i = 0; i < 50000; i++) {
             testikeko.poista();
         }
-        System.out.println("keko taulukon koko="+testikeko.KekoTaulukonKoko());
-        assertTrue(testikeko.KekoTaulukonKoko() == 10);
+        assertTrue(testikeko.KekoTaulukonKoko() == 100);
     }
 
     @Test
@@ -127,7 +127,7 @@ public class KekoTest {
     public void vartaillaaKeonNopeuttaPriorityQueue() {
         int testattavienAlkioidenMaara = 10000;
 
-        for (int kertoja = 0; kertoja < 9; kertoja++) {
+        for (int kertoja = 0; kertoja < 1; kertoja++) {
             testattavienAlkioidenMaara *= 2;
             PriorityQueue<Sijainti> PQ = new PriorityQueue<Sijainti>(1, new Comparator<Sijainti>() {
                 @Override
@@ -166,7 +166,7 @@ public class KekoTest {
     }
 
     @Test
-    public void tulostuukoKekoOikein() {
+    public void tulostuukoKekoOikeinJosVaanLisataan() {
         testikeko.lisaa(0, 0, 9);
         testikeko.lisaa(0, 0, 2);
         testikeko.lisaa(0, 0, 7);
@@ -174,14 +174,32 @@ public class KekoTest {
         testikeko.lisaa(0, 0, 8);
         testikeko.lisaa(0, 0, 3);
         testikeko.lisaa(0, 0, 5);
-        assertEquals(" 1.0 2.0 3.0 9.0 8.0 7.0 5.0", testikeko.apuTestiTulostus());
-
+        assertEquals(" 1.0 2.0 3.0 9.0 8.0 7.0 5.0", testikeko.tulosta());
+        System.out.println(testikeko.poista().getEtaisyys());
+        testikeko.tulosta();
+                System.out.println(testikeko.poista().getEtaisyys());
+        testikeko.tulosta();
+        
 
     }
-        @Test
+    @Test
+    public void tulostuukoKekoOikeinJosLisataanJaPoistetaan() {
+        testikeko.lisaa(0, 0, 10);
+        testikeko.lisaa(0, 0, 9);
+        testikeko.lisaa(0, 0, 2);
+        testikeko.lisaa(0, 0, 7);
+
+        testikeko.poista();
+        testikeko.poista();
+        assertEquals(" 9.0 10.0", testikeko.tulosta());
+        testikeko.poista();
+        testikeko.lisaa(0, 0, 4);
+        testikeko.tulosta();
+    }
+    @Test
     public void tulostuukoKekoOikeinKunTyhja() {
 
-        assertEquals("Keko tyhjä", testikeko.apuTestiTulostus());
+        assertEquals("Keko tyhjä", testikeko.tulosta());
 
 
     }

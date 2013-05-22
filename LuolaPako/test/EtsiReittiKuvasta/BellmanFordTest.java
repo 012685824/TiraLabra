@@ -1,9 +1,12 @@
+package EtsiReittiKuvasta;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 
-import EtsiReittiKuvasta.Astar;
+import EtsiReittiKuvasta.tietoRakenteet.Astar;
+import EtsiReittiKuvasta.tietoRakenteet.BellmanFord;
 import EtsiReittiKuvasta.main.EtsiReitti;
 import EtsiReittiKuvasta.tietoRakenteet.Sijainti;
 import java.awt.image.BufferedImage;
@@ -19,12 +22,10 @@ import static org.junit.Assert.*;
  *
  * @author Toni
  */
-public class AstarTest {
-        int kuvaTaulu[][] = new int[450][450];
-
-    public AstarTest() {
+public class BellmanFordTest {
+    int kuvaTaulu[][] = new int[50][50];
+    public BellmanFordTest() {
     }
-    
 
     @BeforeClass
     public static void setUpClass() {
@@ -55,14 +56,14 @@ public class AstarTest {
 
 
             Random random = new Random();
-            int xAlkuPiste = random.nextInt(450);
-            int yAlkuPiste = random.nextInt(450);
-            int xLoppuPiste = random.nextInt(450);
-            int yLoppuPiste = random.nextInt(450);
-            Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+            int xAlkuPiste = random.nextInt(50);
+            int yAlkuPiste = random.nextInt(50);
+            int xLoppuPiste = random.nextInt(50);
+            int yLoppuPiste = random.nextInt(50);
+            BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
-            A.ratkaise();
-            Sijainti[][] sijaintiTaulu = A.getSijaintiTaulu();
+            B.ratkaise();
+            Sijainti[][] sijaintiTaulu = B.getSijaintiTaulu();
             int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
             int maara = 0;
             int xApu = 0;
@@ -89,9 +90,9 @@ public class AstarTest {
         EtsiReitti.haeVaritKuvatauluun(kuva);
         kuvaTaulu = EtsiReitti.testiGetKuvaTaulu();
 
-        Astar A = new Astar(kuvaTaulu, 1, 1, 49, 49);
-        A.ratkaise();
-        int[] tulostuksenTulosApu = A.testiTulosReitti();
+        BellmanFord B = new BellmanFord(kuvaTaulu, 1, 1, 49, 49);
+        B.ratkaise();
+        int[] tulostuksenTulosApu = B.testiTulosReitti();
         String tulostuksenTulos = "";
         for (int i = 0; i < tulostuksenTulosApu.length; i++) {
             tulostuksenTulos = tulostuksenTulos + tulostuksenTulosApu[i] + "";
@@ -106,14 +107,14 @@ public class AstarTest {
 
 
             Random random = new Random();
-            int xAlkuPiste = random.nextInt(450);
-            int yAlkuPiste = random.nextInt(450);
-            int xLoppuPiste = random.nextInt(450);
-            int yLoppuPiste = random.nextInt(450);
-            Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+            int xAlkuPiste = random.nextInt(50);
+            int yAlkuPiste = random.nextInt(50);
+            int xLoppuPiste = random.nextInt(50);
+            int yLoppuPiste = random.nextInt(50);
+            BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
-            A.ratkaise();
-            Sijainti[][] sijaintiTaulu = A.getSijaintiTaulu();
+            B.ratkaise();
+            Sijainti[][] sijaintiTaulu = B.getSijaintiTaulu();
             int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
 
             assertTrue(tulos == sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys());
@@ -126,11 +127,11 @@ public class AstarTest {
             Random random = new Random();
             int xAlkuPiste = 0;
             int yAlkuPiste = 0;
-            int xLoppuPiste = random.nextInt(450);
-            int yLoppuPiste = random.nextInt(450);
-            Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
-            A.initialiseSingleSourceTest();
-            Sijainti[][] sijaintiTaulu = A.getSijaintiTaulu();
+            int xLoppuPiste = random.nextInt(50);
+            int yLoppuPiste = random.nextInt(50);
+            BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+            B.initialiseSingleSourceTest();
+            Sijainti[][] sijaintiTaulu = B.getSijaintiTaulu();
             for (int x = 1; x < sijaintiTaulu[0].length; x++) {
                 for (int y = 1; y < sijaintiTaulu.length; y++) {
                     assertTrue(sijaintiTaulu[x][y].getEtaisyys() == Double.MAX_VALUE / 2);
@@ -145,15 +146,15 @@ public class AstarTest {
     public void toimiikoRelaxKunSilleAnnetaaSanunnaisiasyötteita() {
         for (int i = 0; i < 30; i++) {
             Random random = new Random();
-            int xAlkuPiste = random.nextInt(450);
-            int yAlkuPiste = random.nextInt(450);
-            int xLoppuPiste = random.nextInt(450);
-            int yLoppuPiste = random.nextInt(450);
-            Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
-            A.initialiseSingleSourceTest();
-            A.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+            int xAlkuPiste = random.nextInt(50);
+            int yAlkuPiste = random.nextInt(50);
+            int xLoppuPiste = random.nextInt(50);
+            int yLoppuPiste = random.nextInt(50);
+            BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+            B.initialiseSingleSourceTest();
+            B.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
             
-            Sijainti[][] sijaintiTaulu = A.getSijaintiTaulu();
+            Sijainti[][] sijaintiTaulu = B.getSijaintiTaulu();
 
             assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
 
@@ -163,14 +164,9 @@ public class AstarTest {
     public void toimiikoAstarKekoOikeinJosOnYhdenKokoinenSyote(){
         int[][] koeTaulu = new int[1][1];
         koeTaulu[0][0] = 1;
-        Astar A = new Astar(koeTaulu, 0, 0, 0, 0);
-        A.aStarKekoTest();
+        BellmanFord A = new BellmanFord(koeTaulu, 0, 0, 0, 0);
+        A.ratkaise();
         assertTrue(A.getSijaintiTaulu()[0][0].getEtaisyys() == 0.0);
     }        
     
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
 }

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package EtsiReittiKuvasta;
+package EtsiReittiKuvasta.tietoRakenteet;
 
 import EtsiReittiKuvasta.tietoRakenteet.Keko;
 import EtsiReittiKuvasta.tietoRakenteet.Sijainti;
@@ -53,7 +53,7 @@ public class Dijkstra {
         relax(xMistaTullaan, yMistaTullaan, xMihinMennaan, yMihinMennaan);
     }
 
-    private void relax(int xMistaTullaan, int yMistaTullaan, int xMihinMennaan, int yMihinMennaan) {
+    protected void relax(int xMistaTullaan, int yMistaTullaan, int xMihinMennaan, int yMihinMennaan) {
         // verrataan onko etäisyys arvo suurempi ruudussa mihin ollaan menossa 
         // jos on niin päivitetään se uudella pienemmällä arvolla.
         if (sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys() > sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan]) {
@@ -62,7 +62,10 @@ public class Dijkstra {
             sijaintiTaulu[xMihinMennaan][yMihinMennaan].setX(xMistaTullaan);
             sijaintiTaulu[xMihinMennaan][yMihinMennaan].setY(yMistaTullaan);
             //Lisätään kekoon uusi arvo.
+            
             K.lisaa(xMihinMennaan, yMihinMennaan, sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys());
+            //System.out.println("jälkeen");
+            //K.tulosta();
         }
     }
 public void dijkstraKekoTest(){
@@ -76,6 +79,8 @@ public void dijkstraKekoTest(){
 
         while (!K.emptyIs() && (xLoppu != sijaintiApu.getX() || yLoppu != sijaintiApu.getY())) {
             sijaintiApu = K.poista();
+            //System.out.println("si=" +sijaintiApu.getEtaisyys());
+            //K.tulosta();
             // tarkastetaan ollaan taulukon reunassa X tai y akselin suunnassa
             // jos ei niin suoritetaan relax 
             if (sijaintiApu.getX() + 1 < sijaintiTaulu.length) {
