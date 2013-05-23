@@ -235,7 +235,6 @@ public class Dijkstra8Test {
             xLoppuPiste = xApu;
             maara++;
         }
-        System.out.println("tulos="+tulos+" määrä="+maara);
         assertTrue(tulos == maara*2);
     }
             @Test
