@@ -16,8 +16,11 @@ public class Keko {
     private Sijainti[] keko;
     private int keonKoko;
 
-    //Konstruktori luo minimikeon jonka maksimi koko on 10
-    //keonkoko muuttuja kertoo sen hetkisen keon koon.
+
+    /**
+     *Konstruktori luo minimikeon jonka maksimi koko on 100
+     *keonkoko muuttuja kertoo sen hetkisen keon koon.
+     */
     public Keko() {
         keko = new Sijainti[100];
         keonKoko = 0;
@@ -25,31 +28,62 @@ public class Keko {
     }
     //getterit ja setteri
 
+    /**
+     *
+     * @return
+     */
     public int getKeonKoko() {
         return keonKoko;
     }
 
+    /**
+     *
+     * @return
+     */
     public double palautaKekoHuippuArvo() {
         return keko[1].getEtaisyys();
     }
 
+    /**
+     *
+     * @return
+     */
     public int KekoTaulukonKoko() {
         return keko.length;
     }
 
     //Lisää kekoon uuden arvon oikealle paikalle.
+    /**
+     *
+     * @param i
+     * @return
+     */
     protected int parent(int i) {
         return i / 2;
     }
 
+    /**
+     *
+     * @param i
+     * @return
+     */
     protected int left(int i) {
         return i * 2;
     }
 
+    /**
+     *
+     * @param i
+     * @return
+     */
     protected int right(int i) {
         return i * 2 + 1;
     }
 
+    /**
+     *
+     * @return
+     */
     protected boolean emptyIs() {
         if (keonKoko == 0) {
             return true;
@@ -57,6 +91,9 @@ public class Keko {
         return false;
     }
 
+    /**
+     *
+     */
     protected void tuplaaKeko() {
 
         Sijainti[] kekoApuIso = new Sijainti[keko.length * 2];
@@ -66,6 +103,9 @@ public class Keko {
 
     }
 
+    /**
+     *
+     */
     protected void pienennaKeko() {
         Sijainti[] kekoApu = new Sijainti[keko.length / 2];
         System.arraycopy(keko, 0, kekoApu, 0, kekoApu.length);
@@ -74,6 +114,11 @@ public class Keko {
 
     }
 
+    /**
+     *
+     * @param mikaVaihdetaan
+     * @param mihinVaihdetaan
+     */
     protected void vaihda(int mikaVaihdetaan, int mihinVaihdetaan) {
         Sijainti apu = keko[mikaVaihdetaan];
         Sijainti apu1 = keko[mihinVaihdetaan];
@@ -83,6 +128,12 @@ public class Keko {
 
     }
 
+    /**
+     *
+     * @param x
+     * @param y
+     * @param uusi
+     */
     public void lisaa(int x, int y, double uusi) {
         if (keko.length - 1 == keonKoko) {
             tuplaaKeko();
@@ -101,6 +152,9 @@ public class Keko {
 
     }
 
+    /**
+     *
+     */
     protected void korjaaLisays() {
         int i = keonKoko;
         while (i > 1 && keko[i].getEtaisyys() < keko[parent(i)].getEtaisyys()) {
@@ -109,6 +163,10 @@ public class Keko {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     protected Sijainti poista() {
         if (keko.length / 4 > keonKoko && keonKoko > 25) {
             pienennaKeko();
@@ -133,6 +191,9 @@ public class Keko {
         return palautettavaArvo;
     }
 
+    /**
+     *
+     */
     protected void korjaaPoisto() {
         Sijainti apu = keko[keonKoko];
         keko[1] = apu;
@@ -160,6 +221,10 @@ public class Keko {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     protected String tulosta() {
         String apuTestiTulostusString = "";
         if (keonKoko == 0) {

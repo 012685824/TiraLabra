@@ -26,13 +26,13 @@ public class Astar {
     /**
      * Luo Astar-olion, jolle annetaan alkuarvoina seuraavat
      *
-     * @param kuvaTaulu
-     * @param xAlku
-     * @param yAlku
-     * @param xLoppu
-     * @param yLoppu
-     * @param sijaintiTaulu
-     * @param arvioTaulu
+     * @param kuvaTaulu sisältää tiedon pisteen värikoodista
+     * @param xAlku misä x:n etsintä aloitetaan
+     * @param yAlku misä y:n etsintä aloitetaan
+     * @param xLoppu mihin x:n arvoon reitti etsitään
+     * @param yLoppu mihin y:n arvoon reitti etsitään
+     * @param sijaintiTaulu sisältää tiedot solmun arvoista x,y,etäisyys
+     * @param arvioTaulu sisältää heurestiikka funktion arvot
      */
     public Astar(int[][] kuvaTaulu, int xAlku, int yAlku, int xLoppu, int yLoppu) {
         this.kuvaTaulu = kuvaTaulu;
@@ -132,7 +132,7 @@ public class Astar {
      * varten ja luo apumuuttujan "sijaintiApu". Apumuuttujaa tarvitaan keosta haettavaa
      * tietoa varten ja relaxsin kutsua varten, jotta varsinainen sijaintitaulu
      * pysyy halutunlaisena.Jos kyseinen kuva "Verkko" ei ole tyhjä, niin
-     * käydään vieruspisteet, eli "solmut" läpi. Metodin suorittaminen lopetetaan,
+     * käydään vieruspisteet, eli "solmut" läpi (pääilman suunnista). Metodin suorittaminen lopetetaan,
      * kun keko on tyhjä, eli kaikki "solmut" on käyty loppuunasti läpi tai on
      * löydetty loppupiste.
      */

@@ -51,7 +51,7 @@ public class Dijkstra8Test {
     }
 
     @Test
-    public void selvitetaankoReittiOikein() {
+    public void selvitetaankoReittiOikeinSatunnaisillaSyotteilla() {
         for (int i = 0; i < 30; i++) {
 
 
@@ -76,10 +76,191 @@ public class Dijkstra8Test {
 
             assertTrue(tulos <= maara || tulos >= (maara/2)*1.414);
         }
-
-
     }
 
+
+    @Test
+    public void selvitetaankoReittiOikeinJosReittiAlkaaVasemmaltaOikealle() {
+        int xAlkuPiste = 2;
+        int yAlkuPiste = 2;
+        int xLoppuPiste = 200;
+        int yLoppuPiste = 2;
+
+            Dijkstra8 D8 = new Dijkstra8(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+            D8.ratkaise();
+        Sijainti[][] sijaintiTaulu = D8.getSijaintiTaulu();
+        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
+        int maara = 0;
+        int xApu = 0;
+        while (xLoppuPiste != xAlkuPiste || yLoppuPiste != yAlkuPiste) {
+            xApu = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getX();
+            yLoppuPiste = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getY();
+            xLoppuPiste = xApu;
+            maara++;
+        }
+        assertTrue(tulos == maara);
+    }
+
+    @Test
+    public void selvitetaankoReittiOikeinJosReittiAlkaaOikealtaVasemmalle() {
+        int xAlkuPiste = 200;
+        int yAlkuPiste = 2;
+        int xLoppuPiste = 2;
+        int yLoppuPiste = 2;
+
+            Dijkstra8 D8 = new Dijkstra8(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+            D8.ratkaise();
+        Sijainti[][] sijaintiTaulu = D8.getSijaintiTaulu();
+        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
+        int maara = 0;
+        int xApu = 0;
+        while (xLoppuPiste != xAlkuPiste || yLoppuPiste != yAlkuPiste) {
+            xApu = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getX();
+            yLoppuPiste = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getY();
+            xLoppuPiste = xApu;
+            maara++;
+        }
+        assertTrue(tulos == maara);
+    }
+
+        @Test
+    public void selvitetaankoReittiOikeinJosReittiAlkaaYlhaaltaAlas() {
+        int xAlkuPiste = 2;
+        int yAlkuPiste = 2;
+        int xLoppuPiste = 2;
+        int yLoppuPiste = 200;
+
+            Dijkstra8 D8 = new Dijkstra8(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+            D8.ratkaise();
+        Sijainti[][] sijaintiTaulu = D8.getSijaintiTaulu();
+        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
+        int maara = 0;
+        int xApu = 0;
+        while (xLoppuPiste != xAlkuPiste || yLoppuPiste != yAlkuPiste) {
+            xApu = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getX();
+            yLoppuPiste = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getY();
+            xLoppuPiste = xApu;
+            maara++;
+        }
+        assertTrue(tulos == maara);
+    }
+        @Test
+    public void selvitetaankoReittiOikeinJosReittiAlkaaAlhaaltaYlos() {
+        int xAlkuPiste = 2;
+        int yAlkuPiste = 200;
+        int xLoppuPiste = 2;
+        int yLoppuPiste = 2;
+
+            Dijkstra8 D8 = new Dijkstra8(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+            D8.ratkaise();
+        Sijainti[][] sijaintiTaulu = D8.getSijaintiTaulu();
+        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
+        int maara = 0;
+        int xApu = 0;
+        while (xLoppuPiste != xAlkuPiste || yLoppuPiste != yAlkuPiste) {
+            xApu = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getX();
+            yLoppuPiste = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getY();
+            xLoppuPiste = xApu;
+            maara++;
+        }
+        assertTrue(tulos == maara);
+    }
+        
+    @Test
+    public void selvitetaankoReittiOikeinJosReittiAlkaaVasemmastaAlaReunastaOikeaanYläReunaan() {
+        int xAlkuPiste = 2;
+        int yAlkuPiste = 200;
+        int xLoppuPiste = 200;
+        int yLoppuPiste = 2;
+
+            Dijkstra8 D8 = new Dijkstra8(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+            D8.ratkaise();
+        Sijainti[][] sijaintiTaulu = D8.getSijaintiTaulu();
+        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
+        int maara = 0;
+        int xApu = 0;
+        while (xLoppuPiste != xAlkuPiste || yLoppuPiste != yAlkuPiste) {
+            xApu = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getX();
+            yLoppuPiste = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getY();
+            xLoppuPiste = xApu;
+            maara++;
+        }
+
+        assertTrue(tulos == maara*2);
+    }        
+    @Test
+    public void selvitetaankoReittiOikeinJosReittiAlkaaVasemmaltaYlhaaltaOikealleAlas() {
+        int xAlkuPiste = 2;
+        int yAlkuPiste = 2;
+        int xLoppuPiste = 200;
+        int yLoppuPiste = 200;
+
+            Dijkstra8 D8 = new Dijkstra8(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+            D8.ratkaise();
+        Sijainti[][] sijaintiTaulu = D8.getSijaintiTaulu();
+        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
+        int maara = 0;
+        int xApu = 0;
+        while (xLoppuPiste != xAlkuPiste || yLoppuPiste != yAlkuPiste) {
+            xApu = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getX();
+            yLoppuPiste = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getY();
+            xLoppuPiste = xApu;
+            maara++;
+        }
+        assertTrue(tulos == maara*2);
+    }
+        @Test
+    public void selvitetaankoReittiOikeinJosReittiAlkaaOikeastaYläreunastaVasempaaAlaReunaan() {
+        int xAlkuPiste = 200;
+        int yAlkuPiste = 2;
+        int xLoppuPiste = 2;
+        int yLoppuPiste = 200;
+
+            Dijkstra8 D8 = new Dijkstra8(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+            D8.ratkaise();
+        Sijainti[][] sijaintiTaulu = D8.getSijaintiTaulu();
+        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
+        int maara = 0;
+        int xApu = 0;
+        while (xLoppuPiste != xAlkuPiste || yLoppuPiste != yAlkuPiste) {
+            xApu = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getX();
+            yLoppuPiste = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getY();
+            xLoppuPiste = xApu;
+            maara++;
+        }
+        System.out.println("tulos="+tulos+" määrä="+maara);
+        assertTrue(tulos == maara*2);
+    }
+            @Test
+    public void selvitetaankoReittiOikeinJosReittiAlkaaOikeastaAlaReunastaVasempaaYlaReunaan() {
+        int xAlkuPiste = 200;
+        int yAlkuPiste = 200;
+        int xLoppuPiste = 2;
+        int yLoppuPiste = 2;
+
+            Dijkstra8 D8 = new Dijkstra8(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+            D8.ratkaise();
+        Sijainti[][] sijaintiTaulu = D8.getSijaintiTaulu();
+        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
+        int maara = 0;
+        int xApu = 0;
+        while (xLoppuPiste != xAlkuPiste || yLoppuPiste != yAlkuPiste) {
+            xApu = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getX();
+            yLoppuPiste = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getY();
+            xLoppuPiste = xApu;
+            maara++;
+        }
+        assertTrue(tulos == maara*2);
+    }    
+    
     @Test
     public void tulostaakoReitinOikein() {
         BufferedImage kuva = null;

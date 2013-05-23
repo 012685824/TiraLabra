@@ -52,7 +52,7 @@ public class AstarTest {
     }
 
     @Test
-    public void selvitetaankoReittiOikein() {
+    public void selvitetaankoReittiOikeinSatunnaisillaSyotteilla() {
         for (int i = 0; i < 30; i++) {
 
 
@@ -81,6 +81,185 @@ public class AstarTest {
 
     }
 
+    @Test
+    public void selvitetaankoReittiOikeinJosReittiAlkaaVasemmaltaOikealle() {
+        int xAlkuPiste = 2;
+        int yAlkuPiste = 2;
+        int xLoppuPiste = 200;
+        int yLoppuPiste = 2;
+
+            Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+            A.ratkaise();
+        Sijainti[][] sijaintiTaulu = A.getSijaintiTaulu();
+        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
+        int maara = 0;
+        int xApu = 0;
+        while (xLoppuPiste != xAlkuPiste || yLoppuPiste != yAlkuPiste) {
+            xApu = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getX();
+            yLoppuPiste = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getY();
+            xLoppuPiste = xApu;
+            maara++;
+        }
+        assertTrue(tulos == maara);
+    }
+
+    @Test
+    public void selvitetaankoReittiOikeinJosReittiAlkaaOikealtaVasemmalle() {
+        int xAlkuPiste = 200;
+        int yAlkuPiste = 2;
+        int xLoppuPiste = 2;
+        int yLoppuPiste = 2;
+
+            Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+            A.ratkaise();
+        Sijainti[][] sijaintiTaulu = A.getSijaintiTaulu();
+        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
+        int maara = 0;
+        int xApu = 0;
+        while (xLoppuPiste != xAlkuPiste || yLoppuPiste != yAlkuPiste) {
+            xApu = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getX();
+            yLoppuPiste = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getY();
+            xLoppuPiste = xApu;
+            maara++;
+        }
+        assertTrue(tulos == maara);
+    }
+
+        @Test
+    public void selvitetaankoReittiOikeinJosReittiAlkaaYlhaaltaAlas() {
+        int xAlkuPiste = 2;
+        int yAlkuPiste = 2;
+        int xLoppuPiste = 2;
+        int yLoppuPiste = 200;
+
+            Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+            A.ratkaise();
+        Sijainti[][] sijaintiTaulu = A.getSijaintiTaulu();
+        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
+        int maara = 0;
+        int xApu = 0;
+        while (xLoppuPiste != xAlkuPiste || yLoppuPiste != yAlkuPiste) {
+            xApu = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getX();
+            yLoppuPiste = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getY();
+            xLoppuPiste = xApu;
+            maara++;
+        }
+        assertTrue(tulos == maara);
+    }
+        @Test
+    public void selvitetaankoReittiOikeinJosReittiAlkaaAlhaaltaYlos() {
+        int xAlkuPiste = 2;
+        int yAlkuPiste = 200;
+        int xLoppuPiste = 2;
+        int yLoppuPiste = 2;
+        
+            Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+            A.ratkaise();
+        Sijainti[][] sijaintiTaulu = A.getSijaintiTaulu();
+        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
+        int maara = 0;
+        int xApu = 0;
+        while (xLoppuPiste != xAlkuPiste || yLoppuPiste != yAlkuPiste) {
+            xApu = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getX();
+            yLoppuPiste = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getY();
+            xLoppuPiste = xApu;
+            maara++;
+        }
+        assertTrue(tulos == maara);
+    }
+        
+    @Test
+    public void selvitetaankoReittiOikeinJosReittiAlkaaVasemmastaAlaReunastaOikeaanYläReunaan() {
+        int xAlkuPiste = 2;
+        int yAlkuPiste = 200;
+        int xLoppuPiste = 200;
+        int yLoppuPiste = 2;
+
+            Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+            A.ratkaise();
+        Sijainti[][] sijaintiTaulu = A.getSijaintiTaulu();
+        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
+        int maara = 0;
+        int xApu = 0;
+        while (xLoppuPiste != xAlkuPiste || yLoppuPiste != yAlkuPiste) {
+            xApu = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getX();
+            yLoppuPiste = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getY();
+            xLoppuPiste = xApu;
+            maara++;
+        }
+        assertTrue(tulos == maara);
+    }        
+    @Test
+    public void selvitetaankoReittiOikeinJosReittiAlkaaVasemmaltaYlhaaltaOikealleAlas() {
+        int xAlkuPiste = 2;
+        int yAlkuPiste = 2;
+        int xLoppuPiste = 200;
+        int yLoppuPiste = 200;
+
+            Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+            A.ratkaise();
+        Sijainti[][] sijaintiTaulu = A.getSijaintiTaulu();
+        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
+        int maara = 0;
+        int xApu = 0;
+        while (xLoppuPiste != xAlkuPiste || yLoppuPiste != yAlkuPiste) {
+            xApu = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getX();
+            yLoppuPiste = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getY();
+            xLoppuPiste = xApu;
+            maara++;
+        }
+        assertTrue(tulos == maara);
+    }
+        @Test
+    public void selvitetaankoReittiOikeinJosReittiAlkaaOikeastaYläreunastaVasempaaAlaReunaan() {
+        int xAlkuPiste = 200;
+        int yAlkuPiste = 2;
+        int xLoppuPiste = 2;
+        int yLoppuPiste = 200;
+
+            Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+            A.ratkaise();
+        Sijainti[][] sijaintiTaulu = A.getSijaintiTaulu();
+        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
+        int maara = 0;
+        int xApu = 0;
+        while (xLoppuPiste != xAlkuPiste || yLoppuPiste != yAlkuPiste) {
+            xApu = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getX();
+            yLoppuPiste = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getY();
+            xLoppuPiste = xApu;
+            maara++;
+        }
+        assertTrue(tulos == maara);
+    }
+            @Test
+    public void selvitetaankoReittiOikeinJosReittiAlkaaOikeastaAlaReunastaVasempaaYlaReunaan() {
+        int xAlkuPiste = 200;
+        int yAlkuPiste = 200;
+        int xLoppuPiste = 2;
+        int yLoppuPiste = 2;
+
+            Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+            A.ratkaise();
+        Sijainti[][] sijaintiTaulu = A.getSijaintiTaulu();
+        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
+        int maara = 0;
+        int xApu = 0;
+        while (xLoppuPiste != xAlkuPiste || yLoppuPiste != yAlkuPiste) {
+            xApu = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getX();
+            yLoppuPiste = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getY();
+            xLoppuPiste = xApu;
+            maara++;
+        }
+        assertTrue(tulos == maara);
+    }
     @Test
     public void tulostaakoReitinOikein() {
         BufferedImage kuva = null;

@@ -10,7 +10,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- *
+ *Dijkstra luokka ratkaisee lyhimmän polun kahden annetun pisteet "solmun" välillä
+ * 
  * @author Toni
  */
 public class Dijkstra {
@@ -20,7 +21,16 @@ public class Dijkstra {
     private Sijainti[][] sijaintiTaulu;
     private Keko K = new Keko();
     private int[] testiTulostus;
-
+    /**
+     * Luo Dijkstra-olion, jolle annetaan alkuarvoina seuraavat
+     *
+     * @param kuvaTaulu sisältää tiedon pisteen värikoodista
+     * @param xAlku misä x:n etsintä aloitetaan
+     * @param yAlku misä y:n etsintä aloitetaan
+     * @param xLoppu mihin x:n arvoon reitti etsitään
+     * @param yLoppu mihin y:n arvoon reitti etsitään
+     * @param sijaintiTaulu sisältää tiedot solmun arvoista x,y,etäisyys
+     */
     public Dijkstra(int[][] kuvaTaulu, int xAlku, int yAlku, int xLoppu, int yLoppu) {
         this.kuvaTaulu = kuvaTaulu;
         this.xAlku = xAlku;
@@ -29,15 +39,23 @@ public class Dijkstra {
         this.yLoppu = yLoppu;
         sijaintiTaulu = new Sijainti[this.kuvaTaulu.length][this.kuvaTaulu[0].length];
     }
-
+    /**
+     * ratkaise metodi aloittaa Dijkstran toiminnan kutsumalla dijkstraKeko-metodia.
+     *
+     */
     public void ratkaise() {
         dijkstraKeko();
     }
-
+    /**
+     * initialiseSingleSourceTest metodi on vain initialiseSingleSource metodin
+     * testaamista varten.
+     */
     public void initialiseSingleSourceTest() {
         initialiseSingleSource();
     }
-
+    /**
+     * initialiseSingleSource metodi alustaa sijaintiTaulun.
+     */
     private void initialiseSingleSource() {
         for (int x = 0; x < sijaintiTaulu.length; x++) {        // alustetaan sijaintiTaulu taulukko
             for (int y = 0; y < sijaintiTaulu[0].length; y++) {
@@ -48,14 +66,25 @@ public class Dijkstra {
         sijaintiTaulu[xAlku][yAlku] = new Sijainti(0, 0, 0);            //aloitus kohdan etäisyys arvo asetetaan 0
 
     }
-
+    /**
+     * relaxTest metodi on vain relax metodin testaamista varten.
+     */
     public void relaxTest(int xMistaTullaan, int yMistaTullaan, int xMihinMennaan, int yMihinMennaan) {
         relax(xMistaTullaan, yMistaTullaan, xMihinMennaan, yMihinMennaan);
     }
-
+    /**
+     * relax metodi vertaa, onko etäisyysarvo suurempi siinä pisteessä, mihin
+     * ollaan menossa, kuin pisteen "Mistä tullaan" etäisyysarvo lisättynä
+     * kuvataulusta saatavaan etäisyysarvoon. Jos näin on, niin päivitetään se
+     * uudella pienemmällä arvolla ja lisätään muuttuneen pisteen tiedot kekoon.
+     *
+     * @param xMistaTullaan kertoo x koordinaatin mistä tullaan.
+     * @param yMistaTullaan kertoo y koordinaatin mistä tullaan.
+     * @param xMihinMennaan kertoo x koordinaatin mihin mennään.
+     * @param yMihinMennaan kertoo y koordinaatin mihin mennään.
+     */
     protected void relax(int xMistaTullaan, int yMistaTullaan, int xMihinMennaan, int yMihinMennaan) {
-        // verrataan onko etäisyys arvo suurempi ruudussa mihin ollaan menossa 
-        // jos on niin päivitetään se uudella pienemmällä arvolla.
+
         if (sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys() > sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan]) {
 
             sijaintiTaulu[xMihinMennaan][yMihinMennaan].setEtaisyys(sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan]);
@@ -68,9 +97,21 @@ public class Dijkstra {
             //K.tulosta();
         }
     }
+   /**
+     * dijkstraKekoTest metodi on vain dijkstraKeko metodin testaamista varten.
+     */
 public void dijkstraKekoTest(){
     dijkstraKeko();
 }
+    /**
+     * dijkstraKeko metodi kutsuu aluksi initialiseSingleSource metodia alustusta
+     * varten ja luo apumuuttujan "sijaintiApu". Apumuuttujaa tarvitaan keosta haettavaa
+     * tietoa varten ja relaxsin kutsua varten, jotta varsinainen sijaintitaulu
+     * pysyy halutunlaisena.Jos kyseinen kuva "Verkko" ei ole tyhjä, niin
+     * käydään vieruspisteet, eli "solmut" läpi (pääilman suunnista). Metodin suorittaminen lopetetaan,
+     * kun keko on tyhjä, eli kaikki "solmut" on käyty loppuunasti läpi tai on
+     * löydetty loppupiste.
+     */
     private void dijkstraKeko() {
         initialiseSingleSource();
         Sijainti sijaintiApu = new Sijainti(0, 0, 0); //luodaan apu sijainti muuttuja 
@@ -79,8 +120,6 @@ public void dijkstraKekoTest(){
 
         while (!K.emptyIs() && (xLoppu != sijaintiApu.getX() || yLoppu != sijaintiApu.getY())) {
             sijaintiApu = K.poista();
-            //System.out.println("si=" +sijaintiApu.getEtaisyys());
-            //K.tulosta();
             // tarkastetaan ollaan taulukon reunassa X tai y akselin suunnassa
             // jos ei niin suoritetaan relax 
             if (sijaintiApu.getX() + 1 < sijaintiTaulu.length) {
@@ -156,17 +195,30 @@ public void dijkstraKekoTest(){
     public void setTestiTulostus(int[] testiTulostus) {
         this.testiTulostus = testiTulostus;
     }
-
+    /**
+     * palauttaa sijaintitaulukon.
+     *
+     * @return Sijainti[][]
+     */
     public Sijainti[][] getSijaintiTaulu() {
         return this.sijaintiTaulu;
     }
-
+    /**
+     * testiTulosReitti() metodi on vain testiTulosReitti metodin testaamiseen.
+     *
+     * @return int []
+     */
     public int[] testiTulosReitti() {
 
         tulostaReitti();
         return testiTulostus;
     }
-
+    /**
+     * testiTulosReitti metodi tulostaa kuljetun reitin alkaen lopusta ja edeten alkuun
+     * päin. Aluksi luodaan muutamat apumuutujat tulostusta varten. Kun
+     * muuttujat on luotu, käydään while luupin avulla kuljettu reitti läpi.
+     *
+     */
     public void tulostaReitti() {
         int x = xLoppu;     //Annetaan tulostukseen reitin alkupiste
         int y = yLoppu;

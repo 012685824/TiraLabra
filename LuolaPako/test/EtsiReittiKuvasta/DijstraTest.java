@@ -4,7 +4,6 @@ package EtsiReittiKuvasta;
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import EtsiReittiKuvasta.tietoRakenteet.Dijkstra;
 import EtsiReittiKuvasta.main.EtsiReitti;
 import EtsiReittiKuvasta.tietoRakenteet.Sijainti;
@@ -52,7 +51,7 @@ public class DijstraTest {
     }
 
     @Test
-    public void selvitetaankoReittiOikein() {
+    public void selvitetaankoReittiOikeinSatunnaisillaSyotteilla() {
         for (int i = 0; i < 30; i++) {
 //5testiä
 
@@ -77,10 +76,187 @@ public class DijstraTest {
 
             assertTrue(tulos == maara);
         }
-
-
     }
 
+    @Test
+    public void selvitetaankoReittiOikeinJosReittiAlkaaVasemmaltaOikealle() {
+        int xAlkuPiste = 2;
+        int yAlkuPiste = 2;
+        int xLoppuPiste = 200;
+        int yLoppuPiste = 2;
+
+        Dijkstra D = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+        D.ratkaise();
+        Sijainti[][] sijaintiTaulu = D.getSijaintiTaulu();
+        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
+        int maara = 0;
+        int xApu = 0;
+        while (xLoppuPiste != xAlkuPiste || yLoppuPiste != yAlkuPiste) {
+            xApu = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getX();
+            yLoppuPiste = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getY();
+            xLoppuPiste = xApu;
+            maara++;
+        }
+        assertTrue(tulos == maara);
+    }
+
+    @Test
+    public void selvitetaankoReittiOikeinJosReittiAlkaaOikealtaVasemmalle() {
+        int xAlkuPiste = 200;
+        int yAlkuPiste = 2;
+        int xLoppuPiste = 2;
+        int yLoppuPiste = 2;
+
+        Dijkstra D = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+        D.ratkaise();
+        Sijainti[][] sijaintiTaulu = D.getSijaintiTaulu();
+        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
+        int maara = 0;
+        int xApu = 0;
+        while (xLoppuPiste != xAlkuPiste || yLoppuPiste != yAlkuPiste) {
+            xApu = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getX();
+            yLoppuPiste = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getY();
+            xLoppuPiste = xApu;
+            maara++;
+        }
+        assertTrue(tulos == maara);
+    }
+
+        @Test
+    public void selvitetaankoReittiOikeinJosReittiAlkaaYlhaaltaAlas() {
+        int xAlkuPiste = 2;
+        int yAlkuPiste = 2;
+        int xLoppuPiste = 2;
+        int yLoppuPiste = 200;
+
+        Dijkstra D = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+        D.ratkaise();
+        Sijainti[][] sijaintiTaulu = D.getSijaintiTaulu();
+        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
+        int maara = 0;
+        int xApu = 0;
+        while (xLoppuPiste != xAlkuPiste || yLoppuPiste != yAlkuPiste) {
+            xApu = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getX();
+            yLoppuPiste = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getY();
+            xLoppuPiste = xApu;
+            maara++;
+        }
+        assertTrue(tulos == maara);
+    }
+        @Test
+    public void selvitetaankoReittiOikeinJosReittiAlkaaAlhaaltaYlos() {
+        int xAlkuPiste = 2;
+        int yAlkuPiste = 200;
+        int xLoppuPiste = 2;
+        int yLoppuPiste = 2;
+
+        Dijkstra D = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+        D.ratkaise();
+        Sijainti[][] sijaintiTaulu = D.getSijaintiTaulu();
+        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
+        int maara = 0;
+        int xApu = 0;
+        while (xLoppuPiste != xAlkuPiste || yLoppuPiste != yAlkuPiste) {
+            xApu = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getX();
+            yLoppuPiste = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getY();
+            xLoppuPiste = xApu;
+            maara++;
+        }
+        assertTrue(tulos == maara);
+    }
+        
+    @Test
+    public void selvitetaankoReittiOikeinJosReittiAlkaaVasemmastaAlaReunastaOikeaanYläReunaan() {
+        int xAlkuPiste = 2;
+        int yAlkuPiste = 200;
+        int xLoppuPiste = 200;
+        int yLoppuPiste = 2;
+
+        Dijkstra D = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+        D.ratkaise();
+        Sijainti[][] sijaintiTaulu = D.getSijaintiTaulu();
+        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
+        int maara = 0;
+        int xApu = 0;
+        while (xLoppuPiste != xAlkuPiste || yLoppuPiste != yAlkuPiste) {
+            xApu = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getX();
+            yLoppuPiste = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getY();
+            xLoppuPiste = xApu;
+            maara++;
+        }
+        assertTrue(tulos == maara);
+    }        
+    @Test
+    public void selvitetaankoReittiOikeinJosReittiAlkaaVasemmaltaYlhaaltaOikealleAlas() {
+        int xAlkuPiste = 2;
+        int yAlkuPiste = 2;
+        int xLoppuPiste = 200;
+        int yLoppuPiste = 200;
+
+        Dijkstra D = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+        D.ratkaise();
+        Sijainti[][] sijaintiTaulu = D.getSijaintiTaulu();
+        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
+        int maara = 0;
+        int xApu = 0;
+        while (xLoppuPiste != xAlkuPiste || yLoppuPiste != yAlkuPiste) {
+            xApu = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getX();
+            yLoppuPiste = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getY();
+            xLoppuPiste = xApu;
+            maara++;
+        }
+        assertTrue(tulos == maara);
+    }
+        @Test
+    public void selvitetaankoReittiOikeinJosReittiAlkaaOikeastaYläreunastaVasempaaAlaReunaan() {
+        int xAlkuPiste = 200;
+        int yAlkuPiste = 2;
+        int xLoppuPiste = 2;
+        int yLoppuPiste = 200;
+
+        Dijkstra D = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+        D.ratkaise();
+        Sijainti[][] sijaintiTaulu = D.getSijaintiTaulu();
+        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
+        int maara = 0;
+        int xApu = 0;
+        while (xLoppuPiste != xAlkuPiste || yLoppuPiste != yAlkuPiste) {
+            xApu = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getX();
+            yLoppuPiste = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getY();
+            xLoppuPiste = xApu;
+            maara++;
+        }
+        assertTrue(tulos == maara);
+    }
+            @Test
+    public void selvitetaankoReittiOikeinJosReittiAlkaaOikeastaAlaReunastaVasempaaYlaReunaan() {
+        int xAlkuPiste = 200;
+        int yAlkuPiste = 200;
+        int xLoppuPiste = 2;
+        int yLoppuPiste = 2;
+
+        Dijkstra D = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+        D.ratkaise();
+        Sijainti[][] sijaintiTaulu = D.getSijaintiTaulu();
+        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
+        int maara = 0;
+        int xApu = 0;
+        while (xLoppuPiste != xAlkuPiste || yLoppuPiste != yAlkuPiste) {
+            xApu = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getX();
+            yLoppuPiste = sijaintiTaulu[xLoppuPiste][yLoppuPiste].getY();
+            xLoppuPiste = xApu;
+            maara++;
+        }
+        assertTrue(tulos == maara);
+    }
     @Test
     public void tulostaakoReitinOikein() {
         BufferedImage kuva = null;
@@ -154,22 +330,22 @@ public class DijstraTest {
             Dijkstra D = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
             D.initialiseSingleSourceTest();
             D.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
-            
+
             Sijainti[][] sijaintiTaulu = D.getSijaintiTaulu();
 
             assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
 
         }
     }
+
     @Test
-    public void toimiikoDijkstraKekoOikeinJosOnYhdenKokoinenSyote(){
+    public void toimiikoDijkstraKekoOikeinJosOnYhdenKokoinenSyote() {
         int[][] koeTaulu = new int[1][1];
         koeTaulu[0][0] = 1;
         Dijkstra D = new Dijkstra(koeTaulu, 0, 0, 0, 0);
         D.dijkstraKekoTest();
         assertTrue(D.getSijaintiTaulu()[0][0].getEtaisyys() == 0.0);
-    }        
-    
+    }
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //

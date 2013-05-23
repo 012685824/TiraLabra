@@ -7,7 +7,7 @@ package EtsiReittiKuvasta.tietoRakenteet;
 import EtsiReittiKuvasta.tietoRakenteet.Sijainti;
 
 /**
- *
+ *BellmanFord luokka ratkaisee lyhimmän polun kahden annetun pisteet "solmun" välillä
  * @author Toni
  */
 public class BellmanFord {
@@ -16,7 +16,16 @@ public class BellmanFord {
     private int xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste;
     private Sijainti[][] sijaintiTaulu;
     private int[] testiTulostus;
-
+    /**
+     * Luo BellmanFord-olion, jolle annetaan alkuarvoina seuraavat
+     *
+     * @param kuvaTaulu sisältää tiedon pisteen värikoodista
+     * @param xAlku misä x:n etsintä aloitetaan
+     * @param yAlku misä y:n etsintä aloitetaan
+     * @param xLoppu mihin x:n arvoon reitti etsitään
+     * @param yLoppu mihin y:n arvoon reitti etsitään
+     * @param sijaintiTaulu sisältää tiedot solmun arvoista x,y,etäisyys
+     */
     public BellmanFord(int[][] kuvaTaulu, int xAlkuPiste, int yAlkuPiste, int xLoppuPiste, int yLoppuPiste) {
 
         this.kuvaTaulu = kuvaTaulu;
@@ -26,7 +35,11 @@ public class BellmanFord {
         this.yLoppuPiste = yLoppuPiste;
         sijaintiTaulu = new Sijainti[this.kuvaTaulu.length][this.kuvaTaulu[0].length];
     }
-
+    /**
+     * ratkaise metodi aloittaa kutsuu ensin initialiseSingleSource metodia.
+     * ratkaise metodi käy kolmen for luupin avulla kuvaTaulua läpi ja jos ei
+     * olla taulukon reunoilla niin kutsutaan relax metodia kaikiin pääilman suuntiin.
+     */
     public void ratkaise() {
         initialiseSingleSource(); // Kutsutaan muutujien alustus ..
         for (int i = 0; i < kuvaTaulu.length * kuvaTaulu[0].length; i++) {
@@ -52,9 +65,16 @@ public class BellmanFord {
             }
         }
     }
+        /**
+     * initialiseSingleSourceTest metodi on vain initialiseSingleSource metodin
+     * testaamista varten.
+     */
     public void initialiseSingleSourceTest() {
         initialiseSingleSource();
     }
+        /**
+     * initialiseSingleSource metodi alustaa sijaintiTaulun.
+     */
     private void initialiseSingleSource() {
         for (int x = 0; x < this.kuvaTaulu.length; x++) {        // alustetaan etäisyys taulukko
             for (int y = 0; y < kuvaTaulu[0].length; y++) {
@@ -64,9 +84,24 @@ public class BellmanFord {
         }
         sijaintiTaulu[xAlkuPiste][yAlkuPiste] = new Sijainti(0, 0, 0);
     }
+    /**
+     * relaxTest metodi on vain relax metodin testaamista varten.
+     */    
     public void relaxTest(int xMistaTullaan, int yMistaTullaan, int xMihinMennaan, int yMihinMennaan) {
         relax(xMistaTullaan, yMistaTullaan, xMihinMennaan, yMihinMennaan);
     }
+    
+        /**
+     * relax metodi vertaa, onko etäisyysarvo suurempi siinä pisteessä, mihin
+     * ollaan menossa, kuin pisteen "Mistä tullaan" etäisyysarvo lisättynä
+     * kuvataulusta saatavaan etäisyysarvoon. Jos näin on, niin päivitetään se
+     * uudella pienemmällä arvolla.
+     *
+     * @param xMistaTullaan kertoo x koordinaatin mistä tullaan.
+     * @param yMistaTullaan kertoo y koordinaatin mistä tullaan.
+     * @param xMihinMennaan kertoo x koordinaatin mihin mennään.
+     * @param yMihinMennaan kertoo y koordinaatin mihin mennään.
+     */
     private void relax(int xMistaTullaan, int yMistaTullaan, int xMihinMennaan, int yMihinMennaan) {
 
         if (sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys() > sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan]) { // verrataan onko etäisyys suurempi vai pienempi uutta solmua käyttäen
@@ -76,17 +111,30 @@ public class BellmanFord {
             sijaintiTaulu[xMihinMennaan][yMihinMennaan].setY(yMistaTullaan);
         }
     }
-
+    /**
+     * palauttaa sijaintitaulukon.
+     *
+     * @return Sijainti[][]
+     */
     public Sijainti[][] getSijaintiTaulu() {
         return this.sijaintiTaulu;
     }
-
+    /**
+     * testiTulosReitti() metodi on vain testiTulosReitti metodin testaamiseen.
+     *
+     * @return int []
+     */
     public int[] testiTulosReitti() {
 
         tulostaReitti();
         return testiTulostus;
     }
-
+   /**
+     * testiTulosReitti metodi tulostaa kuljetun reitin alkaen lopusta ja edeten alkuun
+     * päin. Aluksi luodaan muutamat apumuutujat tulostusta varten. Kun
+     * muuttujat on luotu, käydään while luupin avulla kuljettu reitti läpi.
+     *
+     */
     public void tulostaReitti() {
         int x = xLoppuPiste;     //Annetaan tulostukseen reitin alkupiste
         int y = yLoppuPiste;
