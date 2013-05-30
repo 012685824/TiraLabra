@@ -2,9 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package EtsiReittiKuvasta.tietoRakenteet;
+package Algoritmit;
 
 import EtsiReittiKuvasta.tietoRakenteet.Keko;
+import EtsiReittiKuvasta.tietoRakenteet.Keko;
+import EtsiReittiKuvasta.tietoRakenteet.Keko;
+import EtsiReittiKuvasta.tietoRakenteet.Sijainti;
+import EtsiReittiKuvasta.tietoRakenteet.Sijainti;
 import EtsiReittiKuvasta.tietoRakenteet.Sijainti;
 import java.util.ArrayList;
 
@@ -50,6 +54,7 @@ public class Dijkstra8 {
      * testaamista varten.
      */
     public void initialiseSingleSourceTest() {
+
         initialiseSingleSource();
     }
    /**
@@ -67,6 +72,7 @@ public class Dijkstra8 {
      * relaxTest metodi on vain relax metodin testaamista varten.
      */
     public void relaxTest(int xMistaTullaan, int yMistaTullaan, int xMihinMennaan, int yMihinMennaan) {
+ 
         relax(xMistaTullaan, yMistaTullaan, xMihinMennaan, yMihinMennaan);
     }
   /**
@@ -82,14 +88,14 @@ public class Dijkstra8 {
      */
     private void relax(int xMistaTullaan, int yMistaTullaan, int xMihinMennaan, int yMihinMennaan) {
 //*1.414
+    
         if ((xMistaTullaan != xMihinMennaan) && (yMistaTullaan != yMihinMennaan)) {
             if (sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys() > sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan] * 1.414) {
-
                 sijaintiTaulu[xMihinMennaan][yMihinMennaan].setEtaisyys(sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan] * 1.414);
                 sijaintiTaulu[xMihinMennaan][yMihinMennaan].setX(xMistaTullaan);
                 sijaintiTaulu[xMihinMennaan][yMihinMennaan].setY(yMistaTullaan);
 
-                K.lisaa(xMihinMennaan, yMihinMennaan, sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys() * 1.144);
+                K.lisaaKekoon(xMihinMennaan, yMihinMennaan, sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys() * 1.414);
             }
         } else {
             if (sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys() > sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan]) { // verrataan onko etäisyys suurempi vai pienempi uutta solmua käyttäen
@@ -98,7 +104,7 @@ public class Dijkstra8 {
                 sijaintiTaulu[xMihinMennaan][yMihinMennaan].setX(xMistaTullaan);
                 sijaintiTaulu[xMihinMennaan][yMihinMennaan].setY(yMistaTullaan);
 
-                K.lisaa(xMihinMennaan, yMihinMennaan, sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys());
+                K.lisaaKekoon(xMihinMennaan, yMihinMennaan, sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys());
             }
         }
     }
@@ -122,10 +128,10 @@ public class Dijkstra8 {
         initialiseSingleSource();
         Sijainti sijaintiApu = new Sijainti(0, 0, 0); //luodaan apu sijainti muuttuja 
 
-        K.lisaa(xAlku, yAlku, 0);
+        K.lisaaKekoon(xAlku, yAlku, 0);
 
         while (!K.emptyIs() && (xLoppu != sijaintiApu.getX() || yLoppu != sijaintiApu.getY())) {
-            sijaintiApu = K.poista();
+            sijaintiApu = K.poistaKeosta();
             if (sijaintiApu.getX() + 1 < sijaintiTaulu.length) {     // tarkastetaan ollaan taulukon reunassa X akselin suunnassa
                 relax(sijaintiApu.getX(), sijaintiApu.getY(), sijaintiApu.getX() + 1, sijaintiApu.getY());    // jos ei niin suoritetaan relax
             }

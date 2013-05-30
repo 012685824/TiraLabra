@@ -53,7 +53,7 @@ public class KekoTest {
     @Test
     public void keossaKahdeksanAlkiotaKunKahdeksanUuttaAlkiotaLisattyTyhjaanKekoon() {
         for (int i = 0; i < 8; i++) {
-            testikeko.lisaa(i, i, i);
+            testikeko.lisaaKekoon(i, i, i);
         }
         assertEquals(testikeko.getKeonKoko(), 8);
     }
@@ -61,7 +61,7 @@ public class KekoTest {
     @Test
     public void tyhjaanKekoonLisataanPaljonAlkioita() {
         for (int i = 0; i < 50000; i++) {
-            testikeko.lisaa(i, i, i);
+            testikeko.lisaaKekoon(i, i, i);
         }
         assertEquals(testikeko.getKeonKoko(), 50000);
         assertFalse(testikeko.getKeonKoko() == 0);
@@ -70,11 +70,11 @@ public class KekoTest {
     @Test
     public void poistetaanKekostaJossaPaljonAlkioita() {
         for (int i = 0; i < 50000; i++) {
-            testikeko.lisaa(i, i, i);
+            testikeko.lisaaKekoon(i, i, i);
         }
 
         for (int i = 0; i < 50000; i++) {
-            testikeko.poista();
+            testikeko.poistaKeosta();
         }
         assertTrue(testikeko.getKeonKoko() == 0);
     }
@@ -82,7 +82,7 @@ public class KekoTest {
     @Test
     public void onkoKekoTaulukonKokoOikeinKunLisataanPaljonAlkioita() {
         for (int i = 0; i < 50000; i++) {
-            testikeko.lisaa(i, i, i);
+            testikeko.lisaaKekoon(i, i, i);
         }
         assertTrue(testikeko.KekoTaulukonKoko() == 51200);
     }
@@ -90,10 +90,10 @@ public class KekoTest {
     @Test
     public void onkoKekoTaulukonKokoOikeinKunLisataanPaljonAlkioitaJaPoistetaanPaljonAlkioita() {
         for (int i = 0; i < 50000; i++) {
-            testikeko.lisaa(i, i, i);
+            testikeko.lisaaKekoon(i, i, i);
         }
         for (int i = 0; i < 50000; i++) {
-            testikeko.poista();
+            testikeko.poistaKeosta();
         }
         assertTrue(testikeko.KekoTaulukonKoko() == 100);
     }
@@ -101,11 +101,11 @@ public class KekoTest {
     @Test
     public void poistetaanLiikaaKekostaJossaPaljonAlkioita() {
         for (int i = 0; i < 50000; i++) {
-            testikeko.lisaa(i, i, i);
+            testikeko.lisaaKekoon(i, i, i);
         }
 
         for (int i = 0; i < 60000; i++) {
-            testikeko.poista();
+            testikeko.poistaKeosta();
         }
         assertTrue(testikeko.getKeonKoko() == 0);
     }
@@ -119,7 +119,7 @@ public class KekoTest {
 
     @Test
     public void testataanPalaittaakoEmptyOikeanArvonJosEiTyhja() {
-        testikeko.lisaa(1, 1, 1);
+        testikeko.lisaaKekoon(1, 1, 1);
         assertTrue(testikeko.emptyIs() == false);
     }
 
@@ -153,7 +153,7 @@ public class KekoTest {
 
             double kekoStartTime = System.currentTimeMillis();
             for (int i = 0; i < testattavienAlkioidenMaara; i++) {
-                testikeko.lisaa(i, i, i);
+                testikeko.lisaaKekoon(i, i, i);
             }
 
             double kekoEndTime = System.currentTimeMillis();
@@ -167,33 +167,33 @@ public class KekoTest {
 
     @Test
     public void tulostuukoKekoOikeinJosVaanLisataan() {
-        testikeko.lisaa(0, 0, 9);
-        testikeko.lisaa(0, 0, 2);
-        testikeko.lisaa(0, 0, 7);
-        testikeko.lisaa(0, 0, 1);
-        testikeko.lisaa(0, 0, 8);
-        testikeko.lisaa(0, 0, 3);
-        testikeko.lisaa(0, 0, 5);
+        testikeko.lisaaKekoon(0, 0, 9);
+        testikeko.lisaaKekoon(0, 0, 2);
+        testikeko.lisaaKekoon(0, 0, 7);
+        testikeko.lisaaKekoon(0, 0, 1);
+        testikeko.lisaaKekoon(0, 0, 8);
+        testikeko.lisaaKekoon(0, 0, 3);
+        testikeko.lisaaKekoon(0, 0, 5);
         assertEquals(" 1.0 2.0 3.0 9.0 8.0 7.0 5.0", testikeko.tulosta());
-        System.out.println(testikeko.poista().getEtaisyys());
+        System.out.println(testikeko.poistaKeosta().getEtaisyys());
         testikeko.tulosta();
-                System.out.println(testikeko.poista().getEtaisyys());
+                System.out.println(testikeko.poistaKeosta().getEtaisyys());
         testikeko.tulosta();
         
 
     }
     @Test
     public void tulostuukoKekoOikeinJosLisataanJaPoistetaan() {
-        testikeko.lisaa(0, 0, 10);
-        testikeko.lisaa(0, 0, 9);
-        testikeko.lisaa(0, 0, 2);
-        testikeko.lisaa(0, 0, 7);
+        testikeko.lisaaKekoon(0, 0, 10);
+        testikeko.lisaaKekoon(0, 0, 9);
+        testikeko.lisaaKekoon(0, 0, 2);
+        testikeko.lisaaKekoon(0, 0, 7);
 
-        testikeko.poista();
-        testikeko.poista();
+        testikeko.poistaKeosta();
+        testikeko.poistaKeosta();
         assertEquals(" 9.0 10.0", testikeko.tulosta());
-        testikeko.poista();
-        testikeko.lisaa(0, 0, 4);
+        testikeko.poistaKeosta();
+        testikeko.lisaaKekoon(0, 0, 4);
         testikeko.tulosta();
     }
     @Test
@@ -212,7 +212,7 @@ public class KekoTest {
 
         for (int i = 0; i < testi.nextInt(1000000) + 1; i++) {
             sijoitettajaLuku = new Random(1000000).nextDouble() + 1;
-            testikeko.lisaa(i, i, sijoitettajaLuku);
+            testikeko.lisaaKekoon(i, i, sijoitettajaLuku);
             if (pieninLuku > sijoitettajaLuku) {
                 pieninLuku = sijoitettajaLuku;
             }
@@ -230,7 +230,7 @@ public class KekoTest {
 
         for (int i = 0; i < testi.nextInt(1000000) + 1; i++) {
             sijoitettajaLuku = new Random(1000000).nextDouble() + 1;
-            testikeko.lisaa(i, i, sijoitettajaLuku);
+            testikeko.lisaaKekoon(i, i, sijoitettajaLuku);
             if (pieninLuku > sijoitettajaLuku) {
                 pieninLuku = sijoitettajaLuku;
             }

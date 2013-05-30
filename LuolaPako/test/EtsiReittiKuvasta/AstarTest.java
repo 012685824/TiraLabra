@@ -4,8 +4,8 @@ package EtsiReittiKuvasta;
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
-import EtsiReittiKuvasta.tietoRakenteet.Astar;
+import Algoritmit.Astar;
+import Algoritmit.Dijkstra;
 import EtsiReittiKuvasta.main.EtsiReitti;
 import EtsiReittiKuvasta.tietoRakenteet.Sijainti;
 import java.awt.image.BufferedImage;
@@ -22,11 +22,11 @@ import static org.junit.Assert.*;
  * @author Toni
  */
 public class AstarTest {
-        int kuvaTaulu[][] = new int[450][450];
+
+    int kuvaTaulu[][] = new int[450][450];
 
     public AstarTest() {
     }
-    
 
     @BeforeClass
     public static void setUpClass() {
@@ -88,9 +88,9 @@ public class AstarTest {
         int xLoppuPiste = 200;
         int yLoppuPiste = 2;
 
-            Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
-            A.ratkaise();
+        A.ratkaise();
         Sijainti[][] sijaintiTaulu = A.getSijaintiTaulu();
         int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
         int maara = 0;
@@ -111,9 +111,9 @@ public class AstarTest {
         int xLoppuPiste = 2;
         int yLoppuPiste = 2;
 
-            Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
-            A.ratkaise();
+        A.ratkaise();
         Sijainti[][] sijaintiTaulu = A.getSijaintiTaulu();
         int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
         int maara = 0;
@@ -127,16 +127,16 @@ public class AstarTest {
         assertTrue(tulos == maara);
     }
 
-        @Test
+    @Test
     public void selvitetaankoReittiOikeinJosReittiAlkaaYlhaaltaAlas() {
         int xAlkuPiste = 2;
         int yAlkuPiste = 2;
         int xLoppuPiste = 2;
         int yLoppuPiste = 200;
 
-            Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
-            A.ratkaise();
+        A.ratkaise();
         Sijainti[][] sijaintiTaulu = A.getSijaintiTaulu();
         int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
         int maara = 0;
@@ -149,16 +149,17 @@ public class AstarTest {
         }
         assertTrue(tulos == maara);
     }
-        @Test
+
+    @Test
     public void selvitetaankoReittiOikeinJosReittiAlkaaAlhaaltaYlos() {
         int xAlkuPiste = 2;
         int yAlkuPiste = 200;
         int xLoppuPiste = 2;
         int yLoppuPiste = 2;
-        
-            Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
-            A.ratkaise();
+        Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+        A.ratkaise();
         Sijainti[][] sijaintiTaulu = A.getSijaintiTaulu();
         int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
         int maara = 0;
@@ -171,7 +172,7 @@ public class AstarTest {
         }
         assertTrue(tulos == maara);
     }
-        
+
     @Test
     public void selvitetaankoReittiOikeinJosReittiAlkaaVasemmastaAlaReunastaOikeaanYläReunaan() {
         int xAlkuPiste = 2;
@@ -179,9 +180,9 @@ public class AstarTest {
         int xLoppuPiste = 200;
         int yLoppuPiste = 2;
 
-            Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
-            A.ratkaise();
+        A.ratkaise();
         Sijainti[][] sijaintiTaulu = A.getSijaintiTaulu();
         int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
         int maara = 0;
@@ -193,7 +194,8 @@ public class AstarTest {
             maara++;
         }
         assertTrue(tulos == maara);
-    }        
+    }
+
     @Test
     public void selvitetaankoReittiOikeinJosReittiAlkaaVasemmaltaYlhaaltaOikealleAlas() {
         int xAlkuPiste = 2;
@@ -201,9 +203,9 @@ public class AstarTest {
         int xLoppuPiste = 200;
         int yLoppuPiste = 200;
 
-            Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
-            A.ratkaise();
+        A.ratkaise();
         Sijainti[][] sijaintiTaulu = A.getSijaintiTaulu();
         int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
         int maara = 0;
@@ -216,16 +218,17 @@ public class AstarTest {
         }
         assertTrue(tulos == maara);
     }
-        @Test
+
+    @Test
     public void selvitetaankoReittiOikeinJosReittiAlkaaOikeastaYläreunastaVasempaaAlaReunaan() {
         int xAlkuPiste = 200;
         int yAlkuPiste = 2;
         int xLoppuPiste = 2;
         int yLoppuPiste = 200;
 
-            Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
-            A.ratkaise();
+        A.ratkaise();
         Sijainti[][] sijaintiTaulu = A.getSijaintiTaulu();
         int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
         int maara = 0;
@@ -238,16 +241,17 @@ public class AstarTest {
         }
         assertTrue(tulos == maara);
     }
-            @Test
+
+    @Test
     public void selvitetaankoReittiOikeinJosReittiAlkaaOikeastaAlaReunastaVasempaaYlaReunaan() {
         int xAlkuPiste = 200;
         int yAlkuPiste = 200;
         int xLoppuPiste = 2;
         int yLoppuPiste = 2;
 
-            Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
-            A.ratkaise();
+        A.ratkaise();
         Sijainti[][] sijaintiTaulu = A.getSijaintiTaulu();
         int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
         int maara = 0;
@@ -260,6 +264,7 @@ public class AstarTest {
         }
         assertTrue(tulos == maara);
     }
+
     @Test
     public void tulostaakoReitinOikein() {
         BufferedImage kuva = null;
@@ -323,32 +328,141 @@ public class AstarTest {
     }
 
     @Test
-    public void toimiikoRelaxKunSilleAnnetaaSanunnaisiasyötteita() {
-        for (int i = 0; i < 30; i++) {
-            Random random = new Random();
-            int xAlkuPiste = random.nextInt(450);
-            int yAlkuPiste = random.nextInt(450);
-            int xLoppuPiste = random.nextInt(450);
-            int yLoppuPiste = random.nextInt(450);
-            Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
-            A.initialiseSingleSourceTest();
-            A.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
-            
-            Sijainti[][] sijaintiTaulu = A.getSijaintiTaulu();
+    public void toimiikoRelaxKunSilleAnnetaaSyotteenaYlos() {
 
-            assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
+        int xAlkuPiste = 10;
+        int yAlkuPiste = 10;
+        int xLoppuPiste = 10;
+        int yLoppuPiste = 9;
+        Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        A.initialiseSingleSourceTest();
+        A.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
-        }
+        Sijainti[][] sijaintiTaulu = A.getSijaintiTaulu();
+
+        assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
     }
+
     @Test
-    public void toimiikoAstarKekoOikeinJosOnYhdenKokoinenSyote(){
+    public void toimiikoRelaxKunSilleAnnetaaSyotteenaYlosOikealle() {
+
+        int xAlkuPiste = 10;
+        int yAlkuPiste = 10;
+        int xLoppuPiste = 9;
+        int yLoppuPiste = 9;
+        Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        A.initialiseSingleSourceTest();
+        A.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+        Sijainti[][] sijaintiTaulu = A.getSijaintiTaulu();
+
+        assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
+    }
+
+    @Test
+    public void toimiikoRelaxKunSilleAnnetaaSyotteenaOikealle() {
+
+        int xAlkuPiste = 10;
+        int yAlkuPiste = 10;
+        int xLoppuPiste = 11;
+        int yLoppuPiste = 9;
+        Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        A.initialiseSingleSourceTest();
+        A.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+        Sijainti[][] sijaintiTaulu = A.getSijaintiTaulu();
+
+        assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
+    }
+
+    @Test
+    public void toimiikoRelaxKunSilleAnnetaaSyotteenaAlasOikealle() {
+
+        int xAlkuPiste = 10;
+        int yAlkuPiste = 10;
+        int xLoppuPiste = 11;
+        int yLoppuPiste = 11;
+        Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        A.initialiseSingleSourceTest();
+        A.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+        Sijainti[][] sijaintiTaulu = A.getSijaintiTaulu();
+
+        assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
+    }
+
+    @Test
+    public void toimiikoRelaxKunSilleAnnetaaSyotteenaAlas() {
+
+        int xAlkuPiste = 10;
+        int yAlkuPiste = 10;
+        int xLoppuPiste = 10;
+        int yLoppuPiste = 11;
+        Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        A.initialiseSingleSourceTest();
+        A.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+        Sijainti[][] sijaintiTaulu = A.getSijaintiTaulu();
+
+        assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
+    }
+
+    @Test
+    public void toimiikoRelaxKunSilleAnnetaaSyotteenaAlasVasemmalle() {
+
+        int xAlkuPiste = 10;
+        int yAlkuPiste = 10;
+        int xLoppuPiste = 9;
+        int yLoppuPiste = 11;
+        Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        A.initialiseSingleSourceTest();
+        A.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+        Sijainti[][] sijaintiTaulu = A.getSijaintiTaulu();
+
+        assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
+    }
+
+    @Test
+    public void toimiikoRelaxKunSilleAnnetaaSyotteenaVasemmalle() {
+
+        int xAlkuPiste = 10;
+        int yAlkuPiste = 10;
+        int xLoppuPiste = 9;
+        int yLoppuPiste = 10;
+        Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        A.initialiseSingleSourceTest();
+        A.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+        Sijainti[][] sijaintiTaulu = A.getSijaintiTaulu();
+
+        assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
+    }
+
+    @Test
+    public void toimiikoRelaxKunSilleAnnetaaSyotteenaYlosVasemmalle() {
+
+        int xAlkuPiste = 10;
+        int yAlkuPiste = 10;
+        int xLoppuPiste = 9;
+        int yLoppuPiste = 9;
+        Astar A = new Astar(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        A.initialiseSingleSourceTest();
+        A.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+        Sijainti[][] sijaintiTaulu = A.getSijaintiTaulu();
+
+        assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
+    }
+
+    @Test
+    public void toimiikoAstarKekoOikeinJosOnYhdenKokoinenSyote() {
         int[][] koeTaulu = new int[1][1];
         koeTaulu[0][0] = 1;
         Astar A = new Astar(koeTaulu, 0, 0, 0, 0);
         A.aStarKekoTest();
         assertTrue(A.getSijaintiTaulu()[0][0].getEtaisyys() == 0.0);
-    }        
-    
+    }
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //

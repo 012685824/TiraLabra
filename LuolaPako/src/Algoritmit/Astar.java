@@ -2,10 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package EtsiReittiKuvasta.tietoRakenteet;
+package Algoritmit;
 
 import EtsiReittiKuvasta.main.EtsiReitti;
 import EtsiReittiKuvasta.tietoRakenteet.Keko;
+import EtsiReittiKuvasta.tietoRakenteet.Keko;
+import EtsiReittiKuvasta.tietoRakenteet.Sijainti;
 import EtsiReittiKuvasta.tietoRakenteet.Sijainti;
 import java.util.ArrayList;
 
@@ -116,7 +118,7 @@ public class Astar {
             sijaintiTaulu[xMihinMennaan][yMihinMennaan].setX(xMistaTullaan);
             sijaintiTaulu[xMihinMennaan][yMihinMennaan].setY(yMistaTullaan);
             //Lisätään kekoon uusi arvo.
-            K.lisaa(xMihinMennaan, yMihinMennaan, sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys() + arvioTaulu[xMihinMennaan][yMihinMennaan]);
+            K.lisaaKekoon(xMihinMennaan, yMihinMennaan, sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys() + arvioTaulu[xMihinMennaan][yMihinMennaan]);
         }
     }
 
@@ -140,10 +142,10 @@ public class Astar {
         initialiseSingleSource();
         Sijainti sijaintiApu = new Sijainti(0, 0, 0); //luodaan apusijainti muuttuja 
 
-        K.lisaa(xAlku, yAlku, 0);
+        K.lisaaKekoon(xAlku, yAlku, 0);
 
         while (!K.emptyIs() && (xLoppu != sijaintiApu.getX() || yLoppu != sijaintiApu.getY())) {
-            sijaintiApu = K.poista();
+            sijaintiApu = K.poistaKeosta();
             // tarkastetaan ollaanko taulukon reunassa X tai y akselin suunnassa,
             // jos ei, niin suoritetaan relax 
             if (sijaintiApu.getX() + 1 < sijaintiTaulu.length) {

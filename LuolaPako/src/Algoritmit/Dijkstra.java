@@ -2,9 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package EtsiReittiKuvasta.tietoRakenteet;
+package Algoritmit;
 
 import EtsiReittiKuvasta.tietoRakenteet.Keko;
+import EtsiReittiKuvasta.tietoRakenteet.Keko;
+import EtsiReittiKuvasta.tietoRakenteet.Sijainti;
 import EtsiReittiKuvasta.tietoRakenteet.Sijainti;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -92,7 +94,7 @@ public class Dijkstra {
             sijaintiTaulu[xMihinMennaan][yMihinMennaan].setY(yMistaTullaan);
             //Lisätään kekoon uusi arvo.
             
-            K.lisaa(xMihinMennaan, yMihinMennaan, sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys());
+            K.lisaaKekoon(xMihinMennaan, yMihinMennaan, sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys());
             //System.out.println("jälkeen");
             //K.tulosta();
         }
@@ -116,10 +118,10 @@ public void dijkstraKekoTest(){
         initialiseSingleSource();
         Sijainti sijaintiApu = new Sijainti(0, 0, 0); //luodaan apu sijainti muuttuja 
 
-        K.lisaa(xAlku, yAlku, 0);
+        K.lisaaKekoon(xAlku, yAlku, 0);
 
         while (!K.emptyIs() && (xLoppu != sijaintiApu.getX() || yLoppu != sijaintiApu.getY())) {
-            sijaintiApu = K.poista();
+            sijaintiApu = K.poistaKeosta();
             // tarkastetaan ollaan taulukon reunassa X tai y akselin suunnassa
             // jos ei niin suoritetaan relax 
             if (sijaintiApu.getX() + 1 < sijaintiTaulu.length) {

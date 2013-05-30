@@ -4,7 +4,7 @@ package EtsiReittiKuvasta;
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-import EtsiReittiKuvasta.tietoRakenteet.Dijkstra;
+import Algoritmit.Dijkstra;
 import EtsiReittiKuvasta.main.EtsiReitti;
 import EtsiReittiKuvasta.tietoRakenteet.Sijainti;
 import java.awt.image.BufferedImage;
@@ -124,7 +124,7 @@ public class DijstraTest {
         assertTrue(tulos == maara);
     }
 
-        @Test
+    @Test
     public void selvitetaankoReittiOikeinJosReittiAlkaaYlhaaltaAlas() {
         int xAlkuPiste = 2;
         int yAlkuPiste = 2;
@@ -146,7 +146,8 @@ public class DijstraTest {
         }
         assertTrue(tulos == maara);
     }
-        @Test
+
+    @Test
     public void selvitetaankoReittiOikeinJosReittiAlkaaAlhaaltaYlos() {
         int xAlkuPiste = 2;
         int yAlkuPiste = 200;
@@ -168,7 +169,7 @@ public class DijstraTest {
         }
         assertTrue(tulos == maara);
     }
-        
+
     @Test
     public void selvitetaankoReittiOikeinJosReittiAlkaaVasemmastaAlaReunastaOikeaanYläReunaan() {
         int xAlkuPiste = 2;
@@ -190,7 +191,8 @@ public class DijstraTest {
             maara++;
         }
         assertTrue(tulos == maara);
-    }        
+    }
+
     @Test
     public void selvitetaankoReittiOikeinJosReittiAlkaaVasemmaltaYlhaaltaOikealleAlas() {
         int xAlkuPiste = 2;
@@ -213,7 +215,8 @@ public class DijstraTest {
         }
         assertTrue(tulos == maara);
     }
-        @Test
+
+    @Test
     public void selvitetaankoReittiOikeinJosReittiAlkaaOikeastaYläreunastaVasempaaAlaReunaan() {
         int xAlkuPiste = 200;
         int yAlkuPiste = 2;
@@ -235,7 +238,8 @@ public class DijstraTest {
         }
         assertTrue(tulos == maara);
     }
-            @Test
+
+    @Test
     public void selvitetaankoReittiOikeinJosReittiAlkaaOikeastaAlaReunastaVasempaaYlaReunaan() {
         int xAlkuPiste = 200;
         int yAlkuPiste = 200;
@@ -257,6 +261,7 @@ public class DijstraTest {
         }
         assertTrue(tulos == maara);
     }
+
     @Test
     public void tulostaakoReitinOikein() {
         BufferedImage kuva = null;
@@ -320,13 +325,58 @@ public class DijstraTest {
     }
 
     @Test
-    public void toimiikoRelaxKunSilleAnnetaaSanunnaisiasyötteita() {
-        for (int i = 0; i < 30; i++) {
-            Random random = new Random();
-            int xAlkuPiste = random.nextInt(450);
-            int yAlkuPiste = random.nextInt(450);
-            int xLoppuPiste = random.nextInt(450);
-            int yLoppuPiste = random.nextInt(450);
+    public void toimiikoRelaxKunSilleAnnetaaSyotteenaYlos() {
+
+        int xAlkuPiste = 10;
+        int yAlkuPiste = 10;
+        int xLoppuPiste = 10;
+        int yLoppuPiste = 9;
+        Dijkstra D = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        D.initialiseSingleSourceTest();
+        D.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+        Sijainti[][] sijaintiTaulu = D.getSijaintiTaulu();
+
+        assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
+    }
+
+    @Test
+    public void toimiikoRelaxKunSilleAnnetaaSyotteenaYlosOikealle() {
+
+        int xAlkuPiste = 10;
+        int yAlkuPiste = 10;
+        int xLoppuPiste = 9;
+        int yLoppuPiste = 9;
+        Dijkstra D = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        D.initialiseSingleSourceTest();
+        D.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+        Sijainti[][] sijaintiTaulu = D.getSijaintiTaulu();
+
+        assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
+    }
+        @Test
+    public void toimiikoRelaxKunSilleAnnetaaSyotteenaOikealle() {
+
+        int xAlkuPiste = 10;
+        int yAlkuPiste = 10;
+        int xLoppuPiste = 11;
+        int yLoppuPiste = 9;
+        Dijkstra D = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        D.initialiseSingleSourceTest();
+        D.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+        Sijainti[][] sijaintiTaulu = D.getSijaintiTaulu();
+
+        assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
+    }
+    @Test
+    public void toimiikoRelaxKunSilleAnnetaaSyotteenaAlasOikealle() {
+
+            int xAlkuPiste = 10;
+            int yAlkuPiste = 10;
+            int xLoppuPiste = 11;
+            int yLoppuPiste = 11;
             Dijkstra D = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
             D.initialiseSingleSourceTest();
             D.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
@@ -334,10 +384,67 @@ public class DijstraTest {
             Sijainti[][] sijaintiTaulu = D.getSijaintiTaulu();
 
             assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
+      }
+        @Test
+    public void toimiikoRelaxKunSilleAnnetaaSyotteenaAlas() {
 
-        }
-    }
+            int xAlkuPiste = 10;
+            int yAlkuPiste = 10;
+            int xLoppuPiste = 10;
+            int yLoppuPiste = 11;
+            Dijkstra D = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+            D.initialiseSingleSourceTest();
+            D.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
+            Sijainti[][] sijaintiTaulu = D.getSijaintiTaulu();
+
+            assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
+      }
+            @Test
+    public void toimiikoRelaxKunSilleAnnetaaSyotteenaAlasVasemmalle() {
+
+            int xAlkuPiste = 10;
+            int yAlkuPiste = 10;
+            int xLoppuPiste = 9;
+            int yLoppuPiste = 11;
+            Dijkstra D = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+            D.initialiseSingleSourceTest();
+            D.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+            Sijainti[][] sijaintiTaulu = D.getSijaintiTaulu();
+
+            assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
+      }
+                @Test
+    public void toimiikoRelaxKunSilleAnnetaaSyotteenaVasemmalle() {
+
+            int xAlkuPiste = 10;
+            int yAlkuPiste = 10;
+            int xLoppuPiste = 9;
+            int yLoppuPiste = 10;
+            Dijkstra D = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+            D.initialiseSingleSourceTest();
+            D.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+            Sijainti[][] sijaintiTaulu = D.getSijaintiTaulu();
+
+            assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
+      }
+                    @Test
+    public void toimiikoRelaxKunSilleAnnetaaSyotteenaYlosVasemmalle() {
+
+            int xAlkuPiste = 10;
+            int yAlkuPiste = 10;
+            int xLoppuPiste = 9;
+            int yLoppuPiste = 9;
+            Dijkstra D = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+            D.initialiseSingleSourceTest();
+            D.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+            Sijainti[][] sijaintiTaulu = D.getSijaintiTaulu();
+
+            assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
+      }
     @Test
     public void toimiikoDijkstraKekoOikeinJosOnYhdenKokoinenSyote() {
         int[][] koeTaulu = new int[1][1];

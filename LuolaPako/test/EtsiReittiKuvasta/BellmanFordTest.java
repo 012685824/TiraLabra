@@ -4,9 +4,8 @@ package EtsiReittiKuvasta;
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
-import EtsiReittiKuvasta.tietoRakenteet.Astar;
-import EtsiReittiKuvasta.tietoRakenteet.BellmanFord;
+import Algoritmit.Astar;
+import Algoritmit.BellmanFord;
 import EtsiReittiKuvasta.main.EtsiReitti;
 import EtsiReittiKuvasta.tietoRakenteet.Sijainti;
 import java.awt.image.BufferedImage;
@@ -23,7 +22,9 @@ import static org.junit.Assert.*;
  * @author Toni
  */
 public class BellmanFordTest {
+
     int kuvaTaulu[][] = new int[50][50];
+
     public BellmanFordTest() {
     }
 
@@ -86,10 +87,11 @@ public class BellmanFordTest {
         int xLoppuPiste = 30;
         int yLoppuPiste = 2;
 
-            BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
-            B.ratkaise();
-            Sijainti[][] sijaintiTaulu = B.getSijaintiTaulu();        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
+        B.ratkaise();
+        Sijainti[][] sijaintiTaulu = B.getSijaintiTaulu();
+        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
         int maara = 0;
         int xApu = 0;
         while (xLoppuPiste != xAlkuPiste || yLoppuPiste != yAlkuPiste) {
@@ -108,10 +110,11 @@ public class BellmanFordTest {
         int xLoppuPiste = 2;
         int yLoppuPiste = 2;
 
-             BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
-            B.ratkaise();
-            Sijainti[][] sijaintiTaulu = B.getSijaintiTaulu();        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
+        B.ratkaise();
+        Sijainti[][] sijaintiTaulu = B.getSijaintiTaulu();
+        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
         int maara = 0;
         int xApu = 0;
         while (xLoppuPiste != xAlkuPiste || yLoppuPiste != yAlkuPiste) {
@@ -123,17 +126,18 @@ public class BellmanFordTest {
         assertTrue(tulos == maara);
     }
 
-        @Test
+    @Test
     public void selvitetaankoReittiOikeinJosReittiAlkaaYlhaaltaAlas() {
         int xAlkuPiste = 2;
         int yAlkuPiste = 2;
         int xLoppuPiste = 2;
         int yLoppuPiste = 30;
 
-            BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
-            B.ratkaise();
-            Sijainti[][] sijaintiTaulu = B.getSijaintiTaulu();        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
+        B.ratkaise();
+        Sijainti[][] sijaintiTaulu = B.getSijaintiTaulu();
+        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
         int maara = 0;
         int xApu = 0;
         while (xLoppuPiste != xAlkuPiste || yLoppuPiste != yAlkuPiste) {
@@ -144,17 +148,19 @@ public class BellmanFordTest {
         }
         assertTrue(tulos == maara);
     }
-        @Test
+
+    @Test
     public void selvitetaankoReittiOikeinJosReittiAlkaaAlhaaltaYlos() {
         int xAlkuPiste = 2;
         int yAlkuPiste = 30;
         int xLoppuPiste = 2;
         int yLoppuPiste = 2;
 
-            BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
-            B.ratkaise();
-            Sijainti[][] sijaintiTaulu = B.getSijaintiTaulu();        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
+        B.ratkaise();
+        Sijainti[][] sijaintiTaulu = B.getSijaintiTaulu();
+        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
         int maara = 0;
         int xApu = 0;
         while (xLoppuPiste != xAlkuPiste || yLoppuPiste != yAlkuPiste) {
@@ -165,7 +171,7 @@ public class BellmanFordTest {
         }
         assertTrue(tulos == maara);
     }
-        
+
     @Test
     public void selvitetaankoReittiOikeinJosReittiAlkaaVasemmastaAlaReunastaOikeaanYläReunaan() {
         int xAlkuPiste = 2;
@@ -173,10 +179,11 @@ public class BellmanFordTest {
         int xLoppuPiste = 30;
         int yLoppuPiste = 2;
 
-            BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
-            B.ratkaise();
-            Sijainti[][] sijaintiTaulu = B.getSijaintiTaulu();        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
+        B.ratkaise();
+        Sijainti[][] sijaintiTaulu = B.getSijaintiTaulu();
+        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
         int maara = 0;
         int xApu = 0;
         while (xLoppuPiste != xAlkuPiste || yLoppuPiste != yAlkuPiste) {
@@ -186,7 +193,8 @@ public class BellmanFordTest {
             maara++;
         }
         assertTrue(tulos == maara);
-    }        
+    }
+
     @Test
     public void selvitetaankoReittiOikeinJosReittiAlkaaVasemmaltaYlhaaltaOikealleAlas() {
         int xAlkuPiste = 2;
@@ -194,10 +202,11 @@ public class BellmanFordTest {
         int xLoppuPiste = 30;
         int yLoppuPiste = 30;
 
-            BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
-            B.ratkaise();
-            Sijainti[][] sijaintiTaulu = B.getSijaintiTaulu();        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
+        B.ratkaise();
+        Sijainti[][] sijaintiTaulu = B.getSijaintiTaulu();
+        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
         int maara = 0;
         int xApu = 0;
         while (xLoppuPiste != xAlkuPiste || yLoppuPiste != yAlkuPiste) {
@@ -208,17 +217,19 @@ public class BellmanFordTest {
         }
         assertTrue(tulos == maara);
     }
-        @Test
+
+    @Test
     public void selvitetaankoReittiOikeinJosReittiAlkaaOikeastaYläreunastaVasempaaAlaReunaan() {
         int xAlkuPiste = 30;
         int yAlkuPiste = 2;
         int xLoppuPiste = 2;
         int yLoppuPiste = 30;
 
-            BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
-            B.ratkaise();
-            Sijainti[][] sijaintiTaulu = B.getSijaintiTaulu();        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
+        B.ratkaise();
+        Sijainti[][] sijaintiTaulu = B.getSijaintiTaulu();
+        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
         int maara = 0;
         int xApu = 0;
         while (xLoppuPiste != xAlkuPiste || yLoppuPiste != yAlkuPiste) {
@@ -229,17 +240,19 @@ public class BellmanFordTest {
         }
         assertTrue(tulos == maara);
     }
-            @Test
+
+    @Test
     public void selvitetaankoReittiOikeinJosReittiAlkaaOikeastaAlaReunastaVasempaaYlaReunaan() {
         int xAlkuPiste = 30;
         int yAlkuPiste = 30;
         int xLoppuPiste = 2;
         int yLoppuPiste = 2;
 
-            BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
-            B.ratkaise();
-            Sijainti[][] sijaintiTaulu = B.getSijaintiTaulu();        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
+        B.ratkaise();
+        Sijainti[][] sijaintiTaulu = B.getSijaintiTaulu();
+        int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
         int maara = 0;
         int xApu = 0;
         while (xLoppuPiste != xAlkuPiste || yLoppuPiste != yAlkuPiste) {
@@ -250,6 +263,7 @@ public class BellmanFordTest {
         }
         assertTrue(tulos == maara);
     }
+
     @Test
     public void tulostaakoReitinOikein() {
         BufferedImage kuva = null;
@@ -313,30 +327,132 @@ public class BellmanFordTest {
     }
 
     @Test
-    public void toimiikoRelaxKunSilleAnnetaaSanunnaisiasyötteita() {
-        for (int i = 0; i < 30; i++) {
-            Random random = new Random();
-            int xAlkuPiste = random.nextInt(50);
-            int yAlkuPiste = random.nextInt(50);
-            int xLoppuPiste = random.nextInt(50);
-            int yLoppuPiste = random.nextInt(50);
-            BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
-            B.initialiseSingleSourceTest();
-            B.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
-            
-            Sijainti[][] sijaintiTaulu = B.getSijaintiTaulu();
+    public void toimiikoRelaxKunSilleAnnetaaSyotteenaYlos() {
 
-            assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
+        int xAlkuPiste = 10;
+        int yAlkuPiste = 10;
+        int xLoppuPiste = 10;
+        int yLoppuPiste = 9;
+        BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        B.initialiseSingleSourceTest();
+        B.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
-        }
+        Sijainti[][] sijaintiTaulu = B.getSijaintiTaulu();
+
+        assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
     }
+
     @Test
-    public void toimiikoAstarKekoOikeinJosOnYhdenKokoinenSyote(){
+    public void toimiikoRelaxKunSilleAnnetaaSyotteenaYlosOikealle() {
+
+        int xAlkuPiste = 10;
+        int yAlkuPiste = 10;
+        int xLoppuPiste = 9;
+        int yLoppuPiste = 9;
+        BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        B.initialiseSingleSourceTest();
+        B.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+        Sijainti[][] sijaintiTaulu = B.getSijaintiTaulu();
+        assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
+    }
+
+    @Test
+    public void toimiikoRelaxKunSilleAnnetaaSyotteenaOikealle() {
+
+        int xAlkuPiste = 10;
+        int yAlkuPiste = 10;
+        int xLoppuPiste = 11;
+        int yLoppuPiste = 9;
+        BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        B.initialiseSingleSourceTest();
+        B.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+        Sijainti[][] sijaintiTaulu = B.getSijaintiTaulu();
+        assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
+    }
+
+    @Test
+    public void toimiikoRelaxKunSilleAnnetaaSyotteenaAlasOikealle() {
+
+        int xAlkuPiste = 10;
+        int yAlkuPiste = 10;
+        int xLoppuPiste = 11;
+        int yLoppuPiste = 11;
+        BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        B.initialiseSingleSourceTest();
+        B.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+        Sijainti[][] sijaintiTaulu = B.getSijaintiTaulu();
+        assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
+    }
+
+    @Test
+    public void toimiikoRelaxKunSilleAnnetaaSyotteenaAlas() {
+
+        int xAlkuPiste = 10;
+        int yAlkuPiste = 10;
+        int xLoppuPiste = 10;
+        int yLoppuPiste = 11;
+        BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        B.initialiseSingleSourceTest();
+        B.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+        Sijainti[][] sijaintiTaulu = B.getSijaintiTaulu();
+        assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
+    }
+
+    @Test
+    public void toimiikoRelaxKunSilleAnnetaaSyotteenaAlasVasemmalle() {
+
+        int xAlkuPiste = 10;
+        int yAlkuPiste = 10;
+        int xLoppuPiste = 9;
+        int yLoppuPiste = 11;
+        BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        B.initialiseSingleSourceTest();
+        B.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+        Sijainti[][] sijaintiTaulu = B.getSijaintiTaulu();
+        assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
+    }
+
+    @Test
+    public void toimiikoRelaxKunSilleAnnetaaSyotteenaVasemmalle() {
+
+        int xAlkuPiste = 10;
+        int yAlkuPiste = 10;
+        int xLoppuPiste = 9;
+        int yLoppuPiste = 10;
+        BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        B.initialiseSingleSourceTest();
+        B.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+        Sijainti[][] sijaintiTaulu = B.getSijaintiTaulu();
+        assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
+    }
+
+    @Test
+    public void toimiikoRelaxKunSilleAnnetaaSyotteenaYlosVasemmalle() {
+
+        int xAlkuPiste = 10;
+        int yAlkuPiste = 10;
+        int xLoppuPiste = 9;
+        int yLoppuPiste = 9;
+        BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        B.initialiseSingleSourceTest();
+        B.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+
+        Sijainti[][] sijaintiTaulu = B.getSijaintiTaulu();
+        assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
+    }
+
+    @Test
+    public void toimiikoAstarKekoOikeinJosOnYhdenKokoinenSyote() {
         int[][] koeTaulu = new int[1][1];
         koeTaulu[0][0] = 1;
-        BellmanFord A = new BellmanFord(koeTaulu, 0, 0, 0, 0);
-        A.ratkaise();
-        assertTrue(A.getSijaintiTaulu()[0][0].getEtaisyys() == 0.0);
-    }        
-    
+        BellmanFord B = new BellmanFord(koeTaulu, 0, 0, 0, 0);
+        B.ratkaise();
+        assertTrue(B.getSijaintiTaulu()[0][0].getEtaisyys() == 0.0);
+    }
 }
