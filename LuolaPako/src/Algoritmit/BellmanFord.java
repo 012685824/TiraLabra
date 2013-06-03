@@ -5,10 +5,11 @@
 package Algoritmit;
 
 import EtsiReittiKuvasta.tietoRakenteet.Sijainti;
-import EtsiReittiKuvasta.tietoRakenteet.Sijainti;
 
 /**
- *BellmanFord luokka ratkaisee lyhimmän polun kahden annetun pisteet "solmun" välillä
+ * BellmanFord luokka ratkaisee lyhimmän polun kahden annetun pisteet "solmun"
+ * välillä liikkuen pääilman suuntiin.
+ *
  * @author Toni
  */
 public class BellmanFord {
@@ -17,6 +18,7 @@ public class BellmanFord {
     private int xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste;
     private Sijainti[][] sijaintiTaulu;
     private int[] testiTulostus;
+
     /**
      * Luo BellmanFord-olion, jolle annetaan alkuarvoina seuraavat
      *
@@ -36,10 +38,12 @@ public class BellmanFord {
         this.yLoppuPiste = yLoppuPiste;
         sijaintiTaulu = new Sijainti[this.kuvaTaulu.length][this.kuvaTaulu[0].length];
     }
+
     /**
      * ratkaise metodi aloittaa kutsuu ensin initialiseSingleSource metodia.
      * ratkaise metodi käy kolmen for luupin avulla kuvaTaulua läpi ja jos ei
-     * olla taulukon reunoilla niin kutsutaan relax metodia kaikiin pääilman suuntiin.
+     * olla taulukon reunoilla niin kutsutaan relax metodia kaikiin pääilman
+     * suuntiin.
      */
     public void ratkaise() {
         initialiseSingleSource(); // Kutsutaan muutujien alustus ..
@@ -66,14 +70,16 @@ public class BellmanFord {
             }
         }
     }
-        /**
+
+    /**
      * initialiseSingleSourceTest metodi on vain initialiseSingleSource metodin
      * testaamista varten.
      */
     public void initialiseSingleSourceTest() {
         initialiseSingleSource();
     }
-        /**
+
+    /**
      * initialiseSingleSource metodi alustaa sijaintiTaulun.
      */
     private void initialiseSingleSource() {
@@ -85,14 +91,15 @@ public class BellmanFord {
         }
         sijaintiTaulu[xAlkuPiste][yAlkuPiste] = new Sijainti(0, 0, 0);
     }
+
     /**
      * relaxTest metodi on vain relax metodin testaamista varten.
-     */    
+     */
     public void relaxTest(int xMistaTullaan, int yMistaTullaan, int xMihinMennaan, int yMihinMennaan) {
         relax(xMistaTullaan, yMistaTullaan, xMihinMennaan, yMihinMennaan);
     }
-    
-        /**
+
+    /**
      * relax metodi vertaa, onko etäisyysarvo suurempi siinä pisteessä, mihin
      * ollaan menossa, kuin pisteen "Mistä tullaan" etäisyysarvo lisättynä
      * kuvataulusta saatavaan etäisyysarvoon. Jos näin on, niin päivitetään se
@@ -112,6 +119,7 @@ public class BellmanFord {
             sijaintiTaulu[xMihinMennaan][yMihinMennaan].setY(yMistaTullaan);
         }
     }
+
     /**
      * palauttaa sijaintitaulukon.
      *
@@ -120,6 +128,7 @@ public class BellmanFord {
     public Sijainti[][] getSijaintiTaulu() {
         return this.sijaintiTaulu;
     }
+
     /**
      * testiTulosReitti() metodi on vain testiTulosReitti metodin testaamiseen.
      *
@@ -130,9 +139,10 @@ public class BellmanFord {
         tulostaReitti();
         return testiTulostus;
     }
-   /**
-     * testiTulosReitti metodi tulostaa kuljetun reitin alkaen lopusta ja edeten alkuun
-     * päin. Aluksi luodaan muutamat apumuutujat tulostusta varten. Kun
+
+    /**
+     * testiTulosReitti metodi tulostaa kuljetun reitin alkaen lopusta ja edeten
+     * alkuun päin. Aluksi luodaan muutamat apumuutujat tulostusta varten. Kun
      * muuttujat on luotu, käydään while luupin avulla kuljettu reitti läpi.
      *
      */

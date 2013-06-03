@@ -4,7 +4,6 @@ package EtsiReittiKuvasta;
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import Algoritmit.Dijkstra;
 import Algoritmit.Dijkstra8;
 import EtsiReittiKuvasta.main.EtsiReitti;
@@ -23,10 +22,12 @@ import static org.junit.Assert.*;
  * @author Toni
  */
 public class Dijkstra8Test {
+
     int kuvaTaulu[][] = new int[450][450];
+
     public Dijkstra8Test() {
     }
- 
+
     @BeforeClass
     public static void setUpClass() {
     }
@@ -74,10 +75,9 @@ public class Dijkstra8Test {
                 maara++;
             }
 
-            assertTrue(tulos <= maara || tulos >= (maara/2)*1.414);
+            assertTrue(tulos <= maara || tulos >= (maara / 2) * 1.414);
         }
     }
-
 
     @Test
     public void selvitetaankoReittiOikeinJosReittiAlkaaVasemmaltaOikealle() {
@@ -86,9 +86,9 @@ public class Dijkstra8Test {
         int xLoppuPiste = 200;
         int yLoppuPiste = 2;
 
-            Dijkstra8 D8 = new Dijkstra8(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        Dijkstra8 D8 = new Dijkstra8(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
-            D8.ratkaise();
+        D8.ratkaise();
         Sijainti[][] sijaintiTaulu = D8.getSijaintiTaulu();
         int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
         int maara = 0;
@@ -109,9 +109,9 @@ public class Dijkstra8Test {
         int xLoppuPiste = 2;
         int yLoppuPiste = 2;
 
-            Dijkstra8 D8 = new Dijkstra8(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        Dijkstra8 D8 = new Dijkstra8(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
-            D8.ratkaise();
+        D8.ratkaise();
         Sijainti[][] sijaintiTaulu = D8.getSijaintiTaulu();
         int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
         int maara = 0;
@@ -124,16 +124,17 @@ public class Dijkstra8Test {
         }
         assertTrue(tulos == maara);
     }
-        @Test
+
+    @Test
     public void selvitetaankoReittiOikeinJosReittiAlkaaYlhaaltaAlas() {
         int xAlkuPiste = 2;
         int yAlkuPiste = 2;
         int xLoppuPiste = 2;
         int yLoppuPiste = 200;
 
-            Dijkstra8 D8 = new Dijkstra8(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        Dijkstra8 D8 = new Dijkstra8(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
-            D8.ratkaise();
+        D8.ratkaise();
         Sijainti[][] sijaintiTaulu = D8.getSijaintiTaulu();
         int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
         int maara = 0;
@@ -146,16 +147,17 @@ public class Dijkstra8Test {
         }
         assertTrue(tulos == maara);
     }
-        @Test
+
+    @Test
     public void selvitetaankoReittiOikeinJosReittiAlkaaAlhaaltaYlos() {
         int xAlkuPiste = 2;
         int yAlkuPiste = 200;
         int xLoppuPiste = 2;
         int yLoppuPiste = 2;
 
-            Dijkstra8 D8 = new Dijkstra8(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        Dijkstra8 D8 = new Dijkstra8(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
-            D8.ratkaise();
+        D8.ratkaise();
         Sijainti[][] sijaintiTaulu = D8.getSijaintiTaulu();
         int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
         int maara = 0;
@@ -168,7 +170,7 @@ public class Dijkstra8Test {
         }
         assertTrue(tulos == maara);
     }
-        
+
     @Test
     public void selvitetaankoReittiOikeinJosReittiAlkaaVasemmastaAlaReunastaOikeaanYläReunaan() {
         int xAlkuPiste = 2;
@@ -176,9 +178,9 @@ public class Dijkstra8Test {
         int xLoppuPiste = 200;
         int yLoppuPiste = 2;
 
-            Dijkstra8 D8 = new Dijkstra8(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        Dijkstra8 D8 = new Dijkstra8(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
-            D8.ratkaise();
+        D8.ratkaise();
         Sijainti[][] sijaintiTaulu = D8.getSijaintiTaulu();
         int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
         int maara = 0;
@@ -190,8 +192,9 @@ public class Dijkstra8Test {
             maara++;
         }
 
-        assertTrue(tulos == maara*2);
-    }        
+        assertTrue(tulos == maara * 2);
+    }
+
     @Test
     public void selvitetaankoReittiOikeinJosReittiAlkaaVasemmaltaYlhaaltaOikealleAlas() {
         int xAlkuPiste = 2;
@@ -199,9 +202,9 @@ public class Dijkstra8Test {
         int xLoppuPiste = 200;
         int yLoppuPiste = 200;
 
-            Dijkstra8 D8 = new Dijkstra8(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        Dijkstra8 D8 = new Dijkstra8(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
-            D8.ratkaise();
+        D8.ratkaise();
         Sijainti[][] sijaintiTaulu = D8.getSijaintiTaulu();
         int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
         int maara = 0;
@@ -212,18 +215,19 @@ public class Dijkstra8Test {
             xLoppuPiste = xApu;
             maara++;
         }
-        assertTrue(tulos == maara*2);
+        assertTrue(tulos == maara * 2);
     }
-        @Test
+
+    @Test
     public void selvitetaankoReittiOikeinJosReittiAlkaaOikeastaYläreunastaVasempaaAlaReunaan() {
         int xAlkuPiste = 200;
         int yAlkuPiste = 2;
         int xLoppuPiste = 2;
         int yLoppuPiste = 200;
 
-            Dijkstra8 D8 = new Dijkstra8(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        Dijkstra8 D8 = new Dijkstra8(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
-            D8.ratkaise();
+        D8.ratkaise();
         Sijainti[][] sijaintiTaulu = D8.getSijaintiTaulu();
         int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
         int maara = 0;
@@ -234,18 +238,19 @@ public class Dijkstra8Test {
             xLoppuPiste = xApu;
             maara++;
         }
-        assertTrue(tulos == maara*2);
+        assertTrue(tulos == maara * 2);
     }
-            @Test
+
+    @Test
     public void selvitetaankoReittiOikeinJosReittiAlkaaOikeastaAlaReunastaVasempaaYlaReunaan() {
         int xAlkuPiste = 200;
         int yAlkuPiste = 200;
         int xLoppuPiste = 2;
         int yLoppuPiste = 2;
 
-            Dijkstra8 D8 = new Dijkstra8(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        Dijkstra8 D8 = new Dijkstra8(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
-            D8.ratkaise();
+        D8.ratkaise();
         Sijainti[][] sijaintiTaulu = D8.getSijaintiTaulu();
         int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
         int maara = 0;
@@ -256,9 +261,9 @@ public class Dijkstra8Test {
             xLoppuPiste = xApu;
             maara++;
         }
-        assertTrue(tulos == maara*2);
-    }    
-    
+        assertTrue(tulos == maara * 2);
+    }
+
     @Test
     public void tulostaakoReitinOikein() {
         BufferedImage kuva = null;
@@ -297,7 +302,7 @@ public class Dijkstra8Test {
             Sijainti[][] sijaintiTaulu = D8.getSijaintiTaulu();
             int tulos = Math.abs(xAlkuPiste - xLoppuPiste) + Math.abs(yAlkuPiste - yLoppuPiste);
 
-            assertTrue(tulos <= sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() || tulos >= (sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys()/2)*1.414);
+            assertTrue(tulos <= sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() || tulos >= (sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() / 2) * 1.414);
         }
     }
 
@@ -352,7 +357,8 @@ public class Dijkstra8Test {
         Sijainti[][] sijaintiTaulu = D8.getSijaintiTaulu();
         assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1.414);
     }
-        @Test
+
+    @Test
     public void toimiikoRelaxKunSilleAnnetaaSyotteenaOikealle() {
 
         int xAlkuPiste = 10;
@@ -367,28 +373,30 @@ public class Dijkstra8Test {
 
         assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
     }
+
     @Test
     public void toimiikoRelaxKunSilleAnnetaaSyotteenaAlasOikealle() {
 
-            int xAlkuPiste = 10;
-            int yAlkuPiste = 10;
-            int xLoppuPiste = 11;
-            int yLoppuPiste = 11;
-         Dijkstra8 D8 = new Dijkstra8(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
+        int xAlkuPiste = 10;
+        int yAlkuPiste = 10;
+        int xLoppuPiste = 11;
+        int yLoppuPiste = 11;
+        Dijkstra8 D8 = new Dijkstra8(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
         D8.initialiseSingleSourceTest();
         D8.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
 
         Sijainti[][] sijaintiTaulu = D8.getSijaintiTaulu();
 
-            assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1.414);
-      }
-        @Test
+        assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1.414);
+    }
+
+    @Test
     public void toimiikoRelaxKunSilleAnnetaaSyotteenaAlas() {
 
-            int xAlkuPiste = 10;
-            int yAlkuPiste = 10;
-            int xLoppuPiste = 10;
-            int yLoppuPiste = 11;
+        int xAlkuPiste = 10;
+        int yAlkuPiste = 10;
+        int xLoppuPiste = 10;
+        int yLoppuPiste = 11;
         Dijkstra8 D8 = new Dijkstra8(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
         D8.initialiseSingleSourceTest();
         D8.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
@@ -396,15 +404,16 @@ public class Dijkstra8Test {
         Sijainti[][] sijaintiTaulu = D8.getSijaintiTaulu();
 
 
-            assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
-      }
-            @Test
+        assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
+    }
+
+    @Test
     public void toimiikoRelaxKunSilleAnnetaaSyotteenaAlasVasemmalle() {
 
-            int xAlkuPiste = 10;
-            int yAlkuPiste = 10;
-            int xLoppuPiste = 9;
-            int yLoppuPiste = 11;
+        int xAlkuPiste = 10;
+        int yAlkuPiste = 10;
+        int xLoppuPiste = 9;
+        int yLoppuPiste = 11;
         Dijkstra8 D8 = new Dijkstra8(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
         D8.initialiseSingleSourceTest();
         D8.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
@@ -412,15 +421,16 @@ public class Dijkstra8Test {
         Sijainti[][] sijaintiTaulu = D8.getSijaintiTaulu();
 
 
-            assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1.414);
-      }
-                @Test
+        assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1.414);
+    }
+
+    @Test
     public void toimiikoRelaxKunSilleAnnetaaSyotteenaVasemmalle() {
 
-            int xAlkuPiste = 10;
-            int yAlkuPiste = 10;
-            int xLoppuPiste = 9;
-            int yLoppuPiste = 10;
+        int xAlkuPiste = 10;
+        int yAlkuPiste = 10;
+        int xLoppuPiste = 9;
+        int yLoppuPiste = 10;
         Dijkstra8 D8 = new Dijkstra8(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
         D8.initialiseSingleSourceTest();
         D8.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
@@ -428,15 +438,16 @@ public class Dijkstra8Test {
         Sijainti[][] sijaintiTaulu = D8.getSijaintiTaulu();
 
 
-            assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
-      }
-                    @Test
+        assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1);
+    }
+
+    @Test
     public void toimiikoRelaxKunSilleAnnetaaSyotteenaYlosVasemmalle() {
 
-            int xAlkuPiste = 10;
-            int yAlkuPiste = 10;
-            int xLoppuPiste = 9;
-            int yLoppuPiste = 9;
+        int xAlkuPiste = 10;
+        int yAlkuPiste = 10;
+        int xLoppuPiste = 9;
+        int yLoppuPiste = 9;
         Dijkstra8 D8 = new Dijkstra8(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
         D8.initialiseSingleSourceTest();
         D8.relaxTest(xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
@@ -444,17 +455,17 @@ public class Dijkstra8Test {
         Sijainti[][] sijaintiTaulu = D8.getSijaintiTaulu();
 
 
-            assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1.414);
-      }
+        assertTrue(sijaintiTaulu[xLoppuPiste][yLoppuPiste].getEtaisyys() == 1.414);
+    }
+
     @Test
-    public void toimiikoDijkstra8KekoOikeinJosOnYhdenKokoinenSyote(){
+    public void toimiikoDijkstra8KekoOikeinJosOnYhdenKokoinenSyote() {
         int[][] koeTaulu = new int[1][1];
         koeTaulu[0][0] = 1;
         Dijkstra8 D8 = new Dijkstra8(koeTaulu, 0, 0, 0, 0);
         D8.dijkstraKeko8Test();
         assertTrue(D8.getSijaintiTaulu()[0][0].getEtaisyys() == 0.0);
-    }        
-    
+    }
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //

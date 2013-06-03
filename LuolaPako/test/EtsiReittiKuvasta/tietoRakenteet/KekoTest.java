@@ -177,11 +177,12 @@ public class KekoTest {
         assertEquals(" 1.0 2.0 3.0 9.0 8.0 7.0 5.0", testikeko.tulosta());
         System.out.println(testikeko.poistaKeosta().getEtaisyys());
         testikeko.tulosta();
-                System.out.println(testikeko.poistaKeosta().getEtaisyys());
+        System.out.println(testikeko.poistaKeosta().getEtaisyys());
         testikeko.tulosta();
-        
+
 
     }
+
     @Test
     public void tulostuukoKekoOikeinJosLisataanJaPoistetaan() {
         testikeko.lisaaKekoon(0, 0, 10);
@@ -196,6 +197,7 @@ public class KekoTest {
         testikeko.lisaaKekoon(0, 0, 4);
         testikeko.tulosta();
     }
+
     @Test
     public void tulostuukoKekoOikeinKunTyhja() {
 

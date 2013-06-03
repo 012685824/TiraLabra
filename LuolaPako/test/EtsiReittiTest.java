@@ -40,25 +40,25 @@ public class EtsiReittiTest {
 
     @Test
     public void tulostaakoReitinPituudenOikeinKunKaytetaanDijkstraa() {
-        EtsiReitti.ratkaise("./src/Kuvat/testiKuva0.bmp", 0, 0, 49, 49, 0,true);
+        EtsiReitti.ratkaise("./src/Kuvat/testiKuva0.bmp", 0, 0, 49, 49, 0, true);
         assertTrue(98 == EtsiReitti.reitinPituus());
     }
 
     @Test
     public void tulostaakoReitinPituudenOikeinKunKaytetaanDijkstraa8() {
-        EtsiReitti.ratkaise("./src/Kuvat/testiKuva0.bmp", 0, 0, 49, 49, 2,true);
+        EtsiReitti.ratkaise("./src/Kuvat/testiKuva0.bmp", 0, 0, 49, 49, 2, true);
         assertTrue((49 * 1.414) + 0.00000000000004 == EtsiReitti.reitinPituus());
     }
 
     @Test
     public void tulostaakoReitinPituudenOikeinKunKaytetaanBellmanFord() {
-        EtsiReitti.ratkaise("./src/Kuvat/testiKuva0.bmp", 0, 0, 49, 49, 1,true);
+        EtsiReitti.ratkaise("./src/Kuvat/testiKuva0.bmp", 0, 0, 49, 49, 1, true);
         assertTrue(98 == EtsiReitti.reitinPituus());
     }
 
     @Test
     public void haetaankoOikeatVaritKuvaTauluun() {
-        EtsiReitti.ratkaise("./src/Kuvat/testiKuva0.bmp", 0, 0, 49, 49, 1,true);
+        EtsiReitti.ratkaise("./src/Kuvat/testiKuva0.bmp", 0, 0, 49, 49, 1, true);
         BufferedImage kuva = null;
         kuva = EtsiReitti.haeKuva("./src/Kuvat/testiKuva0.bmp");
         EtsiReitti.haeVaritKuvatauluun(kuva);
@@ -73,7 +73,7 @@ public class EtsiReittiTest {
 
     @Test
     public void haetaankoOikeatVaritKuvaTauluun2() {
-        EtsiReitti.ratkaise("./src/Kuvat/testiKuva1.bmp", 0, 0, 49, 49, 1,true);
+        EtsiReitti.ratkaise("./src/Kuvat/testiKuva1.bmp", 0, 0, 49, 49, 1, true);
         BufferedImage kuva = null;
         kuva = EtsiReitti.haeKuva("./src/Kuvat/testiKuva1.bmp");
         EtsiReitti.haeVaritKuvatauluun(kuva);
@@ -92,7 +92,7 @@ public class EtsiReittiTest {
 
     @Test
     public void piirretäänköReittiOikeinKunKaytetaanDijkstraa8() {
-        EtsiReitti.ratkaise("./src/Kuvat/testiKuva0.bmp", 0, 0, 49, 49, 2,true);
+        EtsiReitti.ratkaise("./src/Kuvat/testiKuva0.bmp", 0, 0, 49, 49, 2, true);
         BufferedImage kuva = null;
         BufferedImage ratkaisuKuva = null;
         kuva = EtsiReitti.haeKuva("./src/Kuvat/testiKuva2.bmp");
@@ -110,7 +110,7 @@ public class EtsiReittiTest {
 
     @Test
     public void piirretäänköReittiOikeinKunKaytetaanDijkstraa8_2() {
-        EtsiReitti.ratkaise("./src/Kuvat/testiKuva0.bmp", 0, 0, 49, 49, 2,true);
+        EtsiReitti.ratkaise("./src/Kuvat/testiKuva0.bmp", 0, 0, 49, 49, 2, true);
         BufferedImage kuva = null;
         BufferedImage ratkaisuKuva = null;
         kuva = EtsiReitti.haeKuva("./src/Kuvat/testiKuva3.bmp");
@@ -125,18 +125,19 @@ public class EtsiReittiTest {
             }
         }
     }
+
     @Test
-    public void josTapahtuuVirheKunKuvaTiedostoaAvataan(){
+    public void josTapahtuuVirheKunKuvaTiedostoaAvataan() {
         EtsiReitti.haeKuva("./src/Kuvat/t.bmp");
         assertEquals("javax.imageio.IIOException: Can't read input file!", EtsiReitti.testiVirhe());
     }
     /*
-        @Test
-    public void josTapahtuuVirheKunKuvaTiedostoaTalletetaan(){
-        BufferedImage kuva = null;
-        EtsiReitti.talletaKuva(kuva);
-        assertTrue("javax.imageio.IIOException: Can't read input file!" == EtsiReitti.testiVirhe());
-    }*/
+     @Test
+     public void josTapahtuuVirheKunKuvaTiedostoaTalletetaan(){
+     BufferedImage kuva = null;
+     EtsiReitti.talletaKuva(kuva);
+     assertTrue("javax.imageio.IIOException: Can't read input file!" == EtsiReitti.testiVirhe());
+     }*/
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //

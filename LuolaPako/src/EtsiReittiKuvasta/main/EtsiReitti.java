@@ -190,7 +190,7 @@ public class EtsiReitti {
     }
 
     /**
-     * 
+     *
      * @param kuva
      */
     public static void haeVaritKuvatauluun(BufferedImage kuva) {

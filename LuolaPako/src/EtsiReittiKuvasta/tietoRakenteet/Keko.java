@@ -144,12 +144,13 @@ public class Keko {
     }
 
     /**
-     * Metodi lisaaKekoon lisää kekoon yhden uuden arvon. Ensin tarkistetaan, onko
-     * keossa käytettävä taulukon koko riittävän suuri, jos ei, niin kutsutaan
-     * tuplaaKeko, joka tuplaa taulukon koon. Kun taulukon koko on riittävä, niin
-     * luodaan uusi Sijainti olio saaduilla arvoilla. Lisätään muuttujan keonKoko arvoa
-     * yhdellä ja jos koko on suurempi kuin 1, niin kutsutaan korjaaKeko metodia
-     * 
+     * Metodi lisaaKekoon lisää kekoon yhden uuden arvon. Ensin tarkistetaan,
+     * onko keossa käytettävä taulukon koko riittävän suuri, jos ei, niin
+     * kutsutaan tuplaaKeko, joka tuplaa taulukon koon. Kun taulukon koko on
+     * riittävä, niin luodaan uusi Sijainti olio saaduilla arvoilla. Lisätään
+     * muuttujan keonKoko arvoa yhdellä ja jos koko on suurempi kuin 1, niin
+     * kutsutaan korjaaKeko metodia
+     *
      * @param x x koordinaatti Sijainti oliota varten
      * @param y y koordinaatti Sijainti oliota varten
      * @param etaisyys etäisyys tieto Sijainti oliota varten
@@ -169,9 +170,9 @@ public class Keko {
     }
 
     /**
-     *Metodi korjaaLisays suorittaa lisäyksen jälkeiset tarpeelliset 
-     * keon korjaus toimenpiteet, jotta keko ehto tulee taas voimaan
-     * 
+     * Metodi korjaaLisays suorittaa lisäyksen jälkeiset tarpeelliset keon
+     * korjaus toimenpiteet, jotta keko ehto tulee taas voimaan
+     *
      */
     protected void korjaaLisays() {
         int i = keonKoko;
@@ -182,16 +183,19 @@ public class Keko {
     }
 
     /**
-     *Metodi poistaKeosta poistaa keon huipulla olevan arvon ja palauttaa sen.
-     * Ensin tarkistetaan, onko keossa käytettävä taulukko "liian iso". Jos on, niin 
-     * kutsutaan pienennaKeko metodia. Seuraavaksi tarkistetaan, onko keko tyhjä. Jos on,
-     * niin palautetaan null. Vastaavasti, jos keossa on 1, palautetaan viimeinen alkio ja jos
-     * keossa on kaksi alkiota, niin ensin vaihdetaan niiden paikkaa ja pienennetään kekoa, jonka 
-     * jälkeen palautetaan keossa toisena oleva arvo. Vaikka keon koko on nyt 1, niin voidaan
-     * keon "ulko" puolelta hakea toisena ollut alkio, koska keossa käytettyä taulukkoa ei alusteta
-     * toiminnon aikana. Muuten talletetaan apumuuttujaan palautettavaArvo keon ensimmäisenä ollut 
-     * Sijainti olio, jonka jälkeen kutsutaan motodia korjaaPoisto ja palautetaan muuttujan palautettavaArvo.
-     * 
+     * Metodi poistaKeosta poistaa keon huipulla olevan arvon ja palauttaa sen.
+     * Ensin tarkistetaan, onko keossa käytettävä taulukko "liian iso". Jos on,
+     * niin kutsutaan pienennaKeko metodia. Seuraavaksi tarkistetaan, onko keko
+     * tyhjä. Jos on, niin palautetaan null. Vastaavasti, jos keossa on 1,
+     * palautetaan viimeinen alkio ja jos keossa on kaksi alkiota, niin ensin
+     * vaihdetaan niiden paikkaa ja pienennetään kekoa, jonka jälkeen
+     * palautetaan keossa toisena oleva arvo. Vaikka keon koko on nyt 1, niin
+     * voidaan keon "ulko" puolelta hakea toisena ollut alkio, koska keossa
+     * käytettyä taulukkoa ei alusteta toiminnon aikana. Muuten talletetaan
+     * apumuuttujaan palautettavaArvo keon ensimmäisenä ollut Sijainti olio,
+     * jonka jälkeen kutsutaan motodia korjaaPoisto ja palautetaan muuttujan
+     * palautettavaArvo.
+     *
      * @return palauttaa keossa ylimpänä olleen alkion.
      */
     public Sijainti poistaKeosta() {
@@ -219,13 +223,13 @@ public class Keko {
     }
 
     /**
-     *Metodi korjaaPoisto korjaa keko ehdon. Ensin luodaan apu muuttuja, johon talletetaan 
-     * keossa viimeisenä oleva Sijainti olio. Sitten keon kokoa pienennetään yhdellä
-     * ja käydään kekoa läpi niin pitkään, vaihtaen Sijainti olion paikkaa joko oikean 
-     * lapsen tai vasemman lapsen kanssa while luupissa, että Sijainti olio on oikealla 
-     * paikalla. 
-     * 
-     * 
+     * Metodi korjaaPoisto korjaa keko ehdon. Ensin luodaan apu muuttuja, johon
+     * talletetaan keossa viimeisenä oleva Sijainti olio. Sitten keon kokoa
+     * pienennetään yhdellä ja käydään kekoa läpi niin pitkään, vaihtaen
+     * Sijainti olion paikkaa joko oikean lapsen tai vasemman lapsen kanssa
+     * while luupissa, että Sijainti olio on oikealla paikalla.
+     *
+     *
      */
     protected void korjaaPoisto() {
         Sijainti apu = keko[keonKoko];
@@ -237,21 +241,21 @@ public class Keko {
             if (keko[right(i)].getEtaisyys() > keko[left(i)].getEtaisyys()) {
                 vaihda(i, left(i));
                 i = left(i);
-           } else if (keko[right(i)].getEtaisyys() <= keko[left(i)].getEtaisyys()) {
+            } else if (keko[right(i)].getEtaisyys() <= keko[left(i)].getEtaisyys()) {
                 vaihda(i, right(i));
                 i = right(i);
 
             }
             if (i > keonKoko / 2) {
-               break;
+                break;
             }
         }
     }
 
     /**
-     *Metodi tulosta tulostaa ja palauttaa sen hetkisen keon sisällön. Pääasiallinen
-     * tarkoitus on testien tekemisen helpottaminen.
-     * 
+     * Metodi tulosta tulostaa ja palauttaa sen hetkisen keon sisällön.
+     * Pääasiallinen tarkoitus on testien tekemisen helpottaminen.
+     *
      * @return keon sisällön
      */
     protected String tulosta() {

@@ -5,16 +5,12 @@
 package Algoritmit;
 
 import EtsiReittiKuvasta.tietoRakenteet.Keko;
-import EtsiReittiKuvasta.tietoRakenteet.Keko;
-import EtsiReittiKuvasta.tietoRakenteet.Keko;
 import EtsiReittiKuvasta.tietoRakenteet.Sijainti;
-import EtsiReittiKuvasta.tietoRakenteet.Sijainti;
-import EtsiReittiKuvasta.tietoRakenteet.Sijainti;
-import java.util.ArrayList;
 
 /**
- *Dijkstra8 luokka ratkaisee lyhimmän polun kahden annetun pisteet "solmun" välillä
- * 
+ * Dijkstra8 luokka ratkaisee lyhimmän polun kahden annetun pisteet "solmun"
+ * välillä käyttäen pää ilmansuuntia ja väli ilmansuuntia.
+ *
  * @author Toni
  */
 public class Dijkstra8 {
@@ -24,6 +20,7 @@ public class Dijkstra8 {
     private Sijainti[][] sijaintiTaulu;
     private Keko K = new Keko();
     private int[] testiTulostus;
+
     /**
      * Luo Dijkstra8-olion, jolle annetaan alkuarvoina seuraavat
      *
@@ -42,13 +39,16 @@ public class Dijkstra8 {
         this.yLoppu = yLoppu;
         sijaintiTaulu = new Sijainti[this.kuvaTaulu.length][this.kuvaTaulu[0].length];
     }
+
     /**
-     * ratkaise metodi aloittaa Dijkstran8 toiminnan kutsumalla dijkstraKeko-metodia.
+     * ratkaise metodi aloittaa Dijkstran8 toiminnan kutsumalla
+     * dijkstraKeko-metodia.
      *
      */
     public void ratkaise() {
         dijkstra8Keko();
     }
+
     /**
      * initialiseSingleSourceTest metodi on vain initialiseSingleSource metodin
      * testaamista varten.
@@ -57,7 +57,8 @@ public class Dijkstra8 {
 
         initialiseSingleSource();
     }
-   /**
+
+    /**
      * initialiseSingleSource metodi alustaa sijaintiTaulun.
      */
     private void initialiseSingleSource() {
@@ -68,14 +69,16 @@ public class Dijkstra8 {
             }
         }
     }
+
     /**
      * relaxTest metodi on vain relax metodin testaamista varten.
      */
     public void relaxTest(int xMistaTullaan, int yMistaTullaan, int xMihinMennaan, int yMihinMennaan) {
- 
+
         relax(xMistaTullaan, yMistaTullaan, xMihinMennaan, yMihinMennaan);
     }
-  /**
+
+    /**
      * relax metodi vertaa, onko etäisyysarvo suurempi siinä pisteessä, mihin
      * ollaan menossa, kuin pisteen "Mistä tullaan" etäisyysarvo lisättynä
      * kuvataulusta saatavaan etäisyysarvoon. Jos näin on, niin päivitetään se
@@ -88,41 +91,45 @@ public class Dijkstra8 {
      */
     private void relax(int xMistaTullaan, int yMistaTullaan, int xMihinMennaan, int yMihinMennaan) {
 //*1.414
-    
-        if ((xMistaTullaan != xMihinMennaan) && (yMistaTullaan != yMihinMennaan)) {
-            if (sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys() > sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan] * 1.414) {
-                sijaintiTaulu[xMihinMennaan][yMihinMennaan].setEtaisyys(sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan] * 1.414);
-                sijaintiTaulu[xMihinMennaan][yMihinMennaan].setX(xMistaTullaan);
-                sijaintiTaulu[xMihinMennaan][yMihinMennaan].setY(yMistaTullaan);
-
-                K.lisaaKekoon(xMihinMennaan, yMihinMennaan, sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys() * 1.414);
-            }
-        } else {
-            if (sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys() > sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan]) { // verrataan onko etäisyys suurempi vai pienempi uutta solmua käyttäen
-
-                sijaintiTaulu[xMihinMennaan][yMihinMennaan].setEtaisyys(sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan]);
-                sijaintiTaulu[xMihinMennaan][yMihinMennaan].setX(xMistaTullaan);
-                sijaintiTaulu[xMihinMennaan][yMihinMennaan].setY(yMistaTullaan);
-
-                K.lisaaKekoon(xMihinMennaan, yMihinMennaan, sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys());
-            }
+        boolean valiIlmansuunta = false;
+        if ((xMistaTullaan != xMihinMennaan) && (yMistaTullaan != yMihinMennaan)) { //Tarkastetaan ollaanko 
+            valiIlmansuunta = true;                                                 //elenemässä väli ilmansuuntiin.
         }
+        if (valiIlmansuunta == true && sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys() > sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan] * 1.414) {
+            sijaintiTaulu[xMihinMennaan][yMihinMennaan].setEtaisyys(sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan] * 1.414);
+            sijaintiTaulu[xMihinMennaan][yMihinMennaan].setX(xMistaTullaan);
+            sijaintiTaulu[xMihinMennaan][yMihinMennaan].setY(yMistaTullaan);
+
+            K.lisaaKekoon(xMihinMennaan, yMihinMennaan, sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys() * 1.414);
+        }
+        if (valiIlmansuunta == false && sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys() > sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan]) { // verrataan onko etäisyys suurempi vai pienempi uutta solmua käyttäen
+
+            sijaintiTaulu[xMihinMennaan][yMihinMennaan].setEtaisyys(sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan]);
+            sijaintiTaulu[xMihinMennaan][yMihinMennaan].setX(xMistaTullaan);
+            sijaintiTaulu[xMihinMennaan][yMihinMennaan].setY(yMistaTullaan);
+
+            K.lisaaKekoon(xMihinMennaan, yMihinMennaan, sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys());
+        }
+
     }
-   /**
+
+    /**
      * dijkstraKeko8Test metodi on vain dijkstraKeko metodin testaamista varten.
      */
     public void dijkstraKeko8Test() {
         dijkstra8Keko();
     }
-    /**
-     * dijkstra8Keko metodi kutsuu aluksi initialiseSingleSource metodia alustusta
-     * varten ja luo apumuuttujan "sijaintiApu". Apumuuttujaa tarvitaan keosta haettavaa
-     * tietoa varten ja relaxsin kutsua varten, jotta varsinainen sijaintitaulu
-     * pysyy halutunlaisena.Jos kyseinen kuva "Verkko" ei ole tyhjä, niin
-     * käydään vieruspisteet, eli "solmut" läpi (pääilman suuntiin sekä välilimman suuntiin). 
-     * Metodin suorittaminen lopetetaan,kun keko on tyhjä, eli kaikki "solmut" on 
-     * käyty loppuunasti läpi tai on löydetty loppupiste.
 
+    /**
+     * dijkstra8Keko metodi kutsuu aluksi initialiseSingleSource metodia
+     * alustusta varten ja luo apumuuttujan "sijaintiApu". Apumuuttujaa
+     * tarvitaan keosta haettavaa tietoa varten ja relaxsin kutsua varten, jotta
+     * varsinainen sijaintitaulu pysyy halutunlaisena.Jos kyseinen kuva "Verkko"
+     * ei ole tyhjä, niin käydään vieruspisteet, eli "solmut" läpi (pääilman
+     * suuntiin sekä välilimman suuntiin). Metodin suorittaminen lopetetaan,kun
+     * keko on tyhjä, eli kaikki "solmut" on käyty loppuunasti läpi tai on
+     * löydetty loppupiste.
+     *
      */
     private void dijkstra8Keko() {
         initialiseSingleSource();
@@ -160,7 +167,8 @@ public class Dijkstra8 {
             }
         }
     }
-   /**
+
+    /**
      * palauttaa sijaintitaulukon.
      *
      * @return Sijainti[][]
@@ -168,6 +176,7 @@ public class Dijkstra8 {
     public Sijainti[][] getSijaintiTaulu() {
         return this.sijaintiTaulu;
     }
+
     /**
      * testiTulosReitti() metodi on vain testiTulosReitti metodin testaamiseen.
      *
@@ -178,9 +187,10 @@ public class Dijkstra8 {
         tulostaReitti();
         return testiTulostus;
     }
+
     /**
-     * testiTulosReitti metodi tulostaa kuljetun reitin alkaen lopusta ja edeten alkuun
-     * päin. Aluksi luodaan muutamat apumuutujat tulostusta varten. Kun
+     * testiTulosReitti metodi tulostaa kuljetun reitin alkaen lopusta ja edeten
+     * alkuun päin. Aluksi luodaan muutamat apumuutujat tulostusta varten. Kun
      * muuttujat on luotu, käydään while luupin avulla kuljettu reitti läpi.
      *
      */
