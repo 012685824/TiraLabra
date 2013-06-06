@@ -4,8 +4,6 @@
  */
 package EtsiReittiKuvasta.tietoRakenteet;
 
-import EtsiReittiKuvasta.main.EtsiReitti;
-
 /**
  * Keko luokka luo minimikeon ja sinne voidaan lisätä Sijainti olioita.
  *

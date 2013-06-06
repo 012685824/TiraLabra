@@ -14,14 +14,16 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
+
 
 /**
- *
+ *EtsiReitti luokka toimi ohjelman pääluokkana josta ohjelmassa olevia algoritmeja kutsutaan
+ * 
  * @author Toni
  */
 public class EtsiReitti {
 
+    
     static int[][] kuvaTaulu;// luodaan tarvittavat muuttujat
     static Keko K = new Keko();
     static String ratkaisuKuvanTiedostonSijainti = "src/Kuvat/ratkaisu.bmp";
@@ -38,14 +40,26 @@ public class EtsiReitti {
     }
 
     /**
-     *
-     * @param tiedostonNimi
-     * @param xAlkuPiste
-     * @param yAlkuPiste
-     * @param xLoppuPiste
-     * @param yLoppuPiste
-     * @param valinta
-     * @param piirretaankoKaikkiPisteetA
+     *Ratkaise metodi saa syötteenä allaluetellut muuttujat. Jotka määrittävät 
+     * ohjelman toiminnan. Muuttuja tiedostonNimi kertoo minkä nimistä tiedostoa
+     * aletaan ratkaisemaan. Muuttujat xAlkuPiste ja YAlkuPiste kertovat polun aloitus 
+     * pisteen koordinaatit vastaavasti xLoppuPiste ja yLoppuPiste kertovat mikä on 
+     * polun lopetus piste. Muuttuja valinta kertoo mitä algoritmia ratkaisuun käytetään.
+     * Viimeinnen parmetri piirretaankoKaikkiPisteetA kertoo haluaako käyttäjä
+     * että kaikki pisteet missä ohjelma on käynyt piirretään myös ratkaisu kuvaan.
+     * Tarvittavat parametrit saatuaan ratkaise luo ensin tyhjän BufferedImage ja asettaa
+     * muuttujaan piirretaankoKaikkiPisteet arvoksi muutujan piirretaankoKaikkiPisteetA arvon.
+     * Sen jälkeen alustetaan muutama muutuja ja haetaan rgb arvot kuvasta. Kun tarvittavat
+     * arvot on asetettu niin valitaan valinta muutujan mukainen algoritmi suorittamaan 
+     * reitin etsintä.
+     * 
+     * @param tiedostonNimi munkä nimistä tiedostoa ratkaistaan
+     * @param xAlku mistä x:n koordinaatista etsintä aloitetaan
+     * @param yAlku mistä y:n koordinaatista etsintä aloitetaan
+     * @param xLoppu mihin x:n koordinaattiin reitti etsitään
+     * @param yLoppu mihin y:n koordinaattiin reitti etsitään
+     * @param valinta mitä algoritmia ratkaisuun käytetään
+     * @param piirretaankoKaikkiPisteetA piirretäänkö kaikki käydyt pisteet vai ei.
      */
     public static void ratkaise(String tiedostonNimi, int xAlkuPiste, int yAlkuPiste, int xLoppuPiste, int yLoppuPiste, int valinta, Object piirretaankoKaikkiPisteetA) {
         //Luodaan BufferedImage ratkaistavan kuvan käsittelyä varten ja nollataan reitin pituus joka kerta kun uuttä kuvaa aletaan ratkaisemaan.
@@ -55,9 +69,6 @@ public class EtsiReitti {
         reitinPituus = 0;
         testiVirhe = "";
         kuva = haeKuva(tiedostonNimi); //haetaan kuva tiedosto käsittetyyn.
-        /*System.out.println(tiedostonNimi); //tulostuksia toiminnan tarkastelua varten
-         System.out.println("xa=" + xAlkuPiste + "ya=" + yAlkuPiste + "xl=" + xLoppuPiste + "yl=" + yLoppuPiste);*/
-        //System.out.println("valinta=" + valinta);
         kuvaTaulu = new int[kuva.getWidth()][kuva.getHeight()]; // Luodaan oikean kokoinen taulukosta
 
         haeVaritKuvatauluun(kuva); //Haetaan kuvaTauluun kuvan väri koodit
@@ -67,7 +78,6 @@ public class EtsiReitti {
             case 0:
                 Dijkstra D = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
                 D.ratkaise();
-                //tulostaEtaisyyde(D.getSijaintiTaulu());
                 piirraReitti(D.getSijaintiTaulu(), kuva, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
                 break;
             case 1:
@@ -75,14 +85,11 @@ public class EtsiReitti {
                     EtsiReittiUI.virhe("Valitsit kuvan joka oli liian iso maksimi koko on 100x100 \n Joten käytetään Dijkstraa");
                     Dijkstra D1 = new Dijkstra(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
                     D1.ratkaise();
-                    //tulostaEtaisyyde(D.getSijaintiTaulu());
                     piirraReitti(D1.getSijaintiTaulu(), kuva, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
                     break;
                 }
                 BellmanFord B = new BellmanFord(kuvaTaulu, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
                 B.ratkaise();
-                //tulostaEtaisyyde(B.getSijaintiTaulu());
-                //B.tulostaReitti();
                 piirraReitti(B.getSijaintiTaulu(), kuva, xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste);
                 break;
             case 2:
@@ -100,8 +107,9 @@ public class EtsiReitti {
     }
 
     /**
-     *
-     * @param tiedosto
+     *Metodi haeKuva hakee valitun tiedoston kiintolevyltä.
+     * 
+     * @param tiedosto tiedoston sijainti
      * @return
      */
     public static BufferedImage haeKuva(String tiedosto) {
@@ -118,8 +126,9 @@ public class EtsiReitti {
     }
 
     /**
-     *
-     * @param ratkaistuKuva
+     *Metodi talletaKuva tallentaa ratkaistun kuvan kiintolevylle.
+     * 
+     * @param ratkaistuKuva ratkaisun sijanti kiintolevyllä.
      */
     public static void talletaKuva(BufferedImage ratkaistuKuva) {
         File ratkaisuTiedosto = new File(ratkaisuKuvanTiedostonSijainti);//Luodaan uusi File muuttuja tiedoston käsittelyä varten
@@ -134,7 +143,8 @@ public class EtsiReitti {
     }
 
     /**
-     *
+     *testiVirhe testausta varten apu metodi.
+     * 
      * @return
      */
     public static String testiVirhe() {
@@ -142,13 +152,19 @@ public class EtsiReitti {
     }
 
     /**
-     *
-     * @param sijaintiTaulu
-     * @param kuva
-     * @param xAlku
-     * @param yAlku
-     * @param xLoppu
-     * @param yLoppu
+     *Metodi piirraReitti piirtää ratkaistun reitin. Ensin asetetaan tarvittavat 
+     * muutujat kohdalleen. Asetetaan sopiva väri reitille. Luotaan BufferedImage 
+     * ratkaisu kuvaa varten. Jos on valittuu että piirretään kaikki pirteet missä käyty
+     * niin piirretään ne. Jos valintaa ei oli niin piirretään vain reitti. Lopuksi 
+     * kutsutaan metodia talletaKuva.
+     * 
+     * 
+     * @param sijaintiTaulu tiedot reitistä
+     * @param kuva mihin piirretään ratkaistu reitti.
+     * @param xAlku mihin x:n koordinaattiin reittin piirtäminen lopetetaan
+     * @param yAlku mihin y:n koordinaattiin reittin piirtäminen lopetetaan
+     * @param xLoppu mistä x:n koordinaattista reittin piirtäminen aloitetaan
+     * @param yLoppu mistä y:n koordinaattista reittin piirtäminen aloitetaan
      */
     public static void piirraReitti(Sijainti[][] sijaintiTaulu, BufferedImage kuva, int xAlku, int yAlku, int xLoppu, int yLoppu) {
         int x = xLoppu;     //Annetaan tulostukseen reitin alkupiste tulostus tapahtuu siis 
@@ -164,7 +180,7 @@ public class EtsiReitti {
         BufferedImage kuvaRatkaisu = null;
         kuvaRatkaisu = kuva;
         kuvaRatkaisu.setRGB(xLoppu, yLoppu, col);//Lisätään ensimmäinen piste
-        //Käydään reitti läpi ja "piirretään" reitti
+        //Käydään reitti läpi ja "piirretään" kaikki pisteet jos valinta päällä
         if (piirretaankoKaikkiPisteet != null) {
             for (int y1 = 0; y1 < kuvaTaulu[0].length; y1++) {
                 for (int x1 = 0; x1 < kuvaTaulu.length; x1++) {
@@ -176,7 +192,7 @@ public class EtsiReitti {
                 }
             }
         }
-
+         //Käydään reitti läpi ja "piirretään" oikea reitti
         while (x != xAlku || y != yAlku) {
 
             kuvaRatkaisu.setRGB(x, y, col);
@@ -190,8 +206,10 @@ public class EtsiReitti {
     }
 
     /**
-     *
-     * @param kuva
+     *Metodi haeVaritKuvatauluun hakee valitun kuvan väripisteet ja
+     * tallentaa ne muuttujaan kuvaTaulu.
+     * 
+     * @param kuva Kuva mistä värit haetaan.
      */
     public static void haeVaritKuvatauluun(BufferedImage kuva) {
         for (int y = 0; y < kuvaTaulu[0].length; y++) {

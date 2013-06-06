@@ -4,8 +4,6 @@ package EtsiReittiKuvasta.tietoRakenteet;
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-import EtsiReittiKuvasta.tietoRakenteet.Keko;
-import EtsiReittiKuvasta.tietoRakenteet.Sijainti;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Random;

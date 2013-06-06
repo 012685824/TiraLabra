@@ -9,7 +9,7 @@ import EtsiReittiKuvasta.tietoRakenteet.Sijainti;
 
 /**
  * Dijkstra8 luokka ratkaisee lyhimmän polun kahden annetun pisteet "solmun"
- * välillä käyttäen pää ilmansuuntia ja väli ilmansuuntia.
+ * välillä käyttäen pääilmansuuntia ja väli-ilmansuuntia.
  *
  * @author Toni
  */
@@ -25,10 +25,10 @@ public class Dijkstra8 {
      * Luo Dijkstra8-olion, jolle annetaan alkuarvoina seuraavat
      *
      * @param kuvaTaulu sisältää tiedon pisteen värikoodista
-     * @param xAlku misä x:n etsintä aloitetaan
-     * @param yAlku misä y:n etsintä aloitetaan
-     * @param xLoppu mihin x:n arvoon reitti etsitään
-     * @param yLoppu mihin y:n arvoon reitti etsitään
+     * @param xAlku mistä x:n koordinaatista etsintä aloitetaan
+     * @param yAlku mistä y:n koordinaatista etsintä aloitetaan
+     * @param xLoppu mihin x:n koordinaattiin reitti etsitään
+     * @param yLoppu mihin y:n koordinaattiin reitti etsitään
      * @param sijaintiTaulu sisältää tiedot solmun arvoista x,y,etäisyys
      */
     public Dijkstra8(int[][] kuvaTaulu, int xAlku, int yAlku, int xLoppu, int yLoppu) {
@@ -84,31 +84,35 @@ public class Dijkstra8 {
      * kuvataulusta saatavaan etäisyysarvoon. Jos näin on, niin päivitetään se
      * uudella pienemmällä arvolla ja lisätään muuttuneen pisteen tiedot kekoon.
      *
-     * @param xMistaTullaan kertoo x koordinaatin mistä tullaan.
-     * @param yMistaTullaan kertoo y koordinaatin mistä tullaan.
-     * @param xMihinMennaan kertoo x koordinaatin mihin mennään.
-     * @param yMihinMennaan kertoo y koordinaatin mihin mennään.
+     * @param xLahde kertoo x koordinaatin mistä tullaan.
+     * @param yLahde kertoo y koordinaatin mistä tullaan.
+     * @param xKohde kertoo x koordinaatin mihin mennään.
+     * @param yKohde kertoo y koordinaatin mihin mennään.
      */
-    private void relax(int xMistaTullaan, int yMistaTullaan, int xMihinMennaan, int yMihinMennaan) {
+    private void relax(int xLahde, int yLahde, int xKohde, int yKohde) {
 //*1.414
+
+        
         boolean valiIlmansuunta = false;
-        if ((xMistaTullaan != xMihinMennaan) && (yMistaTullaan != yMihinMennaan)) { //Tarkastetaan ollaanko 
+        if ((xLahde != xKohde) && (yLahde != yKohde)) { //Tarkastetaan ollaanko 
             valiIlmansuunta = true;                                                 //elenemässä väli ilmansuuntiin.
         }
-        if (valiIlmansuunta == true && sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys() > sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan] * 1.414) {
-            sijaintiTaulu[xMihinMennaan][yMihinMennaan].setEtaisyys(sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan] * 1.414);
-            sijaintiTaulu[xMihinMennaan][yMihinMennaan].setX(xMistaTullaan);
-            sijaintiTaulu[xMihinMennaan][yMihinMennaan].setY(yMistaTullaan);
+        final Sijainti kohde = sijaintiTaulu[xKohde][yKohde];
+        final Sijainti lahde = sijaintiTaulu[xLahde][yLahde];
+        if (valiIlmansuunta == true && kohde.getEtaisyys() > lahde.getEtaisyys() + kuvaTaulu[xKohde][yKohde] * 1.414) {
+            kohde.setEtaisyys(lahde.getEtaisyys() + kuvaTaulu[xKohde][yKohde] * 1.414);
+            kohde.setX(xLahde);
+            kohde.setY(yLahde);
 
-            K.lisaaKekoon(xMihinMennaan, yMihinMennaan, sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys() * 1.414);
+            K.lisaaKekoon(xKohde, yKohde, kohde.getEtaisyys() * 1.414);
         }
-        if (valiIlmansuunta == false && sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys() > sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan]) { // verrataan onko etäisyys suurempi vai pienempi uutta solmua käyttäen
+        if (valiIlmansuunta == false && kohde.getEtaisyys() > lahde.getEtaisyys() + kuvaTaulu[xKohde][yKohde]) { // verrataan onko etäisyys suurempi vai pienempi uutta solmua käyttäen
 
-            sijaintiTaulu[xMihinMennaan][yMihinMennaan].setEtaisyys(sijaintiTaulu[xMistaTullaan][yMistaTullaan].getEtaisyys() + kuvaTaulu[xMihinMennaan][yMihinMennaan]);
-            sijaintiTaulu[xMihinMennaan][yMihinMennaan].setX(xMistaTullaan);
-            sijaintiTaulu[xMihinMennaan][yMihinMennaan].setY(yMistaTullaan);
+            kohde.setEtaisyys(lahde.getEtaisyys() + kuvaTaulu[xKohde][yKohde]);
+            kohde.setX(xLahde);
+            kohde.setY(yLahde);
 
-            K.lisaaKekoon(xMihinMennaan, yMihinMennaan, sijaintiTaulu[xMihinMennaan][yMihinMennaan].getEtaisyys());
+            K.lisaaKekoon(xKohde, yKohde, kohde.getEtaisyys());
         }
 
     }
