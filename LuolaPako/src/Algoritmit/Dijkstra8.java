@@ -20,7 +20,7 @@ public class Dijkstra8 {
     private Sijainti[][] sijaintiTaulu;
     private Keko K = new Keko();
     private int[] testiTulostus;
-
+    Sijainti nykyinenSijainti;
     /**
      * Luo Dijkstra8-olion, jolle annetaan alkuarvoina seuraavat
      *
@@ -91,30 +91,23 @@ public class Dijkstra8 {
      */
     private void relax(int xLahde, int yLahde, int xKohde, int yKohde) {
 //*1.414
-
-        
-        boolean valiIlmansuunta = false;
-        if ((xLahde != xKohde) && (yLahde != yKohde)) { //Tarkastetaan ollaanko 
-            valiIlmansuunta = true;                                                 //elenemässä väli ilmansuuntiin.
+        if (kordinaattiEiKelpaa(xKohde, yKohde)) {
+            return;
         }
+        
         final Sijainti kohde = sijaintiTaulu[xKohde][yKohde];
         final Sijainti lahde = sijaintiTaulu[xLahde][yLahde];
-        if (valiIlmansuunta == true && kohde.getEtaisyys() > lahde.getEtaisyys() + kuvaTaulu[xKohde][yKohde] * 1.414) {
-            kohde.setEtaisyys(lahde.getEtaisyys() + kuvaTaulu[xKohde][yKohde] * 1.414);
-            kohde.setX(xLahde);
-            kohde.setY(yLahde);
 
-            K.lisaaKekoon(xKohde, yKohde, kohde.getEtaisyys() * 1.414);
-        }
-        if (valiIlmansuunta == false && kohde.getEtaisyys() > lahde.getEtaisyys() + kuvaTaulu[xKohde][yKohde]) { // verrataan onko etäisyys suurempi vai pienempi uutta solmua käyttäen
+        double kerroin = 1;
+        if ((xLahde != xKohde) && (yLahde != yKohde)) { //Tarkastetaan ollaanko 
 
-            kohde.setEtaisyys(lahde.getEtaisyys() + kuvaTaulu[xKohde][yKohde]);
-            kohde.setX(xLahde);
-            kohde.setY(yLahde);
-
-            K.lisaaKekoon(xKohde, yKohde, kohde.getEtaisyys());
+            kerroin = 1.414;
         }
 
+        if (kohde.getEtaisyys() > lahde.getEtaisyys() + kuvaTaulu[xKohde][yKohde] * kerroin) {
+
+            paivitaSolmuJaLisaaKekoon(kohde, lahde, xKohde, yKohde, kerroin, xLahde, yLahde);
+        }
     }
 
     /**
@@ -137,38 +130,26 @@ public class Dijkstra8 {
      */
     private void dijkstra8Keko() {
         initialiseSingleSource();
-        Sijainti sijaintiApu = new Sijainti(0, 0, 0); //luodaan apu sijainti muuttuja 
 
         K.lisaaKekoon(xAlku, yAlku, 0);
 
-        while (!K.emptyIs() && (xLoppu != sijaintiApu.getX() || yLoppu != sijaintiApu.getY())) {
-            sijaintiApu = K.poistaKeosta();
-            if (sijaintiApu.getX() + 1 < sijaintiTaulu.length) {     // tarkastetaan ollaan taulukon reunassa X akselin suunnassa
-                relax(sijaintiApu.getX(), sijaintiApu.getY(), sijaintiApu.getX() + 1, sijaintiApu.getY());    // jos ei niin suoritetaan relax
-            }
-            if (sijaintiApu.getX() - 1 >= 0) {
-                relax(sijaintiApu.getX(), sijaintiApu.getY(), sijaintiApu.getX() - 1, sijaintiApu.getY());
-            }
-            if (sijaintiApu.getY() + 1 < sijaintiTaulu[0].length) {     // tarkastetaan ollaan taulukon reunassa X akselin suunnassa
-                relax(sijaintiApu.getX(), sijaintiApu.getY(), sijaintiApu.getX(), sijaintiApu.getY() + 1);    // jos ei niin suoritetaan relax
-            }
-            if (sijaintiApu.getY() - 1 >= 0) {
-                relax(sijaintiApu.getX(), sijaintiApu.getY(), sijaintiApu.getX(), sijaintiApu.getY() - 1);
-            }
+        while (!K.emptyIs()) {
 
+            nykyinenSijainti = K.poistaKeosta();
+            
+            if (maali(nykyinenSijainti)) break;
+          
+            int nykyinenX = nykyinenSijainti.getX();
+            
+            relax(nykyinenX, nykyinenSijainti.getY(), nykyinenX + 1, nykyinenSijainti.getY());    // jos ei niin suoritetaan relax
+            relax(nykyinenX, nykyinenSijainti.getY(), nykyinenSijainti.getX() - 1, nykyinenSijainti.getY());
+            relax(nykyinenX, nykyinenSijainti.getY(), nykyinenSijainti.getX(), nykyinenSijainti.getY() + 1);    // jos ei niin suoritetaan relax
+            relax(nykyinenX, nykyinenSijainti.getY(), nykyinenSijainti.getX(), nykyinenSijainti.getY() - 1);
+            relax(nykyinenX, nykyinenSijainti.getY(), nykyinenSijainti.getX() + 1, nykyinenSijainti.getY() - 1);    // jos ei niin suoritetaan relax
+            relax(nykyinenX, nykyinenSijainti.getY(), nykyinenSijainti.getX() - 1, nykyinenSijainti.getY() - 1);
+            relax(nykyinenX, nykyinenSijainti.getY(), nykyinenSijainti.getX() + 1, nykyinenSijainti.getY() + 1);    // jos ei niin suoritetaan relax
+            relax(nykyinenX, nykyinenSijainti.getY(), nykyinenSijainti.getX() - 1, nykyinenSijainti.getY() + 1);
 
-            if (sijaintiApu.getX() + 1 < sijaintiTaulu.length && sijaintiApu.getY() - 1 >= 0) {     // tarkastetaan ollaan taulukon reunassa X akselin suunnassa
-                relax(sijaintiApu.getX(), sijaintiApu.getY(), sijaintiApu.getX() + 1, sijaintiApu.getY() - 1);    // jos ei niin suoritetaan relax
-            }
-            if (sijaintiApu.getX() - 1 >= 0 && sijaintiApu.getY() - 1 >= 0) {
-                relax(sijaintiApu.getX(), sijaintiApu.getY(), sijaintiApu.getX() - 1, sijaintiApu.getY() - 1);
-            }
-            if (sijaintiApu.getY() + 1 < sijaintiTaulu[0].length && sijaintiApu.getX() + 1 < sijaintiTaulu.length) {     // tarkastetaan ollaan taulukon reunassa X akselin suunnassa
-                relax(sijaintiApu.getX(), sijaintiApu.getY(), sijaintiApu.getX() + 1, sijaintiApu.getY() + 1);    // jos ei niin suoritetaan relax
-            }
-            if (sijaintiApu.getY() + 1 < sijaintiTaulu[0].length && sijaintiApu.getX() - 1 >= 0) {
-                relax(sijaintiApu.getX(), sijaintiApu.getY(), sijaintiApu.getX() - 1, sijaintiApu.getY() + 1);
-            }
         }
     }
 
@@ -215,5 +196,34 @@ public class Dijkstra8 {
             y = sijaintiTaulu[x][y].getY();
             x = xApu;
         }
+    }
+
+    private void paivitaSolmuJaLisaaKekoon(final Sijainti kohde, final Sijainti lahde, int xKohde, int yKohde, double kerroin, int xLahde, int yLahde) {
+        kohde.setEtaisyys(lahde.getEtaisyys() + kuvaTaulu[xKohde][yKohde] * kerroin);
+        kohde.setX(xLahde);
+        kohde.setY(yLahde);
+
+        K.lisaaKekoon(xKohde, yKohde, kohde.getEtaisyys() * kerroin);
+    }
+
+    private boolean kordinaattiEiKelpaa(int xKohde, int yKohde) {
+        if (xKohde < 0) {
+            return true;
+        }
+        if (yKohde < 0) {
+            return true;
+        }
+        if (xKohde >= this.sijaintiTaulu[0].length) {
+            return true;
+        }
+        if (yKohde >= this.sijaintiTaulu.length) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean maali(Sijainti sijaintiApu) {
+        return xLoppu == sijaintiApu.getX() && yLoppu == sijaintiApu.getY();
     }
 }

@@ -40,10 +40,10 @@ public class BellmanFord {
     }
 
     /**
-     * ratkaise metodi aloittaa kutsuu ensin initialiseSingleSource metodia.
-     * ratkaise metodi käy kolmen for luupin avulla kuvaTaulua läpi ja jos ei
-     * olla taulukon reunoilla niin kutsutaan relax metodia kaikiin pääilman
-     * suuntiin.
+     * ratkaise metodi kutsuu ensin initialiseSingleSource metodia joka alustaa sijainti taulun.
+     * ratkaise metodi käy kolmen for luupin avulla kuvaTaulua läpi. Taulukon reunat tarkistetaan
+     * kaikkiin pääilmansuuntiin järjestyksessä oikea reuna, vasen reuna, yläreuna ja alareuna. 
+     * Aina jos ei olla taulukon reunalla niin kutsutaan relax metodia.
      */
     public void ratkaise() {
         initialiseSingleSource(); // Kutsutaan muutujien alustus ..
