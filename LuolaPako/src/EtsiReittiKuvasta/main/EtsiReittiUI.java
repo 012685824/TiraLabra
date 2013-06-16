@@ -53,30 +53,29 @@ public class EtsiReittiUI extends javax.swing.JFrame {
     }
 
     private void valintaListanTiedot() throws FileNotFoundException, IOException {
-        //Kuvien valinta listan tiedot ovat talletettu tiedostoon mistä me pitää ensin hakea
-        FileInputStream asetuksetTiedosto = new FileInputStream(tiedostojenSijainti + "/asetukset.txt");
-        //Tehdään uusi Scanner että saadaan luettua tiedosto rivi kerrallaan.
-        final Scanner tiedotTiedostosta = new Scanner(asetuksetTiedosto, "UTF-8");
-        //Luodaan ArrayList koska ei tiedetä valinta listan kokoa
-        ArrayList<String> kuvaListaAlustus = new ArrayList<String>();
-        //Luetaan tiedosto listaan rivi kerrallaan.
-        while (tiedotTiedostosta.hasNextLine()) {
-            kuvaListaAlustus.add(tiedotTiedostosta.nextLine());
+
+        final String[] kuvalistaValmis;
+        try (FileInputStream asetuksetTiedosto = new FileInputStream(tiedostojenSijainti+"/asetukset.txt")) {
+            final Scanner tiedotTiedostosta = new Scanner(asetuksetTiedosto, "UTF-8");
+            ArrayList<String> kuvaListaAlustus = new ArrayList<>();
+            while (tiedotTiedostosta.hasNextLine()) {
+                kuvaListaAlustus.add(tiedotTiedostosta.nextLine());
+            }
+            kuvalistaValmis = new String[kuvaListaAlustus.size()];
+            for (int i = 0; i < kuvalistaValmis.length; i++) {
+                kuvalistaValmis[i] = kuvaListaAlustus.get(i);
+            }
         }
-        //Nyt luodaan String taulukko kun tiedetään montako kuvaa listalla on.
-        final String[] kuvalistaValmis = new String[kuvaListaAlustus.size()];
-        for (int i = 0; i < kuvalistaValmis.length; i++) {
-            kuvalistaValmis[i] = kuvaListaAlustus.get(i);
-        }
-        asetuksetTiedosto.close();// Suljetaan avattu tiedosto
-        //Nyt voidaan lisätä "luoda uudelleen kuvien valinta lista.
+        //Nyt voidaan lisätä "luoda" uudelleen kuvien valinta lista.
         kuvaLista.setModel(new javax.swing.AbstractListModel() {
             String[] strings = kuvalistaValmis;
 
+            @Override
             public int getSize() {
                 return strings.length;
             }
 
+            @Override
             public Object getElementAt(int i) {
                 return strings[i];
             }
@@ -504,11 +503,11 @@ public class EtsiReittiUI extends javax.swing.JFrame {
 
                 //päivitetään kuvien valinta lista
                 FileWriter asetuksetTiedosto = new FileWriter(tiedostojenSijainti + "/asetukset.txt");
-                BufferedWriter asennusTiedostonPaivitys = new BufferedWriter(asetuksetTiedosto);
-                for (int i = 0; i < kuvaLista.getLastVisibleIndex(); i++) {
-                    asennusTiedostonPaivitys.write(kuvaLista.getModel().getElementAt(i).toString() + "\n");
+                try (BufferedWriter asennusTiedostonPaivitys = new BufferedWriter(asetuksetTiedosto)) {
+                    for (int i = 0; i < kuvaLista.getLastVisibleIndex(); i++) {
+                        asennusTiedostonPaivitys.write(kuvaLista.getModel().getElementAt(i).toString() + "\n");
+                    }
                 }
-                asennusTiedostonPaivitys.close();
                 valintaListanTiedot();
             } catch (IOException ex) {
                 Logger.getLogger(EtsiReittiUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -580,12 +579,12 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         try {
             // Päivitetään valinta listan tiedot uudella kuvalla
             FileWriter asetuksetTiedosto = new FileWriter(tiedostojenSijainti + "/asetukset.txt");
-            BufferedWriter asennusTiedostonPaivitys = new BufferedWriter(asetuksetTiedosto);
-            for (int i = 0; i <= (kuvaLista.getModel().getSize() - 1); i++) {
-                asennusTiedostonPaivitys.write(kuvaLista.getModel().getElementAt(i).toString() + "\n");
+            try (BufferedWriter asennusTiedostonPaivitys = new BufferedWriter(asetuksetTiedosto)) {
+                for (int i = 0; i <= (kuvaLista.getModel().getSize() - 1); i++) {
+                    asennusTiedostonPaivitys.write(kuvaLista.getModel().getElementAt(i).toString() + "\n");
+                }
+                asennusTiedostonPaivitys.write("Kuva" + ((kuvaLista.getModel().getSize() - 1) + 2));
             }
-            asennusTiedostonPaivitys.write("Kuva" + ((kuvaLista.getModel().getSize() - 1) + 2));
-            asennusTiedostonPaivitys.close();
             valintaListanTiedot();
         } catch (IOException ex) {
             Logger.getLogger(EtsiReittiUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -625,19 +624,14 @@ public class EtsiReittiUI extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EtsiReittiUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EtsiReittiUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EtsiReittiUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(EtsiReittiUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 try {
                     new EtsiReittiUI().setVisible(true);

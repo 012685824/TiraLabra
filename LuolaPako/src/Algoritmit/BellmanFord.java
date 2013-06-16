@@ -7,7 +7,7 @@ package Algoritmit;
 import EtsiReittiKuvasta.tietoRakenteet.Sijainti;
 
 /**
- * BellmanFord luokka ratkaisee lyhimmän polun kahden annetun pisteet "solmun"
+ * BellmanFord luokka ratkaisee lyhimmän polun kahden annetun pisteet, "solmun",
  * välillä liikkuen pääilmansuuntiin.
  *
  * @author Toni
