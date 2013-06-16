@@ -20,7 +20,7 @@ public class Dijkstra8 {
     private Sijainti[][] sijaintiTaulu;
     private Keko K = new Keko();
     private int[] testiTulostus;
-    Sijainti nykyinenSijainti;
+
     /**
      * Luo Dijkstra8-olion, jolle annetaan alkuarvoina seuraavat
      *
@@ -29,7 +29,6 @@ public class Dijkstra8 {
      * @param yAlku mistä y:n koordinaatista etsintä aloitetaan
      * @param xLoppu mihin x:n koordinaattiin reitti etsitään
      * @param yLoppu mihin y:n koordinaattiin reitti etsitään
-     * @param sijaintiTaulu sisältää tiedot solmun arvoista x,y,etäisyys
      */
     public Dijkstra8(int[][] kuvaTaulu, int xAlku, int yAlku, int xLoppu, int yLoppu) {
         this.kuvaTaulu = kuvaTaulu;
@@ -72,10 +71,14 @@ public class Dijkstra8 {
 
     /**
      * relaxTest metodi on vain relax metodin testaamista varten.
+     * @param xMistaTullaan kertoo x koordinaatin mistä tullaan.
+     * @param yMistaTullaan kertoo y koordinaatin mistä tullaan.
+     * @param xMihinMennaan kertoo x koordinaatin mihin mennään.
+     * @param yMihinMennaan kertoo y koordinaatin mihin mennään.
      */
     public void relaxTest(int xMistaTullaan, int yMistaTullaan, int xMihinMennaan, int yMihinMennaan) {
-
-        relax(xMistaTullaan, yMistaTullaan, xMihinMennaan, yMihinMennaan);
+        Sijainti s = new Sijainti(xMistaTullaan, yMistaTullaan, 0);
+        relax(s, xMihinMennaan, yMihinMennaan);
     }
 
     /**
@@ -84,28 +87,28 @@ public class Dijkstra8 {
      * kuvataulusta saatavaan etäisyysarvoon. Jos näin on, niin päivitetään se
      * uudella pienemmällä arvolla ja lisätään muuttuneen pisteen tiedot kekoon.
      *
-     * @param xLahde kertoo x koordinaatin mistä tullaan.
-     * @param yLahde kertoo y koordinaatin mistä tullaan.
+     * @param nSijainti kertoo nykyisen sijainin koordinaatit.
      * @param xKohde kertoo x koordinaatin mihin mennään.
      * @param yKohde kertoo y koordinaatin mihin mennään.
      */
-    private void relax(int xLahde, int yLahde, int xKohde, int yKohde) {
+    private void relax(Sijainti nSijainti, int xKohde, int yKohde) {
 //*1.414
         if (kordinaattiEiKelpaa(xKohde, yKohde)) {
             return;
         }
-        
+        int xLahde = nSijainti.getX();
+        int yLahde = nSijainti.getY();
+
         final Sijainti kohde = sijaintiTaulu[xKohde][yKohde];
         final Sijainti lahde = sijaintiTaulu[xLahde][yLahde];
 
         double kerroin = 1;
-        if ((xLahde != xKohde) && (yLahde != yKohde)) { //Tarkastetaan ollaanko 
-
+        //Tarkastaa ollaan liikkumassa väli-ilmansuuntaan.
+        if ((xLahde != xKohde) && (yLahde != yKohde)) {
             kerroin = 1.414;
         }
 
         if (kohde.getEtaisyys() > lahde.getEtaisyys() + kuvaTaulu[xKohde][yKohde] * kerroin) {
-
             paivitaSolmuJaLisaaKekoon(kohde, lahde, xKohde, yKohde, kerroin, xLahde, yLahde);
         }
     }
@@ -119,13 +122,14 @@ public class Dijkstra8 {
 
     /**
      * dijkstra8Keko metodi kutsuu aluksi initialiseSingleSource metodia
-     * alustusta varten ja luo apumuuttujan "sijaintiApu". Apumuuttujaa
-     * tarvitaan keosta haettavaa tietoa varten ja relaxsin kutsua varten, jotta
-     * varsinainen sijaintitaulu pysyy halutunlaisena.Jos kyseinen kuva "Verkko"
-     * ei ole tyhjä, niin käydään vieruspisteet, eli "solmut" läpi (pääilman
-     * suuntiin sekä välilimman suuntiin). Metodin suorittaminen lopetetaan,kun
-     * keko on tyhjä, eli kaikki "solmut" on käyty loppuunasti läpi tai on
-     * löydetty loppupiste.
+     * alustusta varten. Kekoon lisätään reitin alkupiste. while luupin alussa
+     * luodaan nykyinenSijainti olio ja muuttuja. nykyinenSijainti muuttuja
+     * toimii metodissa apumuuttujana. Apumuuttujaa tarvitaan keosta haettavaa
+     * tietoa varten ja relaxsin kutsua varten, jotta varsinainen sijaintitaulu
+     * pysyy halutunlaisena.Jos kyseinen kuva "Verkko" ei ole tyhjä, niin
+     * käydään vieruspisteet, eli "solmut" läpi (pääilman suuntiin sekä
+     * välilimman suuntiin). Metodin suorittaminen lopetetaan,kun keko on tyhjä,
+     * eli kaikki "solmut" on käyty loppuunasti läpi tai on löydetty loppupiste.
      *
      */
     private void dijkstra8Keko() {
@@ -134,21 +138,28 @@ public class Dijkstra8 {
         K.lisaaKekoon(xAlku, yAlku, 0);
 
         while (!K.emptyIs()) {
-
+            Sijainti nykyinenSijainti;
             nykyinenSijainti = K.poistaKeosta();
-            
-            if (maali(nykyinenSijainti)) break;
-          
+
+            if (maali(nykyinenSijainti)) {
+                break;
+            }
+
             int nykyinenX = nykyinenSijainti.getX();
-            
-            relax(nykyinenX, nykyinenSijainti.getY(), nykyinenX + 1, nykyinenSijainti.getY());    // jos ei niin suoritetaan relax
-            relax(nykyinenX, nykyinenSijainti.getY(), nykyinenSijainti.getX() - 1, nykyinenSijainti.getY());
-            relax(nykyinenX, nykyinenSijainti.getY(), nykyinenSijainti.getX(), nykyinenSijainti.getY() + 1);    // jos ei niin suoritetaan relax
-            relax(nykyinenX, nykyinenSijainti.getY(), nykyinenSijainti.getX(), nykyinenSijainti.getY() - 1);
-            relax(nykyinenX, nykyinenSijainti.getY(), nykyinenSijainti.getX() + 1, nykyinenSijainti.getY() - 1);    // jos ei niin suoritetaan relax
-            relax(nykyinenX, nykyinenSijainti.getY(), nykyinenSijainti.getX() - 1, nykyinenSijainti.getY() - 1);
-            relax(nykyinenX, nykyinenSijainti.getY(), nykyinenSijainti.getX() + 1, nykyinenSijainti.getY() + 1);    // jos ei niin suoritetaan relax
-            relax(nykyinenX, nykyinenSijainti.getY(), nykyinenSijainti.getX() - 1, nykyinenSijainti.getY() + 1);
+            int nykyinenY = nykyinenSijainti.getY();
+            final int oikealle = nykyinenX + 1;
+            final int vasemmalle = nykyinenX - 1;
+            final int ylos = nykyinenY - 1;
+            final int alas = nykyinenY + 1;
+
+            relax(nykyinenSijainti, oikealle, nykyinenY);
+            relax(nykyinenSijainti, vasemmalle, nykyinenY);
+            relax(nykyinenSijainti, nykyinenX, alas);
+            relax(nykyinenSijainti, nykyinenX, ylos);
+            relax(nykyinenSijainti, oikealle, ylos);
+            relax(nykyinenSijainti, vasemmalle, ylos);
+            relax(nykyinenSijainti, oikealle, alas);
+            relax(nykyinenSijainti, vasemmalle, alas);
 
         }
     }
@@ -198,6 +209,18 @@ public class Dijkstra8 {
         }
     }
 
+    /**
+     * paivitaSolmuJaLisaaKekoon metodi ensin päivittää sijaintiTaulun arvot
+     * jonka jälkeen lisää uuden tiedon kekoon.
+     * 
+     * @param kohde kohteen tiedot sijaintiTaulusta
+     * @param lahde lahteen tiedot sijaintiTaulusta
+     * @param xKohde x koordinatti kuvaTaulussa
+     * @param yKohde y koordinatti kuvaTaulussa
+     * @param kerroin kerroin väli-ilmansuuntiin liikkuttaessa
+     * @param xLahde lähteen x koordinaatti
+     * @param yLahde lähteen y koordinaatti
+     */
     private void paivitaSolmuJaLisaaKekoon(final Sijainti kohde, final Sijainti lahde, int xKohde, int yKohde, double kerroin, int xLahde, int yLahde) {
         kohde.setEtaisyys(lahde.getEtaisyys() + kuvaTaulu[xKohde][yKohde] * kerroin);
         kohde.setX(xLahde);
@@ -206,6 +229,14 @@ public class Dijkstra8 {
         K.lisaaKekoon(xKohde, yKohde, kohde.getEtaisyys() * kerroin);
     }
 
+    /**
+     * kordinaattiEiKelpaa metodi tarkistaa ollaanko menossa taulukon "verkon"
+     * ulkopuolelle.
+     *
+     * @param xKohde x koordinaatti mihin ollaan menossa
+     * @param yKohde y koordinaatti mihin ollaan menossa
+     * @return
+     */
     private boolean kordinaattiEiKelpaa(int xKohde, int yKohde) {
         if (xKohde < 0) {
             return true;
@@ -223,6 +254,12 @@ public class Dijkstra8 {
         return false;
     }
 
+    /**
+     *maali metodi tarkistaa ollaanko löydetty maalipiste.
+     * 
+     * @param sijaintiApu tiedot tutkittavasta pisteestä
+     * @return true jos maalipiste on löytynyt.
+     */
     private boolean maali(Sijainti sijaintiApu) {
         return xLoppu == sijaintiApu.getX() && yLoppu == sijaintiApu.getY();
     }

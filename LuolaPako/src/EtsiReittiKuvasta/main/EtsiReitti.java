@@ -54,10 +54,10 @@ public class EtsiReitti {
      * reitin etsintä.
      * 
      * @param tiedostonNimi munkä nimistä tiedostoa ratkaistaan
-     * @param xAlku mistä x:n koordinaatista etsintä aloitetaan
-     * @param yAlku mistä y:n koordinaatista etsintä aloitetaan
-     * @param xLoppu mihin x:n koordinaattiin reitti etsitään
-     * @param yLoppu mihin y:n koordinaattiin reitti etsitään
+     * @param xAlkuPiste mistä x:n koordinaatista etsintä aloitetaan
+     * @param yAlkuPiste mistä y:n koordinaatista etsintä aloitetaan
+     * @param xLoppuPiste mihin x:n koordinaattiin reitti etsitään
+     * @param yLoppuPiste mihin y:n koordinaattiin reitti etsitään
      * @param valinta mitä algoritmia ratkaisuun käytetään
      * @param piirretaankoKaikkiPisteetA piirretäänkö kaikki käydyt pisteet vai ei.
      */
@@ -188,6 +188,7 @@ public class EtsiReitti {
                     if (sijaintiTaulu[x1][y1].getEtaisyys() != Double.MAX_VALUE / 2) {
 
                         kuvaRatkaisu.setRGB(x1, y1, 10000);
+                        
                     }
                 }
             }
@@ -196,6 +197,14 @@ public class EtsiReitti {
         while (x != xAlku || y != yAlku) {
 
             kuvaRatkaisu.setRGB(x, y, col);
+            /*kuvaRatkaisu.setRGB(x, y-1, col); //Reitti viivan paksunnus demoa varten. 
+            kuvaRatkaisu.setRGB(x+1, y-1, col);
+            kuvaRatkaisu.setRGB(x+1, y, col);
+            kuvaRatkaisu.setRGB(x+1, y+1, col);
+            kuvaRatkaisu.setRGB(x, y+1, col);
+            kuvaRatkaisu.setRGB(x-1, y+1, col);
+            kuvaRatkaisu.setRGB(x-1, y, col);
+            kuvaRatkaisu.setRGB(x-1, y+1, col);*/
             xApu = sijaintiTaulu[x][y].getX();
             y = sijaintiTaulu[x][y].getY();
             x = xApu;

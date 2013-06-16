@@ -30,7 +30,6 @@ public class Dijkstra {
      * @param yAlku mistä y:n koordinaatista etsintä aloitetaan
      * @param xLoppu mihin x:n koordinaattiin reitti etsitään
      * @param yLoppu mihin y:n koordinaattiin reitti etsitään
-     * @param sijaintiTaulu sisältää tiedot solmun arvoista x,y,etäisyys
      */
     public Dijkstra(int[][] kuvaTaulu, int xAlku, int yAlku, int xLoppu, int yLoppu) {
         this.kuvaTaulu = kuvaTaulu;
@@ -74,6 +73,10 @@ public class Dijkstra {
 
     /**
      * relaxTest metodi on vain relax metodin testaamista varten.
+     * @param xMistaTullaan kertoo x koordinaatin mistä tullaan.
+     * @param yMistaTullaan kertoo y koordinaatin mistä tullaan.
+     * @param xMihinMennaan kertoo x koordinaatin mihin mennään.
+     * @param yMihinMennaan kertoo y koordinaatin mihin mennään. 
      */
     public void relaxTest(int xMistaTullaan, int yMistaTullaan, int xMihinMennaan, int yMihinMennaan) {
         relax(xMistaTullaan, yMistaTullaan, xMihinMennaan, yMihinMennaan);
@@ -151,58 +154,114 @@ public class Dijkstra {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int[][] getKuvaTaulu() {
         return kuvaTaulu;
     }
 
+    /**
+     *
+     * @param kuvaTaulu
+     */
     public void setKuvaTaulu(int[][] kuvaTaulu) {
         this.kuvaTaulu = kuvaTaulu;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getxAlku() {
         return xAlku;
     }
 
+    /**
+     *
+     * @param xAlku
+     */
     public void setxAlku(int xAlku) {
         this.xAlku = xAlku;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getyAlku() {
         return yAlku;
     }
 
+    /**
+     *
+     * @param yAlku
+     */
     public void setyAlku(int yAlku) {
         this.yAlku = yAlku;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getxLoppu() {
         return xLoppu;
     }
 
+    /**
+     *
+     * @param xLoppu
+     */
     public void setxLoppu(int xLoppu) {
         this.xLoppu = xLoppu;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getyLoppu() {
         return yLoppu;
     }
 
+    /**
+     *
+     * @param yLoppu
+     */
     public void setyLoppu(int yLoppu) {
         this.yLoppu = yLoppu;
     }
 
+    /**
+     *
+     * @return
+     */
     public Keko getK() {
         return K;
     }
 
+    /**
+     *
+     * @param K
+     */
     public void setK(Keko K) {
         this.K = K;
     }
 
+    /**
+     *
+     * @return
+     */
     public int[] getTestiTulostus() {
         return testiTulostus;
     }
 
+    /**
+     *
+     * @param testiTulostus
+     */
     public void setTestiTulostus(int[] testiTulostus) {
         this.testiTulostus = testiTulostus;
     }

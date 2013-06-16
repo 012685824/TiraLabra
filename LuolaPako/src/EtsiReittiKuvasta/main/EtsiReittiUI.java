@@ -36,6 +36,11 @@ public class EtsiReittiUI extends javax.swing.JFrame {
     static String tiedostojenSijainti = "src";
     static int xAlkuPiste = 1, yAlkuPiste = 1, xLoppuPiste = 1, yLoppuPiste = 1, valinta = 0;
 
+    /**
+     *
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
     public EtsiReittiUI() throws FileNotFoundException, IOException {
         initComponents();
         jFileChooser1.setVisible(false);//Piillotetaan tiedosto valitsin
@@ -212,7 +217,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         );
         frameLayout.setVerticalGroup(
             frameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 156, Short.MAX_VALUE)
+            .addGap(0, 188, Short.MAX_VALUE)
         );
 
         jTextField3.setEditable(false);
@@ -322,7 +327,7 @@ public class EtsiReittiUI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(87, 87, 87)
                         .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 295, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 291, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(kuvaKentta)
@@ -379,6 +384,10 @@ public class EtsiReittiUI extends javax.swing.JFrame {
         long startTime = System.currentTimeMillis();
         valinta = valintaRuudut.getSelection().getMnemonic() - 48;
         //Kutsutaan ratkaisijaa ja kutsutaan muutaRatkaisuKuvaBmpToJpg koska ikoneina ei voi olla bmp kuvia
+        /*xAlkuPiste=409; //Aloitus kohdan pakoitus.
+        yAlkuPiste=36;
+        xLoppuPiste=23;
+        yLoppuPiste=431;*/
         EtsiReitti.ratkaise(tiedostojenSijainti + "/Kuvat/kuva" + kuvaLista.getAnchorSelectionIndex() + ".bmp", xAlkuPiste, yAlkuPiste, xLoppuPiste, yLoppuPiste, valinta, kaydytPisteet.getSelectedObjects());
         muutaRatkaisuKuvaBmpToJpg();
 
@@ -590,6 +599,10 @@ public class EtsiReittiUI extends javax.swing.JFrame {
     }
     private static javax.swing.JInternalFrame frame1;
 
+    /**
+     *
+     * @param viesti
+     */
     public static void virhe(String viesti) {
 
         JOptionPane.showMessageDialog(frame1, viesti);

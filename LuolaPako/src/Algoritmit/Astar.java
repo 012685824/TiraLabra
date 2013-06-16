@@ -4,10 +4,8 @@
  */
 package Algoritmit;
 
-
 import EtsiReittiKuvasta.tietoRakenteet.Keko;
 import EtsiReittiKuvasta.tietoRakenteet.Sijainti;
-
 
 /**
  * Astar luokka ratkaisee lyhimmän polun kahden annetun pisteet "solmun" välillä
@@ -21,7 +19,7 @@ public class Astar {
     private int xAlku, yAlku, xLoppu, yLoppu;
     private Sijainti[][] sijaintiTaulu;
     private Keko K = new Keko();
-    private long[][] arvioTaulu;
+    private double[][] arvioTaulu;
     private int[] testiTulostus;
 
     /**
@@ -32,8 +30,6 @@ public class Astar {
      * @param yAlku mistä y:n koordinaatista etsintä aloitetaan
      * @param xLoppu mihin x:n koordinaattiin reitti etsitään
      * @param yLoppu mihin y:n koordinaattiin reitti etsitään
-     * @param sijaintiTaulu sisältää tiedot solmun arvoista x,y,etäisyys
-     * @param arvioTaulu sisältää heurestiikka funktion arvot
      */
     public Astar(int[][] kuvaTaulu, int xAlku, int yAlku, int xLoppu, int yLoppu) {
         this.kuvaTaulu = kuvaTaulu;
@@ -42,7 +38,7 @@ public class Astar {
         this.xLoppu = xLoppu;
         this.yLoppu = yLoppu;
         sijaintiTaulu = new Sijainti[this.kuvaTaulu.length][this.kuvaTaulu[0].length];
-        arvioTaulu = new long[this.kuvaTaulu.length][this.kuvaTaulu[0].length];
+        arvioTaulu = new double[this.kuvaTaulu.length][this.kuvaTaulu[0].length];
     }
 
     /**
@@ -76,23 +72,36 @@ public class Astar {
         //long kertoja = EtsiReitti.getKertojaAstariin();
 
 
-        for (int x = 0; x < arvioTaulu[0].length; x++) {
-            for (int y = 0; y < arvioTaulu.length; y++) {
-                arvioTaulu[x][y] = (itseisArvo(xLoppu - x) + itseisArvo(yLoppu - y));
+        for (int y = 0; y < arvioTaulu.length; y++) {
+            for (int x = 0; x < arvioTaulu[0].length; x++) {
+                
+                arvioTaulu[x][y] = ((double)(kuvaTaulu[x][y]+(itseisArvo(xLoppu - x) + itseisArvo(yLoppu - y))));
                 //System.out.println(itseisArvo(xLoppu - x) + itseisArvo(yLoppu - y));
             }
         }
+        
+        /*
+        for (int y = 0; y < arvioTaulu.length; y++) {
+            for (int x = 0; x < arvioTaulu[0].length; x++) {
 
-        /* for (int i = 0; i < sijaintiTaulu.length; i++) {
-         for (int j = 0; j < sijaintiTaulu[0].length; j++) {
-         System.out.print(" "+arvioTaulu[i][j]);
-         }
-         System.out.println("");
-         }*/
+                if (arvioTaulu[x][y] < 100) {
+                    System.out.print(" ");
+                    if (arvioTaulu[x][y] < 10) {
+                        System.out.print(" ");
+                    }
+                }
+                System.out.print(" " + arvioTaulu[x][y]);
+            }
+            System.out.println("");
+        }*/
     }
 
     /**
      * relaxTest metodi on vain relax metodin testaamista varten.
+     * @param xMistaTullaan kertoo x koordinaatin mistä tullaan.
+     * @param yMistaTullaan kertoo y koordinaatin mistä tullaan.
+     * @param xMihinMennaan kertoo x koordinaatin mihin mennään.
+     * @param yMihinMennaan kertoo y koordinaatin mihin mennään.
      */
     public void relaxTest(int xMistaTullaan, int yMistaTullaan, int xMihinMennaan, int yMihinMennaan) {
         relax(xMistaTullaan, yMistaTullaan, xMihinMennaan, yMihinMennaan);
@@ -119,7 +128,10 @@ public class Astar {
             kohde.setX(xLahde);
             kohde.setY(yLahde);
             //Lisätään kekoon uusi arvo.
-            K.lisaaKekoon(xKohde, yKohde, kohde.getEtaisyys() + arvioTaulu[xKohde][yKohde]);
+            //Double yht = kohde.getEtaisyys();
+            
+            //System.out.println(kohde.getEtaisyys()+" arvio "+ arvioTaulu[xKohde][yKohde]+"yht ="+ (kohde.getEtaisyys() + arvioTaulu[xKohde][yKohde]));
+            K.lisaaKekoon(xKohde, yKohde, (kohde.getEtaisyys() + arvioTaulu[xKohde][yKohde]));
         }
     }
 
@@ -132,12 +144,12 @@ public class Astar {
 
     /**
      * aStarKeko metodi kutsuu aluksi initialiseSingleSource metodia alustusta
-     * varten ja luo apumuuttujan "sijaintiApu". Apumuuttujaa tarvitaan keosta haettavaa
-     * tietoa varten ja relaxsin kutsua varten, jotta varsinainen sijaintitaulu
-     * pysyy halutunlaisena.Jos kyseinen kuva "Verkko" ei ole tyhjä, niin
-     * käydään vieruspisteet, eli "solmut" läpi (pääilman suunnista). Metodin suorittaminen lopetetaan,
-     * kun keko on tyhjä, eli kaikki "solmut" on käyty loppuunasti läpi tai on
-     * löydetty loppupiste.
+     * varten ja luo apumuuttujan "sijaintiApu". Apumuuttujaa tarvitaan keosta
+     * haettavaa tietoa varten ja relaxsin kutsua varten, jotta varsinainen
+     * sijaintitaulu pysyy halutunlaisena.Jos kyseinen kuva "Verkko" ei ole
+     * tyhjä, niin käydään vieruspisteet, eli "solmut" läpi (pääilman
+     * suunnista). Metodin suorittaminen lopetetaan, kun keko on tyhjä, eli
+     * kaikki "solmut" on käyty loppuunasti läpi tai on löydetty loppupiste.
      */
     private void aStarKeko() {
         initialiseSingleSource();
@@ -145,11 +157,11 @@ public class Astar {
 
         K.lisaaKekoon(xAlku, yAlku, 0);
 
-        while (!K.emptyIs() && (xLoppu != sijaintiApu.getX() || yLoppu != sijaintiApu.getY())) {
+        while (!K.emptyIs() && !ollaankoLoydettyLoppu(sijaintiApu)) {
             sijaintiApu = K.poistaKeosta();
             // tarkastetaan ollaanko taulukon reunassa X tai y akselin suunnassa,
             // jos ei, niin suoritetaan relax 
-            if (sijaintiApu.getX() + 1 < sijaintiTaulu.length) {
+            if (sijaintiApu.getX() + 1 < sijaintiTaulu[0].length) {
                 relax(sijaintiApu.getX(), sijaintiApu.getY(), sijaintiApu.getX() + 1, sijaintiApu.getY());
             }
 
@@ -157,7 +169,7 @@ public class Astar {
                 relax(sijaintiApu.getX(), sijaintiApu.getY(), sijaintiApu.getX() - 1, sijaintiApu.getY());
             }
 
-            if (sijaintiApu.getY() + 1 < sijaintiTaulu[0].length) {
+            if (sijaintiApu.getY() + 1 < sijaintiTaulu.length) {
                 relax(sijaintiApu.getX(), sijaintiApu.getY(), sijaintiApu.getX(), sijaintiApu.getY() + 1);
             }
 
@@ -188,8 +200,8 @@ public class Astar {
     }
 
     /**
-     * testiTulosReitti metodi tulostaa kuljetun reitin alkaen lopusta ja edeten alkuun
-     * päin. Aluksi luodaan muutamat apumuutujat tulostusta varten. Kun
+     * testiTulosReitti metodi tulostaa kuljetun reitin alkaen lopusta ja edeten
+     * alkuun päin. Aluksi luodaan muutamat apumuutujat tulostusta varten. Kun
      * muuttujat on luotu, käydään while luupin avulla kuljettu reitti läpi.
      *
      */
@@ -241,5 +253,19 @@ public class Astar {
         } else {
             return luku;
         }
+    }
+
+    /**
+     *ollaankoLoydettyLoppu metodi tarkistaa ollaanko löydetty maalipiste.
+     * 
+     * @param sijaintiApu tiedot tutkittavasta pisteestä
+     * @return true jos maalipiste on löytynyt.
+     */
+    private boolean ollaankoLoydettyLoppu(Sijainti sijaintiApu) {
+        if (xLoppu == sijaintiApu.getX() && yLoppu == sijaintiApu.getY()) {
+            return true;
+        }
+
+        return false;
     }
 }

@@ -23,11 +23,10 @@ public class BellmanFord {
      * Luo BellmanFord-olion, jolle annetaan alkuarvoina seuraavat
      *
      * @param kuvaTaulu sisältää tiedon pisteen värikoodista
-     * @param xAlku mistä x:n koordinaatista etsintä aloitetaan
-     * @param yAlku mistä y:n koordinaatista etsintä aloitetaan
-     * @param xLoppu mihin x:n koordinaattiin reitti etsitään
-     * @param yLoppu mihin y:n koordinaattiin reitti etsitään
-     * @param sijaintiTaulu sisältää tiedot solmun arvoista x,y,etäisyys
+     * @param xAlkuPiste mistä x:n koordinaatista etsintä aloitetaan
+     * @param yAlkuPiste mistä y:n koordinaatista etsintä aloitetaan
+     * @param xLoppuPiste mihin x:n koordinaattiin reitti etsitään
+     * @param yLoppuPiste mihin y:n koordinaattiin reitti etsitään
      */
     public BellmanFord(int[][] kuvaTaulu, int xAlkuPiste, int yAlkuPiste, int xLoppuPiste, int yLoppuPiste) {
 
@@ -94,6 +93,10 @@ public class BellmanFord {
 
     /**
      * relaxTest metodi on vain relax metodin testaamista varten.
+     * @param xMistaTullaan kertoo x koordinaatin mistä tullaan.
+     * @param yMistaTullaan kertoo y koordinaatin mistä tullaan.
+     * @param xMihinMennaan kertoo x koordinaatin mihin mennään.
+     * @param yMihinMennaan kertoo y koordinaatin mihin mennään.  
      */
     public void relaxTest(int xMistaTullaan, int yMistaTullaan, int xMihinMennaan, int yMihinMennaan) {
         relax(xMistaTullaan, yMistaTullaan, xMihinMennaan, yMihinMennaan);
